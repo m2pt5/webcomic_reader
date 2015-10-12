@@ -48,7 +48,6 @@ var defaultSettings = {
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/v4Lo/webcomic_reader#readme
 // @updateURL      https://raw.githubusercontent.com/v4Lo/webcomic_reader/master/webcomic_reader.user.js
-// @lastchanges    added 2 sites, fixed 5 more
 // @updatetype     24
 // @grant          GM_getValue
 // @grant          GM_setValue
@@ -813,6 +812,8 @@ var defaultSettings = {
 // @include        http://omgmanga.com/*
 // @include        http://paintraincomic.com/*
 // @include        http://extrafabulouscomics.com/*
+// @include        http://hellocomic.com/*
+// @include        http://*.hellocomic.com/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4093,6 +4094,11 @@ var paginas = [
 	},
 	{	url:	'extrafabulouscomics.com',
 		style:	'#page{width:auto;}'
+	},
+	{	url:	'hellocomic.com',
+		img:	[['.coverIssue a img']],
+		back:	[['.prevBtn']],
+		next:	[['.nextBtn']]
 	}
 	/*
 	,
