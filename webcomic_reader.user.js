@@ -4055,7 +4055,7 @@ var paginas = [
 		img:	'http://www.octopuspie.com/strippy/'
 	},
 	{	url:	'nhentai.net',
-		img:	['//div[@id="image-container"]//img/@src | //div[@id="image-container"]//img/@data-cfsrc'],
+		img:	[['#image-container a img']],
 		back:	[['.previous']],
 		next:	[['.next']],
 		extra:	[[['#page-container > *', '<br/>', 2]]],
