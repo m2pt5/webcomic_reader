@@ -42,13 +42,12 @@ var defaultSettings = {
 
 // ==UserScript==
 // @name           Webcomic Reader
-// @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide
-// @version        2014.10.18
+// @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo
+// @version        2015.10.13
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
-// @homepageURL    https://github.com/ameboide/webcomic_reader#readme
-// @updateURL      https://openuserjs.org/install/ameboide/Webcomic_Reader.user.js
-// @updateURL      https://greasyfork.org/scripts/3008-webcomic-reader/code/Webcomic%20Reader.user.js
+// @homepageURL    https://github.com/v4Lo/webcomic_reader#readme
+// @updateURL      https://raw.githubusercontent.com/v4Lo/webcomic_reader/master/webcomic_reader.user.js
 // @lastchanges    added 2 sites, fixed 5 more
 // @updatetype     24
 // @grant          GM_getValue
