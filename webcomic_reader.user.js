@@ -787,6 +787,7 @@ var defaultSettings = {
 // @include        http://extrafabulouscomics.com/*
 // @include        http://hellocomic.com/*
 // @include        http://*.hellocomic.com/*
+// @include        http://www.feywinds.com/comic/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -3935,6 +3936,9 @@ var paginas = [
 		img:	[['.coverIssue a img']],
 		back:	[['.prevBtn']],
 		next:	[['.nextBtn']]
+	},
+	{	url:	'feywinds.com/comic',
+		img:	'../comic/pages'
 	}
 	/*
 	,
