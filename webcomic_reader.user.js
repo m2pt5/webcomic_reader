@@ -788,6 +788,7 @@ var defaultSettings = {
 // @include        http://hellocomic.com/*
 // @include        http://*.hellocomic.com/*
 // @include        http://www.feywinds.com/comic/*
+// @include        http://www.omgbeaupeep.com/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -3939,7 +3940,27 @@ var paginas = [
 	},
 	{	url:	'feywinds.com/comic',
 		img:	'../comic/pages'
-	}
+	},
+	{   url:    'omgbeaupeep.com',
+		img:    [['#omv .picture']],
+		back: function(html, pos) {
+			try {
+				return xpath('//a[img[@alt="Previous Page"]]/@href', html);
+			} catch (e) {
+				var currChapter = xpath('//select[@name="chapter"]/*[@selected]', html);
+				return link[pos].replace(currChapter.value, currChapter.previousSibling.value);
+			}
+		},
+		next: function(html, pos) {
+			try {
+				return xpath('//a[img[@alt="Next Page"]]/@href', html);
+			} catch (e) {
+				var currChapter = xpath('//select[@name="chapter"]/*[@selected]', html);
+				return link[pos].replace(currChapter.value, currChapter.nextSibling.value).replace(/\/[^\/]*$/, "/1");
+			}
+		},
+	    extra: [[[".pager"]]],
+	},
 	/*
 	,
 	{	url:	'',
