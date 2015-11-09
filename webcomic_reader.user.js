@@ -4315,6 +4315,8 @@ function iniciar(){
 		}
 
 		if(!showButtons) get('wcr_botones').style.display = 'none';
+	    buttonsOnTop = true;
+	    if(buttonsOnTop) get("wcr_div").insertBefore(get("wcr_botones"),get("wcr_imagen"));
 
 		//dejar de usar scroll* para el borde, usar borde*
 		if(typeof(scrollx)=='number' && scrollx){
