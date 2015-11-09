@@ -789,6 +789,7 @@ var defaultSettings = {
 // @include        http://*.hellocomic.com/*
 // @include        http://www.feywinds.com/comic/*
 // @include        http://www.omgbeaupeep.com/*
+// @include        http://orgymania.net/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -3960,6 +3961,13 @@ var paginas = [
 			}
 		},
 	    extra: [[[".pager"]]],
+	},
+ 	{
+		url:	'orgymania.net',
+		img:	'/slippreview/',
+		back:	'text()="< prev"',
+		next:	'text()="next >"',
+		first:	'text()="|<"',
 	},
 	/*
 	,
