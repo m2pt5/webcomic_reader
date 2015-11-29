@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo
-// @version        2015.10.13-1
+// @version        2015.11.29
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/v4Lo/webcomic_reader#readme
@@ -2545,7 +2545,14 @@ var paginas = [
 			return both;
 		},
 		extra:	[['//img[@id="comic_page" and not(./ancestor::div[contains(@style, "display: none;")])]', '<br/>', 1],
-					[['.moderation_bar']]],
+				[['.moderation_bar']],
+				function(html, pos){
+					var xs = selCss('.moderation_bar select', null, true);
+					for(var i =0; i<xs.length; i++) {
+						xs[i].addEventListener('change', function(){document.location.reload()})
+					}
+					return "";
+				}],
 		fixurl:	function(url, img, link) {
 					if(img) return encodeURI(url);
 					return url;
