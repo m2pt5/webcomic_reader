@@ -42,12 +42,12 @@ var defaultSettings = {
 
 // ==UserScript==
 // @name           Webcomic Reader
-// @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo
-// @version        2015.11.29
+// @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
+// @version        2015.12.13
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
-// @homepageURL    https://github.com/v4Lo/webcomic_reader#readme
-// @updateURL      https://raw.githubusercontent.com/v4Lo/webcomic_reader/master/webcomic_reader.user.js
+// @homepageURL    https://github.com/anka-213/webcomic_reader#readme
+// @updateURL      https://raw.githubusercontent.com/anka-213/webcomic_reader/master/webcomic_reader.user.js
 // @updatetype     24
 // @grant          GM_getValue
 // @grant          GM_setValue
@@ -790,6 +790,11 @@ var defaultSettings = {
 // @include        http://www.feywinds.com/comic/*
 // @include        http://www.omgbeaupeep.com/*
 // @include        http://orgymania.net/*
+// @include        http://mspaintadventures.com/*
+// @include        http://mspfanventures.com/
+// @include        http://agc.deskslave.org/comic_viewer.html
+ 
+ 
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -3975,6 +3980,135 @@ var paginas = [
 		back:	'text()="< prev"',
 		next:	'text()="next >"',
 		first:	'text()="|<"',
+	},
+ 	{
+		url:	'http://www.egscomics.com/',
+		extra:	['<div id="wrapper"><div id="leftarea">',[['#newsarea']],'</div></div>'],
+	},
+	{
+		url:	'http://mspfanventures.com/',
+		img:	[['article img']],
+		next:	[['#nextlinks a']],
+		extra:	[[['article']],'<script>assignOnClicks()</script>'],
+		js:	function(dir){debug; assignOnClicks();},
+		style:	'#wcr_imagen { display: none; }',
+	},
+	{
+		url:	'http://agc.deskslave.org/comic_viewer.html',
+		img:	function(html, pos){var comicNr = parseInt(link[pos].match(/\d+$/)[0]);
+			if(!link.extraNotes) {
+			  eval(syncRequest("ComicNotes.js",0));
+			  link.extraNotes = n; // For lack of a better place to store it
+			}
+			
+			if(comicNr == 269 || comicNr >= 275) {
+			  return 'comics/AGC' + comic_number + '.swf';
+			} else {
+			  return "comics/AGC"+ comicNr+".GIF";
+			}},
+		back:	function(html, pos){var comicNr = parseInt(link[pos].match(/\d+$/)[0]);
+			if(comicNr == 1) throw "First comic";
+			return link[pos].replace(/\d+$/,comicNr-1);},
+		next:	function(html, pos){var comicNr = parseInt(link[pos].match(/\d+$/)[0]);
+			// var maxPage = parseInt(html.match(/var MAXCOMIC = (\d+);/)[1]);
+			// if(comicNr == maxPage)
+			return link[pos].replace(/\d+$/,comicNr+1);},
+		first:	function(html){return "?goNumber=1";},
+		extra:	[function(html, pos){var comicNr = parseInt(link[pos].match(/\d+$/)[0]);
+										return '<div id="notes">'+link.extraNotes[comicNr] + '</div>';}],
+		style:	'#notes {\n    width: 600;\n    background-color: #ccc;\n    margin: auto;\n    text-align: left;\n}',
+		layout:	false,
+	},
+	{
+		url:	'mspaintadventures.com/?s=1',
+		img:	'http://cdn.mspaintadventures.com/advimgs',
+		next:	[['font[size="5"]>a']],
+		extra:	[['//table[@width="600"]']],
+		js:	function(dir){/*[].slice.call(document.getElementsByTagName("table")).forEach(function(x){x.width = 800;})*/
+			
+			// Click on any img
+			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			setEvt(elemImagen, 'click', imgClick);
+			setEvt(elemImagen, 'mousemove', imgCursor);},
+		style:	'#wcr_imagen { display: none; }\np { font-size: large; }',
+	},
+	{
+		url:	'mspaintadventures.com/extras',
+		img:	'http://www.mspaintadventures.com/extra',
+		back:	function(html, pos){var comicNr = parseInt(link[pos].match(/\d+/)[0]);
+			if (comicNr == 1) throw "First comic";
+			comicNr--;
+			comicNr = ("000000" + comicNr).match(/0*(\d{6})$/)[1];
+			return link[pos].replace(/\d+/, comicNr);},
+		next:	function(html, pos){var comicNr = parseInt(link[pos].match(/\d+/)[0]);
+			comicNr++;
+			comicNr = ("000000" + comicNr).match(/0*(\d{6})/)[1];
+			return link[pos].replace(/\d+/, comicNr);},
+		extra:	[['//table[@width="800"]']],
+		js:	function(dir){/*[].slice.call(document.getElementsByTagName("table")).forEach(function(x){x.width = 800;})*/
+			
+			// Click on any img
+			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			setEvt(elemImagen, 'click', imgClick);
+			setEvt(elemImagen, 'mousemove', imgCursor);},
+		style:	'#wcr_imagen { display: none; }\np { font-size: large; }',
+	},
+	{
+		url:	'mspaintadventures.com/?s=4',
+		img:	'http://cdn.mspaintadventures.com/advimgs',
+		back:	'text()="Go Back"',
+		next:	[['font[size="5"]>a']],
+		extra:	[['//table[@width="600"]']],
+		js:	function(dir){
+			// Click on any img
+			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			setEvt(elemImagen, 'click', imgClick);
+			setEvt(elemImagen, 'mousemove', imgCursor);},
+		style:	'#wcr_imagen { display: none; }\np { font-size: large; }',
+	},
+	{
+		url:	'mspaintadventures.com/?s=6',
+		img:	'http://cdn.mspaintadventures.com/storyfiles/',
+		back:	'text()="Go Back"',
+		next:	function(html, pos){var x = selCss('font[size="5"]>a',html,true);
+			return x[x.length-1];},
+		extra:	[['//table[@width="600"]']],
+		xelem:	'//table[@width="600"]',
+		layelem:	'//table[@width="600"]',
+		js:	function(dir){
+			// Click on any img to switch page
+			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			setEvt(elemImagen, 'click', imgClick);
+			setEvt(elemImagen, 'mousemove', imgCursor);
+			
+			// Show pesterlogs
+			var x = document.getElementsByClassName('spoiler')
+			for (var i = 0; i < x.length; i++) {x[i].previousSibling.firstChild.click();}
+			},
+		style:	'#wcr_imagen { display: none; }\np { font-size: large; }',
+	},
+	{
+		url:	'mspaintadventures.com/scratch.php?',
+		img:	'storyfiles/',
+		back:	'text()="Go Back"',
+		next:	function(html, pos){var x = selCss('font[size="5"]>a',html,true);
+			return x[x.length-1];},
+		extra:	[['//table[@width="600"]']],
+		xelem:	'//table[@width="600"]/tbody',
+		layelem:	'//table[@width="600"]',
+		js:	function(dir){/*[].slice.call(document.getElementsByTagName("table")).forEach(function(x){x.width = 800;})*/
+			
+			// Click on any img to switch page
+			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			setEvt(elemImagen, 'click', imgClick);
+			setEvt(elemImagen, 'mousemove', imgCursor);
+			
+			// Show pesterlogs
+			var x = document.getElementsByClassName('spoiler')
+			for (var i = 0; i < x.length; i++) {x[i].previousSibling.firstChild.click();}
+			
+			typeof onChange == 'function' && onChange(dir);},
+		style:	'#wcr_imagena { display: none; }\np { font-size: large; }',
 	},
 	/*
 	,
