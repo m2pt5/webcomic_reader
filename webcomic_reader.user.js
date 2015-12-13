@@ -794,8 +794,8 @@ var defaultSettings = {
 // @include        http://mspaintadventures.com/*
 // @include        http://mspfanventures.com/
 // @include        http://agc.deskslave.org/comic_viewer.html
- 
- 
+// @include        http://www.readmanga.today/*
+// @include        http://www.mangatown.com/manga/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4100,16 +4100,27 @@ var paginas = [
 		js:	function(dir){/*[].slice.call(document.getElementsByTagName("table")).forEach(function(x){x.width = 800;})*/
 			
 			// Click on any img to switch page
-			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			var elemImagen=document.querySelectorAll('#wcr_extra img');
 			setEvt(elemImagen, 'click', imgClick);
 			setEvt(elemImagen, 'mousemove', imgCursor);
 			
 			// Show pesterlogs
-			var x = document.getElementsByClassName('spoiler')
+			var x = document.getElementsByClassName('spoiler');
 			for (var i = 0; i < x.length; i++) {x[i].previousSibling.firstChild.click();}
 			
 			typeof onChange == 'function' && onChange(dir);},
 		style:	'#wcr_imagena { display: none; }\np { font-size: large; }',
+	},
+	{
+		url:	'mangatown.com/manga/',
+		img:	[['#image']],
+		back:	['//div[@class="page_select"]/select/option[@selected]/preceding-sibling::option[1]/@value'],
+		next:	['//div[@class="page_select"]/select/option[@selected]/following-sibling::option[1]/@value'],
+		first:	['//div[@class="page_select"]/select/option[1]/@value'],
+		last:	['//div[@class="page_select"]/select/option[last()]/@value'],
+		extra:	[],
+		js:	function(dir){//document.onkeyup = null;
+			},
 	},
 	/*
 	,
@@ -4344,6 +4355,7 @@ var flipControls = false; //invertir flechas/clicks/botones para mangas u otros 
 var clickImgNavigates = confBool('clickImgNavigates', true);
 
 function run_script(){
+	debugger;
 	try{
 		if(useHistoryAPI && history.pushState){
 			setEvt(window, 'popstate', function(evt){
