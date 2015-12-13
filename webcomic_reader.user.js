@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2015.12.13
+// @version        2015.12.13-1
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -796,6 +796,7 @@ var defaultSettings = {
 // @include        http://agc.deskslave.org/comic_viewer.html
 // @include        http://www.readmanga.today/*
 // @include        http://www.mangatown.com/manga/*
+// @include        http://www.mymanga.me/manga/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4137,6 +4138,12 @@ var paginas = [
 		img:	'http://manga-joy.com/wp-content/manga/',
 		back:	[['.prev-a-btn']],
 		next:	[['.next-a-btn']],
+	},
+	{
+		url:	'mymanga.me/manga',
+		img:	'http://img.mymanga.me/',
+		back:	'text()="Prev"',
+		next:	'text()="Next"',
 	},
 	/*
 	,
