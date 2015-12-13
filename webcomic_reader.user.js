@@ -7324,8 +7324,45 @@ function strToRegexp(url){
 	return new RegExp(urls.join('|'));
 }
 
+function printarPaginaCustom(custom){
+	changeQuote = function(x) { // Changes a double quoted string to a single quoted one
+	    return x.replace(/\\"/g, '"').replace(/\'/g, "\\'").replace(/^"|"$/g, "'");
+	}
+	
+	function indent(x, n) {
+	    var indention = new Array((n||0) + 1).join("\t");
+	    return x.toString().replace(/\n/g,'\n'+ indention);
+	}
+	
+	function pretty(y) {
+		if (y.tipo == "str") return  changeQuote(JSON.stringify(y.valor));
+		if (typeof(y) == "string") return changeQuote(JSON.stringify(y));
+		else if (y.tipo == "fn") return indent(y.valor,3);
+		else if (y.tipo == "xp" || y.tipo == "css" || y.tipo == "bool") return JSON.stringify(y.valor).replace(/"(?:[^"\\]|\\.)*"/g, changeQuote);
+		else { // It is an array
+			//console.log(y);
+			var z = y.map(pretty);
+			return "[" + indent(z,7) + "]";
+		}
+	}
+
+	var z = "\n";
+	var x = custom;
+	z += "\t{\n";
+	for (var i in x) {
+		if (x[i].length == 0) continue;
+		var z1 = "\t\t" + i + ":\t" + pretty(x[i]) + ",\n";
+        z += z1;
+	}
+	z += "\t},\n";
+
+	// console.log("\n@import\t" + custom.url.valor + "*");
+	console.log("Using custom settings: " + z);
+}
+
 //recibe la pagina en el formato en q se guarda en la conf, y la retorna en el formato usado en paginas[i]
 function parsearPaginaCustom(custom){
+	try {printarPaginaCustom(custom);} catch(e) {console.error(e);}
 	var pag = {};
 	for(var p in custom){
 		if(p == 'extra'){
