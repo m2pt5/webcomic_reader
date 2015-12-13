@@ -4122,6 +4122,12 @@ var paginas = [
 		js:	function(dir){//document.onkeyup = null;
 			},
 	},
+	{
+		url:	'readmanga.today',
+		img:	'http://manga-joy.com/wp-content/manga/',
+		back:	[['.prev-a-btn']],
+		next:	[['.next-a-btn']],
+	},
 	/*
 	,
 	{	url:	'',
