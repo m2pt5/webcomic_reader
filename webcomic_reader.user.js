@@ -4114,13 +4114,23 @@ var paginas = [
 	{
 		url:	'mangatown.com/manga/',
 		img:	[['#image']],
-		back:	['//div[@class="page_select"]/select/option[@selected]/preceding-sibling::option[1]/@value'],
-		next:	['//div[@class="page_select"]/select/option[@selected]/following-sibling::option[1]/@value'],
+		back:	function(html, pos){try {
+			    return xpath('//div[@class="page_select"]/select/option[@selected]/preceding-sibling::option[1]/@value',html);
+			} catch (e) {
+			    var chapterUrl = xpath('//h1/a/@href', html);
+			    var prevChapter = xpath('//select[@class="chapter_select"]/option[@value="' + chapterUrl + '"]/preceding-sibling::option[1]/@value')
+			    return prevChapter;
+			}},
+		next:	function(html, pos){try {
+			    return xpath('//div[@class="page_select"]/select/option[@selected]/following-sibling::option[1]/@value',html);
+			} catch (e) {
+			    var chapterUrl = xpath('//h1/a/@href', html);
+			    var nextChapter = xpath('//select[@class="chapter_select"]/option[@value="' + chapterUrl + '"]/following-sibling::option[1]/@value')
+			    return nextChapter;
+			}},
 		first:	['//div[@class="page_select"]/select/option[1]/@value'],
 		last:	['//div[@class="page_select"]/select/option[last()]/@value'],
-		extra:	[],
-		js:	function(dir){//document.onkeyup = null;
-			},
+		js:	function(dir){document.onkeyup = null;},
 	},
 	{
 		url:	'readmanga.today',
