@@ -527,6 +527,7 @@ var defaultSettings = {
 // @include        http://ravensdojo.com/*
 // @include        http://freefall.purrsia.com/*
 // @include        http://www.mangachapter.net/*
+// @include        http://www.mangachapter.me/*
 // @include        http://www.shd-wk.com/*
 // @include        http://shd-wk.com/*
 // @include        http://www.pepsaga.com/*
@@ -2668,7 +2669,7 @@ var paginas = [
 		back:	'contains(.,"Previous")',
 		next:	'contains(.,"Next")'
 	},
-	{	url:	'mangachapter.net',
+	{	url:	'mangachapter.',
 		img:	[['#mangaImg']],
 		back:	function(html, pos){
 					try{ return xpath('//a[.="Previous page"]', html); }
