@@ -4132,18 +4132,21 @@ var paginas = [
 		first:	['//div[@class="page_select"]/select/option[1]/@value'],
 		last:	['//div[@class="page_select"]/select/option[last()]/@value'],
 		js:	function(dir){document.onkeyup = null;},
+		scrollx:'R'
 	},
 	{
 		url:	'readmanga.today',
 		img:	'http://manga-joy.com/wp-content/manga/',
 		back:	[['.prev-a-btn']],
 		next:	[['.next-a-btn']],
+		scrollx:'R'
 	},
 	{
 		url:	'mymanga.me/manga',
 		img:	'http://img.mymanga.me/',
 		back:	'text()="Prev"',
 		next:	'text()="Next"',
+		scrollx:'R'
 	},
 	/*
 	,
