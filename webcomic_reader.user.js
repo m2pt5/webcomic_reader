@@ -799,6 +799,7 @@ var defaultSettings = {
 // @include        http://www.mangatown.com/manga/*
 // @include        http://www.mymanga.me/manga/*
 // @include        http://www.blindsprings.com/comic/*
+// @include        http://www.legostargalactica.net/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4149,6 +4150,12 @@ var paginas = [
 		back:	'text()="Prev"',
 		next:	'text()="Next"',
 		scrollx:'R'
+	},
+	{
+		url:	'http://www.legostargalactica.net/',
+		extra:	[['//div[@class="post-comic"]'],[['.comment-wrap']]],
+		xelem:	'//div[@class="post-comic"]',
+		layelem:	'//div[@id="comic"]',
 	},
 	/*
 	,
