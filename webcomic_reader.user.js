@@ -368,6 +368,7 @@ var defaultSettings = {
 // @include        http://rpgworldcomic.com/*
 // @include        http://maskedretriever.com/*
 // @include        http://www.missmab.com/*
+// @include        http://missmab.com/*
 // @include        http://www.lookwhatibroughthome.com/*
 // @include        http://hijinksensue.com/*
 // @include        http://www.darthsanddroids.net/*
