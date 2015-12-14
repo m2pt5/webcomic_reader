@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2015.12.13-1
+// @version        2015.12.14
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -792,11 +792,13 @@ var defaultSettings = {
 // @include        http://www.omgbeaupeep.com/*
 // @include        http://orgymania.net/*
 // @include        http://mspaintadventures.com/*
+// @include        http://www.mspaintadventures.com/*
 // @include        http://mspfanventures.com/
 // @include        http://agc.deskslave.org/comic_viewer.html
 // @include        http://www.readmanga.today/*
 // @include        http://www.mangatown.com/manga/*
 // @include        http://www.mymanga.me/manga/*
+// @include        http://www.blindsprings.com/comic/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4142,8 +4144,8 @@ var paginas = [
 		scrollx:'R'
 	},
 	{
-		url:	'mymanga.me/manga',
-		img:	'http://img.mymanga.me/',
+		url:	'mymanga.me/manga/*/*/*',
+		img:	[['.reader-image img']],
 		back:	'text()="Prev"',
 		next:	'text()="Next"',
 		scrollx:'R'
