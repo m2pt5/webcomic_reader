@@ -4395,7 +4395,7 @@ function run_script(){
 		if(useHistoryAPI && history.pushState){
 			setEvt(window, 'popstate', function(evt){
 				if(evt.state && evt.state.wcr_url){
-					var dir = evt.state.wcr_pos - posActual;
+					var dir = (link[posActual+1] == evt.state.wcr_url) || -(link[posActual-1] == evt.state.wcr_url);
 					if(dir*dir == 1) cambiaPag(dir, true);
 					else redirect(evt.state.wcr_url);
 				}
