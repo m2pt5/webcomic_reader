@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2015.12.14
+// @version        2016.02.13
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -497,7 +497,7 @@ var defaultSettings = {
 // @include        http://goldenagecomics.co.uk/*
 // @include        http://fourcolorshadows.blogspot.com/*
 // @include        http://thehorrorsofitall.blogspot.com/*
-// @include        http://bato.to/reader*
+// @include        *//bato.to/reader*
 // @include        http://www.eegra.com/*
 // @include        http://www.octopuspie.com/*
 // @include        http://www.lovemenicecomic.com/*
@@ -2538,7 +2538,7 @@ var paginas = [
 				url = xpath('//a[img[@title="Previous Chapter"]]', html).href;
 			}
 
-			url2 = url.replace(/#[^_]*$/, "$&_1").replace("reader#", "areader?id=").replace("_", "&p=");
+			url2 = url.replace(/#[^_]*$/, "$&_1").replace("reader#", "areader?id=").replace("_", "&p=").replace("http:","");
 			var both = [url, url2];
 			both.doubleLink = true;
 			return both;
@@ -2550,7 +2550,7 @@ var paginas = [
 			} catch (e) {
 				url = xpath('//a[img[@title="Next Chapter"]]', html).href;
 			}
-			url2 = url.replace(/#[^_]*$/, "$&_1").replace("reader#", "areader?id=").replace("_", "&p=");
+			url2 = url.replace(/#[^_]*$/, "$&_1").replace("reader#", "areader?id=").replace("_", "&p=").replace("http:","");
 			var both = [url, url2];
 			both.doubleLink = true;
 
