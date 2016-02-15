@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.02.13
+// @version        2016.02.15
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -368,7 +368,6 @@ var defaultSettings = {
 // @include        http://rpgworldcomic.com/*
 // @include        http://maskedretriever.com/*
 // @include        http://www.missmab.com/*
-// @include        http://missmab.com/*
 // @include        http://www.lookwhatibroughthome.com/*
 // @include        http://hijinksensue.com/*
 // @include        http://www.darthsanddroids.net/*
@@ -802,6 +801,7 @@ var defaultSettings = {
 // @include        http://www.mymanga.me/manga/*
 // @include        http://www.blindsprings.com/comic/*
 // @include        http://www.legostargalactica.net/*
+// @include        http://hentaihere.com/m/*/*/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4158,6 +4158,31 @@ var paginas = [
 		extra:	[['//div[@class="post-comic"]'],[['.comment-wrap']]],
 		xelem:	'//div[@class="post-comic"]',
 		layelem:	'//div[@id="comic"]',
+	},
+	{
+		url:	'http://hentaihere.com/m/',
+		img:	[['#arf-reader-img']],
+		back:	function(html, pos){var page = parseInt(html.match(/var rff_thisIndex = (\d+);/)[1]);
+			var pages = html.match(/var rff_imageList = (.+);/)[1];
+			var previous_chapter = html.match(/var rff_previousChapter = "([^"]*?)";/)[1];
+			var base_url = html.match(/var rff_thisChapter = "(.+?)";/)[1];
+			
+			if (page >1) {
+			  return base_url + (page-1);
+			} else {
+			  return previous_chapter;
+			}},
+		next:	function(html, pos){var page = parseInt(html.match(/var rff_thisIndex = (\d+);/)[1]);
+			var pages = html.match(/var rff_imageList = (.+);/)[1];
+			var num_pages = JSON.parse(pages).length;
+			var next_chapter = html.match(/var rff_nextChapter = "([^"]*?)";/)[1];
+			var base_url = html.match(/var rff_thisChapter = "(.+?)";/)[1];
+			
+			if (page < num_pages) {
+			  return base_url + (page+1);
+			} else {
+			  return next_chapter;
+			}},
 	},
 	/*
 	,
