@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.02.15
+// @version        2016.02.21
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -655,8 +655,6 @@ var defaultSettings = {
 // @include        http://www.animephile.com/*
 // @include        http://hentaistreamer.com/*
 // @include        http://kissmanga.com/*
-// @include        http://www.readmangahentai.com/*
-// @include        http://readmangahentai.com/*
 // @include        http://www.mangatank.com/*
 // @include        http://www.snowflakescomic.com/*
 // @include        http://mangafox.mobi/*
@@ -3127,56 +3125,44 @@ var paginas = [
 		scrollx:'R',
 		style:	'#container{width:auto;}'
 	},
-	{	url:	'kissmanga.com',
+	{
+		url:	'kissmanga.com',
 		img:	function(html, pos){
 					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
-					var num = pos ? Number(link[pos].match(/##(\d+);/)[1]) : 0;
 
-					return imgs[pos-num].match(/"(.+)"/)[1];
+					var num = 0;
+					try {num = Number(link[pos].match(/##(-?\d+)/)[1]);}
+					catch (e) {num = 0;}
+					if (num == -1) num = imgs.length - 1;
+			
+					return imgs[num].match(/"(.+)"/)[1];
 				},
 		back:	function(html, pos){
-					throw 'fail';
+					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
+			
+					try {var num = Number(link[pos].match(/##(-?\d+)/)[1]);}
+					catch (e) {var num = 0;}
+					if (num == -1) num = imgs.length - 1;
+			
+					if (num > 0) return '##' + (num-1);
+			
+					return xpath('//select[(@id|@class)="selectChapter"]/option[@selected]/preceding-sibling::option[1]/@value', html) +
+						'##-1';
 				},
 		next:	function(html, pos){
-					if(!pos) return '##0;1';
-
 					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
-					var num = Number(link[pos].match(/##(\d+);/)[1]);
-
-					if(num+imgs.length > pos+1) return '##' + num + ';' + (pos+1);
-
-					return xpath('//select[@id="selectChapter"]/option[@selected]/following-sibling::option[1]/@value', html) +
-						'##' + (num+imgs.length) + ';' + (pos+1);
+			
+					try {var num = Number(link[pos].match(/##(-?\d+)/)[1]);}
+					catch (e) {var num = 0;}
+					if (num == -1) num = imgs.length - 1;
+			
+					if (imgs.length > num+1) return '##' + (num+1);
+			
+					return xpath('//select[(@id|@class)="selectChapter"]/option[@selected]/following-sibling::option[1]/@value', html) +
+						'##0';
 				},
-		scrollx:'R',
-		layelem:'//img[@id="imgCurrent"]'
-	},
-	{	url:	'readmangahentai.com',
-		img:	function(html, pos){
-					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
-					var num = pos ? Number(link[pos].match(/##(\d+);/)[1]) : 0;
-
-					return imgs[pos-num].match(/"(.+)"/)[1];
-				},
-		back:	function(html, pos){
-					throw 'fail';
-				},
-		next:	function(html, pos){
-					if(!pos) return '##0;1';
-
-					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
-					var num = Number(link[pos].match(/##(\d+);/)[1]);
-
-					if(num+imgs.length > pos+1) return '##' + num + ';' + (pos+1);
-
-					return xpath('//select[@id="chapter_select"]/option[@selected]/preceding-sibling::option[1]/@value', html) +
-						'.html##' + (num+imgs.length) + ';' + (pos+1);
-				},
-		scrollx:'R',
-		layelem:'//div[@id="image"]',
-		js:		function(dir){
-					if(!dir) document.onkeyup = '';
-				}
+		scrollx:	'R',
+		layelem:	'//div[@id="divImage"]',
 	},
 	{	url:	'mangatank.com|mangapark.com|mangawindow.com',
 		img:	[['.img-link img']],
