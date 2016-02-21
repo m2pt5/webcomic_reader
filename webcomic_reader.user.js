@@ -3588,14 +3588,14 @@ var paginas = [
 					catch(e){ return selCss('#picture', html); }
 				},
 		back:	function(html, pos){
-					try{ return xpath('//a[.="Back"]', html); }
+					try{ return xpath('//a[.="Previous Page"]', html); }
 					catch(e){
 						var manga = document.location.pathname.match(/^\/[^\/]+\//)[0];
 						return manga + xpath('//select[@name="chapter"]/option[@selected]/following-sibling::option[1]/@value', html);
 					}
 				},
 		next:	function(html, pos){
-					try{ return xpath('//a[.="Next"]', html); }
+					try{ return xpath('//a[.="Next Page"]', html); }
 					catch(e){
 						var manga = document.location.pathname.match(/^\/[^\/]+\//)[0];
 						return manga + xpath('//select[@name="chapter"]/option[@selected]/preceding-sibling::option[1]/@value', html);
