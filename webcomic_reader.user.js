@@ -60,6 +60,8 @@ var defaultSettings = {
 // @include        http://sluggy.com/*
 // @include        http://www.penny-arcade.com/comic*
 // @include        http://penny-arcade.com/comic*
+// @include        https://www.penny-arcade.com/comic*
+// @include        https://penny-arcade.com/comic*
 // @include        http://www.xkcd.com/*
 // @include        http://xkcd.com/*
 // @include        http://www.xkcd.org/*
@@ -914,6 +916,7 @@ var paginas = [
 
 	{	url:	'penny-arcade.com',
 		img:	[['#comicFrame img']],
+		fixurl:	function(url, img, link, pos){return url.replace("http:","")},
 		extra:	[[['.title h2']]],
 		style:	'#bb,#header{position:relative;}'
 	},
