@@ -1,6 +1,6 @@
 # Webcomic Reader
 
-Webcomic Reader userscript originally hosted at [userscripts.org](http://userscripts-mirror.org/scripts/show/59842) (R.I.P.), currently also hosted at [openuserjs.org](https://openuserjs.org/scripts/ameboide/Webcomic_Reader) and [greasyfork.org](https://greasyfork.org/scripts/3008-webcomic-reader)
+This is my fork of Amiboide's Webcomic Reader userscript originally hosted at [userscripts.org](http://userscripts-mirror.org/scripts/show/59842) (R.I.P.), currently also hosted at [openuserjs.org](https://openuserjs.org/scripts/anka-213/Webcomic_Reader) and [greasyfork.org](https://greasyfork.org/en/scripts/15096-webcomic-reader)
 
 Script for reading webcomics easier, nicer and faster. Tested on: Firefox, Chrome+Tampermonkey/NinjaKit, Safari+NinjaKit, Opera
 
@@ -73,10 +73,10 @@ A detailed guide can be found here, but the TL;DR version goes something like th
 3.  If it doesn't work / works wrong / you want to specify some more settings, right click the Greasemonkey icon (or left click the NinjaKit/Tampermonkey icon) and go to "User Script Commands..."/"Webcomic Reader - Settings"
 4. Click on "Site Settings" on the top of the screen, and there there's a lot of stuff you can change with xpath, css selectors, regular expressions, functions, etc
 
-(\*) To add @include rules you must open the script source code. On Greasemonkey right click the monkey icon and go to "Manage User Scripts", then find this script, right click it and choose "Edit". On Chrome with NinjaKit/Tampermonkey, right click the extension's icon and click "Options", then select this script to edit it.
+(\*) To add @include rules you must open the script source code. On Greasemonkey right click the monkey icon and go to "Manage User Scripts", then find this script, right click it and choose "Edit". On Chrome with NinjaKit/Tampermonkey, right click the extension's icon and click "Options", then select this script to edit it. In modern versions of the extensions, there is also a gui for adding include rules without modifying the source.
 
 Once you have opened the code, scroll a few lines down until you find a lot of lines that look like this: "// @include http://www.example.com/*". Then just add another one with the exact same format and write your url there.
 
 Note that after an update or reinstallation, the source code will be rewritten and any changes you made to the code will be lost, so be sure to back them up before updating. The settings themselves (from step 4) will be kept safe.
 
-In general, it's possible to add any site that consists of a main image and links to the previous and next pages. If you have trouble adding a new site you can ask for help here, or if you succeeded you can post your settings and I can add them to the script :)
+In general, it's possible to add any site that consists of a main image and links to the previous and next pages. If you have trouble adding a new site you can ask for help here, or if you succeeded you can post your settings and I can add them to the script :) You can get your custom settings for a site by opening the console (F12), and looking for the text "Using custom settings".
