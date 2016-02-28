@@ -567,6 +567,7 @@ var defaultSettings = {
 // @include        http://*.thewebcomic.com/*
 // @include        http://www.mangapark.com/*
 // @include        http://mangapark.com/*
+// @include        http*://mangapark.me/*
 // @include        http://www.manga-go.com/*
 // @include        http://www.comicstriplibrary.org/display/*
 // @include        http://comicstriplibrary.org/display/*
@@ -3167,7 +3168,7 @@ var paginas = [
 		scrollx:	'R',
 		layelem:	'//div[@id="divImage"]',
 	},
-	{	url:	'mangatank.com|mangapark.com|mangawindow.com',
+	{	url:	'mangatank.com|mangapark.com|mangawindow.com|mangapark.me',
 		img:	[['.img-link img']],
 		style:	'#wcr_div{line-height:1;}',
 		js:		function(dir){
