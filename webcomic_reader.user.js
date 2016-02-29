@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.02.21-1
+// @version        2016.02.29
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -803,6 +803,8 @@ var defaultSettings = {
 // @include        http://www.blindsprings.com/comic/*
 // @include        http://www.legostargalactica.net/*
 // @include        http://hentaihere.com/m/*/*/*
+// @include        http://gomanga.co/reader/read*
+// @include        http://mangafap.com/image/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4173,6 +4175,32 @@ var paginas = [
 			} else {
 			  return next_chapter;
 			}},
+	},
+	{
+		url:	'http://mangafap.com/image/',
+		back:	function(html, pos){return "/image/"+html.match(/pageid = (\d+);[^;]*[(,](\d+),\1/)[2]+"/";},
+		next:	function(html, pos){return "/image/"+html.match(/pageid = (\d+);[^;]*\1,(\d+)/)[2]+"/";},
+	},
+	{
+		url:	'http://gomanga.co/reader/read/',
+		img:	'http://gomanga.co/reader/content/comics/',
+		back:	function(html, pos){
+					var chapter = link[pos].replace(/page.*/,"");
+					try {
+						return xpath('//div[contains(@class,"current")]/following-sibling::div/a', html)
+					} catch (e) {
+						return xpath('//li[a/@href="'+chapter+'"]/following-sibling::li/a', html)
+					}
+				},
+		next:	function(html, pos){
+					var chapter = link[pos].replace(/page.*/,"");
+					try {
+						var next_page = xpath('//div[contains(@class,"current")]/preceding-sibling::div[not(contains(@class,"dnone"))][1]/a/@href', html);
+						return next_page.replace(/^(\d+)$/,chapter+"page/$1")
+					} catch (e) {
+						return xpath('//li[a/@href="'+chapter+'"]/preceding-sibling::li[1]/a/@href', html);
+					}
+				},
 	},
 	/*
 	,
