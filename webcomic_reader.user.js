@@ -5913,61 +5913,6 @@ if(GM_registerMenuCommand){
 	GM_registerMenuCommand('Webcomic Reader - Settings', mostrarSettings);
 }
 
-//Script update checker from http://userscripts.org/scripts/review/20145
-if (GM_xmlhttpRequest) {
-	var SUC_script_num = 59842; // Change this to the number given to the script by userscripts.org (check the address bar)
-	try {
-		function updateCheck(forced) {
-			var dias = getData('updateDays', 1, 'default');
-			if ((forced) || dias && (parseInt(GM_getValue('SUC_last_update', '0')) + dias*86400000 <= (new Date().getTime()))) {
-				try {
-					GM_xmlhttpRequest({
-						method: 'GET',
-						url: 'http://userscripts.org/scripts/source/' + SUC_script_num + '.meta.js?' + new Date().getTime(),
-						headers: { 'Cache-Control': 'no-cache' },
-						onload: function(resp) {
-							var local_version, remote_version, rt, script_name;
-							rt = resp.responseText;
-							GM_setValue('SUC_last_update', new Date().getTime() + '');
-							remote_version = parseInt(/@uso:version\s*(.*?)\s*$/m.exec(rt)[1]);
-							local_version = parseInt(GM_getValue('SUC_current_version', '-1'));
-							if (local_version != -1) {
-								script_name = (/@name\s*(.*?)\s*$/m.exec(rt))[1];
-								if (remote_version > local_version) {
-									//version oficial (yyyy-mm-dd(.n)?)
-									var version = rt.match(/@version\s+(.+)/)[1];
-
-									//comentarios del ultimo cambio
-									var cambios = rt.match(/@lastchanges\s+(.+)/);
-									cambios = cambios ? cambios[1] : false;
-
-									//flags con el tipo de cosas del update. si ninguna me importa, me salgo
-									var tipo = rt.match(/@updatetype +(\d+)/);
-									if(!forced && tipo && !(getData('updateFlags', (1<<16)-1, 'default') & Number(tipo[1]))) return;
-
-									var accion = getData('updateAction', 0, 'default');
-									if (accion & 2 || confirm(
-										'There is an update available for the Greasemonkey script "' + script_name + '" ('+version+')' +
-										(cambios ? '\n\nLast changes: ' + cambios : '') + '\n\nWould you like to '+
-										(accion & 1 ? 'install it now?' : 'go to the install page now?'))){
-
-										GM_setValue('SUC_current_version', remote_version);
-
-										if(accion & 1) document.location.href = 'http://userscripts.org/scripts/source/' + SUC_script_num + '.user.js';
-										else GM_openInTab('http://userscripts.org/scripts/show/' + SUC_script_num);
-									}
-								} else if (forced) alert('No update is available for "' + script_name + '."');
-							} else GM_setValue('SUC_current_version', remote_version + '');
-						}
-					});
-				} catch(err) {
-					if (forced) alert('An error occurred while checking for updates:\n' + err);
-				}
-			}
-		}
-		if(getData('autoUpdate', true, 'default')) updateCheck(false);
-	} catch(err) {}
-}
 
 var tabSettingActual = 'wcr_general'; //para acordarse por mientras del tab q deje abierto en los settings
 
@@ -6504,14 +6449,12 @@ function mostrarSettings(){
 					'<span class="wcr_layout">Graphic settings</span> | '+
 					'<span class="wcr_sitio">Site settings</span> | '+
 					'<span class="wcr_teclas">Keyboard shortcuts</span>'+
-					(GM_xmlhttpRequest ? ' | <span class="wcr_updater">Updater</span>' : '')+
 				'</div><hr/>'+
 				'<div id="wcr_settings_content" style="text-align:left">'+
 					'<div class="wcr_general">'+htmlLayout(opsGeneral, 'general')+'</div>'+
 					'<div class="wcr_layout">'+htmlLayout(opsLayout, 'layout')+'</div>'+
 					'<div class="wcr_sitio">'+htmlSitio(propsSitio)+'</div>'+
 					'<div class="wcr_teclas">'+htmlTeclas(teclas)+'</div>'+
-					(GM_xmlhttpRequest ? '<div class="wcr_updater">'+htmlUpdater(tiposUp)+'</div>' : '')+
 				'</div><hr/>'+
 				'<div>'+
 					'Import / Export '+
@@ -6552,7 +6495,6 @@ function mostrarSettings(){
 		initLayout(opsLayout, 'layout');
 		initSitio(propsSitio);
 		initTeclas(teclas);
-		if(GM_xmlhttpRequest) initUpdater(tiposUp);
 
 		//setear eventos para tabs/guardar/cancelar
 		var tabs = xpath('//div[@id="wcr_settings_links"]/span', document, true);
@@ -6605,7 +6547,7 @@ function mostrarSettings(){
 				msgOK = 'Everything is gone... everything...\n\n\n\n...forever';
 			}
 			else if(dominio == 'default'){
-				msgConfirm = 'This will reset all the default graphic options, keyboard shortcuts and autoupdater settings.\nYou may want to export and backup your settings first...\n\nAre you sure you want to do delete this data?';
+				msgConfirm = 'This will reset all the default graphic options and keyboard shortcuts settings.\nYou may want to export and backup your settings first...\n\nAre you sure you want to do delete this data?';
 				msgOK = 'All default settings cleared';
 			}
 
@@ -6908,20 +6850,6 @@ function initTeclas(teclas){
 	}
 }
 
-//inicializar los valores y eventos del updater
-function initUpdater(tiposUp){
-	get('wcr_dias_update').value = getData('updateDays', 1, 'default');
-	get('wcr_accion_update').value = getData('updateAction', 0, 'default');
-	var tipoUpdate = getData('updateFlags', (1<<16)-1, 'default');
-	for(t in tiposUp) get('wcr_cb_tipo_update_'+t).checked = tipoUpdate & t;
-	var ultimoUpdate = Number(GM_getValue('SUC_last_update', '0'));
-	if(ultimoUpdate) get('wcr_fecha_update').innerHTML = new Date(ultimoUpdate);
-	setEvt('wcr_btn_check_update', 'click', function(){
-		updateCheck(true);
-		get('wcr_fecha_update').innerHTML = new Date();
-	});
-}
-
 //generar el html de la conf del layout
 function htmlLayout(ops, nombre){
 	var html =
@@ -7085,28 +7013,6 @@ function htmlTeclas(teclas){
 	return html;
 }
 
-//generar el html de la conf del updater
-function htmlUpdater(tiposUp){
-	var html =
-		'<div>Automatically check for updates every <input id="wcr_dias_update" size="3" /> days (0 = never)</div>'+
-		'<div>When an update is found <select id="wcr_accion_update" >'+
-			'<option value="0">ask and take me to the main page on userscripts.org</option>'+
-			(isFirefox() ? '<option value="1">ask and directly download the latest version</option>' : '')+
-			'<option value="2">don\'t ask and take me to the main page on userscripts.org</option>'+
-			(isFirefox() ? '<option value="3">don\'t ask and directly download the latest version</option>' : '')+
-		'</select></div>'+
-		'<div id="wcr_tipos_update"><br/>Check for the following kind of updates:<br/>';
-	for(t in tiposUp)
-		html +=
-			'<input type="checkbox" id="wcr_cb_tipo_update_'+t+'" value="'+t+'">'+
-			'<label for="wcr_cb_tipo_update_'+t+'">'+tiposUp[t]+'</label><br/>';
-	html +=
-		'</div><br/>Last check: <span id="wcr_fecha_update">Never</span><br/>'+
-		'<button id="wcr_btn_check_update">Check for updates now</button>';
-
-	return html;
-}
-
 //guardar todo lo de las pantallas de configuracion
 function guardarSettings(teclas, props, tiposUp, opsLayout){
 	try{
@@ -7139,16 +7045,6 @@ function guardarSettings(teclas, props, tiposUp, opsLayout){
 				if(val != '') setData(o, val);
 				else delData(o);
 			}
-		}
-
-		//guardar updater
-		if(GM_xmlhttpRequest){
-			var dias = Number(get('wcr_dias_update').value);
-			if(!isNaN(dias) && dias>=0) setData('updateDays', dias, 'default');
-			setData('updateAction', Number(get('wcr_accion_update').value), 'default');
-			var tipoUpdate = 0;
-			for(t in tiposUp) if(get('wcr_cb_tipo_update_'+t).checked) tipoUpdate += Number(t);
-			setData('updateFlags', tipoUpdate, 'default');
 		}
 
 		//guardar sitio
