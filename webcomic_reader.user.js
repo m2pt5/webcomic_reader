@@ -4689,6 +4689,7 @@ function iniciar(){
 		teclado = getTeclas();
 
 		setEvt(window, 'keydown', teclaHandler);
+		setEvt(window, 'keyup', function(e){e.stopPropagation();});
 		setEvt(window, 'resize', fitImagen);
 		setEvt('wcr_btn1', 'click', btnnext);
 		setEvt('wcr_btn-1', 'click', btnback);
