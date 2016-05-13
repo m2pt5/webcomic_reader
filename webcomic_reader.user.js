@@ -705,8 +705,8 @@ var defaultSettings = {
 // @include        http://proxer.me/*
 // @include        http://www.demanga.com/*
 // @include        http://www.meinmanga.com/*
-// @include        http://www.senmanga.com/*
-// @include        http://raw.senmanga.com/*
+// @include        http*://www.senmanga.com/*
+// @include        http*://raw.senmanga.com/*
 // @include        http://www.mangaesta.net/*
 // @include        http://www.mabuns.web.id/*
 // @include        http://www.manga4indo.com/*
