@@ -806,6 +806,8 @@ var defaultSettings = {
 // @include        http://gomanga.co/reader/read*
 // @include        http://mangafap.com/image/*
 // @include        http://*.keenspot.com/*
+// @include        http://dynasty-scans.com/*
+// @include        http://*.dynasty-scans.com/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4223,6 +4225,45 @@ var paginas = [
 						return xpath('//li[a/@href="'+chapter+'"]/preceding-sibling::li[1]/a/@href', html);
 					}
 				},
+	},
+	{
+		url:	'dynasty-scans.com',
+		img:	function(html, pos){
+				var img = selCss("#image > img", html);
+				var pages = JSON.parse(html.match(/var pages = ([^;]*);/)[1]);
+				if (link[pos].match(/#last$/)) {
+					var page = pages.length - 1;
+				} else {
+					var page = Number(match(link[pos], /#(\d+)$/, 1, 1));
+				}
+				link[pos] = link[pos].replace(/(#?#.*)?$/,"##"+page);
+				var url = pages[page-1].image;
+				img.src = url;
+				return img;
+			},
+		back:	function(html, pos){
+				var page = Number(match(link[pos], /#(\d+)$/, 1, 1));
+				if (--page) {
+					return link[pos].replace(/(#?#.*)?$/,"##"+page);
+				}
+
+				return selCss("#prev_link", html).href.replace(/$/,"##last");
+			},
+		next:	function(html, pos){
+				var page = Number(match(link[pos], /#(\d+)$/, 1, 1));
+				var pages = JSON.parse(html.match(/var pages = ([^;]*);/)[1]);
+				if (++page < pages.length) {
+				  return link[pos].replace(/(#?#.*)?$/,"##"+page);
+				}
+
+				var url = selCss("#next_link", html).href;
+				if (url.match(/#$/)) {
+				  throw "Last page";
+				}
+				return url;
+			},
+		extra:	[[['.pages-list']]],
+		layelem:'//*[@id="image"]',
 	},
 	/*
 	,
