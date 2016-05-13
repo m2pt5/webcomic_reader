@@ -2124,7 +2124,11 @@ var paginas = [
 	{	url:	'kiwiblitz.com|thepunchlineismachismo.com|zombieboycomics.com',
 		img:	[['#comic-1 img']],
 		extra:	[[['.entry']]],
-		style:	'#wcr_div button{float:none;}'
+		style:	'#wcr_div button{float:none;}',
+		js:	function(dir){ breakbadtoys = null; },
+	},
+	{	url:	'whompcomic.com|sdamned.com',
+		js:	function(dir){ breakbadtoys = null; },
 	},
 	{	url:	'kafkaskoffee.com',
 		img:	[['.webcomic-object img']],
@@ -2199,7 +2203,8 @@ var paginas = [
 		extra:	[[['.newsBox p', '']]]
 	},
 	{	url:	'nerfnow.com',
-		extra:	[[['.comment']]]
+		extra:	[[['.comment']]],
+		js:	function(dir){ breakbadtoys = null; },
 	},
 	{	url:	'zapcomic.com',
 		img:	'http://www.zapcomic.com?comic_object='
@@ -3057,7 +3062,8 @@ var paginas = [
 					catch(e){ return xpath('//a[.="Previous Chapter"]', html); }
 				},
 		next:	'.="Next" or .="Next Chapter"',
-		extra:	[[['.entry']]]
+		extra:	[[['.entry']]],
+		js:	function(dir){ breakbadtoys = null; },
 	},
 	{	url:	'fayerwayer.com|niubie.com',
 		img:	[['.attachment-post-full-galeria']],
@@ -3998,6 +4004,7 @@ var paginas = [
  	{
 		url:	'http://www.egscomics.com/',
 		extra:	['<div id="wrapper"><div id="leftarea">',[['#newsarea']],'</div></div>'],
+		js:	function(dir){ breakbadtoys = null; },
 	},
 	{
 		url:	'http://mspfanventures.com/',
