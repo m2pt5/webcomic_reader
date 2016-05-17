@@ -919,7 +919,6 @@ var usarb64 = confBool('b64_images', false);
 */
 
 var paginas = [
-
 	{	url:	'penny-arcade.com',
 		img:	[['#comicFrame img']],
 		fixurl:	function(url, img, link, pos){return url.replace("http:","")},
@@ -2213,6 +2212,9 @@ var paginas = [
 	},
 	{	url:	'shortpacked.com',
 		img:	'http://www.shortpacked.com/comics/'
+	},
+  {	url:	'dumbingofage.com',
+		js:		function(dir){ window.removeEventListener('load', breakbadtoys, true); breakbadtoys = null; },
 	},
 	{	url:	'axecop.com',
 		img:	[['#comic img']],
