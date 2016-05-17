@@ -2213,8 +2213,8 @@ var paginas = [
 	{	url:	'shortpacked.com',
 		img:	'http://www.shortpacked.com/comics/'
 	},
-  {	url:	'dumbingofage.com',
-		js:		function(dir){ window.removeEventListener('load', breakbadtoys, true); breakbadtoys = null; },
+	{	url:	'dumbingofage.com',
+		js:	function(dir){ window.removeEventListener('load', breakbadtoys, true); breakbadtoys = null; },
 	},
 	{	url:	'axecop.com',
 		img:	[['#comic img']],
