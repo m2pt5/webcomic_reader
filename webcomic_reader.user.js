@@ -4271,14 +4271,7 @@ var paginas = [
 	},
 	{
 		url:	'mangasee.co/manga/',
-		img:	function(html, pos) {
-					try {
-						return selCss('a > img', html);
-					} catch (e) { // Not loaded yet
-						if (pos == 0) setTimeout(run_script, 100);
-						throw e;
-					}
-				},
+		img:	[['a > img']],
 		next:	function(html, pos) {
 					return match(match(html, /<a [^>]*next[^>]*>/i, 0), /href="([^"]*)"/, 1);
 				},
