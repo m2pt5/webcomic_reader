@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.05.14
+// @version        2016.06.02
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -808,6 +808,7 @@ var defaultSettings = {
 // @include        http://*.keenspot.com/*
 // @include        http://dynasty-scans.com/*
 // @include        http://*.dynasty-scans.com/*
+// @include        http://mangasee.co/manga/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -919,6 +920,7 @@ var usarb64 = confBool('b64_images', false);
 */
 
 var paginas = [
+
 	{	url:	'penny-arcade.com',
 		img:	[['#comicFrame img']],
 		fixurl:	function(url, img, link, pos){return url.replace("http:","")},
@@ -4266,6 +4268,20 @@ var paginas = [
 			},
 		extra:	[[['.pages-list']]],
 		layelem:'//*[@id="image"]',
+	},
+	{
+		url:	'mangasee.co/manga/',
+		img:	function(html, pos) {
+					try {
+						return selCss('a > img', html);
+					} catch (e) { // Not loaded yet
+						if (pos == 0) setTimeout(run_script, 100);
+						throw e;
+					}
+				},
+		next:	function(html, pos) {
+					return match(match(html, /<a [^>]*next[^>]*>/i, 0), /href="([^"]*)"/, 1);
+				},
 	},
 	/*
 	,
