@@ -4276,6 +4276,16 @@ var paginas = [
 					return match(match(html, /<a [^>]*next[^>]*>/i, 0), /href="([^"]*)"/, 1);
 				},
 	},
+	{
+		url:	'girlgeniusonline.com/comic.php',
+		img:	'http://www.girlgeniusonline.com/ggmain/strips/',
+		back:	[['#bottomprev']],
+		next:	[['#bottomnext']],
+		js:		function(dir){
+					window.removeEventListener('load', breakbadtoys, true);
+					breakbadtoys = null;
+				},
+	},
 	/*
 	,
 	{	url:	'',
