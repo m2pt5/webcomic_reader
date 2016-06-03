@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.06.02
+// @version        2016.06.03
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -809,6 +809,9 @@ var defaultSettings = {
 // @include        http://dynasty-scans.com/*
 // @include        http://*.dynasty-scans.com/*
 // @include        http://mangasee.co/manga/*
+// @include        http://mangafast.online/manga/*
+// @include        http://www.demonicscans.com/FoOlSlide/read/*
+// @include        http://raws.yomanga.co/read/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4286,6 +4289,46 @@ var paginas = [
 					breakbadtoys = null;
 				},
 	},
+	{
+		url:	'mangafast.online/manga/',
+		img:	[['#ppp img']],
+		back:	function(html, pos){
+					var current_page = getVar(html, "current_page");
+					var base_url = getVar(html, "base_url");
+					var prev_chapter = getVar(html,"prev_chapter");
+					if (current_page > 1) {
+						return base_url + "/" + (current_page-1);
+					} else {
+						return prev_chapter;
+					}
+				},
+		next:	function(html, pos){
+					var current_page = getVar(html, "current_page");
+					var base_url = getVar(html, "base_url");
+					var next_chapter = getVar(html,"next_chapter");
+					var pages = getVar(html,"pages");
+					if (current_page < pages.length) {
+						return base_url + "/" + (current_page+1);
+					} else {
+						return next_chapter;
+					}
+				},
+	},
+	{
+		url:	'demonicscans.com/FoOlSlide/read|raws.yomanga.co/read',
+		back:	function(html, pos){
+					var base_url = match(html, /var base_url *= *'([^']+)'/,1);
+					var current_page = getVar(html, "current_page")+1;
+					if (current_page > 1) {
+						return base_url + "page/" + (current_page-1);
+					} else {
+						var chap = xpath('//li[a/@href="'+base_url+'"]/following-sibling::li[1]/a/@href', html);
+						var htmlPrev = syncRequest(chap, pos);
+						return xpath('//*[contains(@class, "dropdown_right" )]//li[last()]/a/@href', htmlPrev);
+					}
+				},
+		next:	[['.inner>a']],
+	},
 	/*
 	,
 	{	url:	'',
@@ -5269,6 +5312,11 @@ function setEvt(elem, evt, fun){
 //dice si el objeto es un array (o nodelist, lo q retorna querySelectorAll)
 function isArray(o){
 	return '[object Array];[object NodeList]'.indexOf(Object.prototype.toString.call(o)) >= 0;
+}
+
+// Get the value of a javascript variable from the page
+function getVar(s, name, def) {
+	return JSON.parse(match(s, new RegExp("var "+name+" *= *([^;]+);"),1,def));
 }
 
 //si puede retorna s.match(re)[g], si no puede y se paso def, retorna def, y si no tira una excepcion
