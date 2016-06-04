@@ -812,6 +812,7 @@ var defaultSettings = {
 // @include        http://mangafast.online/manga/*
 // @include        http://www.demonicscans.com/FoOlSlide/read/*
 // @include        http://raws.yomanga.co/read/*
+// @include        http://www.dm5.com/m*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4329,6 +4330,20 @@ var paginas = [
 				},
 		next:	[['.inner>a']],
 	},
+	{
+		url:	'dm5.com/m',
+		img:	function(html, pos){
+					var DM5_CID = getVar(html, 'DM5_CID');
+					var page = match(link[pos],/m\d{6}-p(\d+)/, 1, 1);
+					var url = '/chapterfun.ashx?cid=' + DM5_CID+'&page='+page;
+					var metadata = syncRequest(url, pos);
+					eval(metadata); // puts result in array "d"
+					return d[0];
+				},
+		back:	[['#s_pre>a']],
+		next:	[['#s_next>a']],
+		layelem:'//*[@id="cp_img"]',
+	},
 	/*
 	,
 	{	url:	'',
@@ -7272,8 +7287,8 @@ function parsearElementoConfSitio(p){
 			break;
 		case 'fn':
 			valor =
-				xpath('//select[@id="wcr_sitio_tipo_'+p+'"]/option[@value="fn"]').innerHTML+'{'+
-				elems[0].value + '}';
+				xpath('//select[@id="wcr_sitio_tipo_'+p+'"]/option[@value="fn"]').innerHTML+'{\n'+
+				elems[0].value + '\n}';
 			try{ eval('f='+valor); }
 			catch(e){
 				alert(p+': "'+valor+'" is not a valid function ('+e+')');
@@ -7440,7 +7455,7 @@ function printarPaginaCustom(custom){
 	function pretty(y) {
 		if (y.tipo == "str") return  changeQuote(JSON.stringify(y.valor));
 		if (typeof(y) == "string") return changeQuote(JSON.stringify(y));
-		else if (y.tipo == "fn") return indent(y.valor,3);
+		else if (y.tipo == "fn") return indent(y.valor,4);
 		else if (y.tipo == "xp" || y.tipo == "css" || y.tipo == "bool") return JSON.stringify(y.valor).replace(/"(?:[^"\\]|\\.)*"/g, changeQuote);
 		else { // It is an array
 			//console.log(y);
