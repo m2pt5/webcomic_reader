@@ -812,7 +812,7 @@ var defaultSettings = {
 // @include        http://mangafast.online/manga/*
 // @include        http://www.demonicscans.com/FoOlSlide/read/*
 // @include        http://raws.yomanga.co/read/*
-// @include        http://www.dm5.com/m*
+// @include        http://*.dm5.com/m*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4331,7 +4331,7 @@ var paginas = [
 		next:	[['.inner>a']],
 	},
 	{
-		url:	'dm5.com/m',
+		url:	'dm5.com/m|en.dm5.com/m',
 		img:	function(html, pos){
 					var DM5_CID = getVar(html, 'DM5_CID');
 					var page = match(link[pos],/m\d+-p(\d+)/, 1, 1);
