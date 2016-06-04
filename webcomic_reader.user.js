@@ -4334,7 +4334,7 @@ var paginas = [
 		url:	'dm5.com/m',
 		img:	function(html, pos){
 					var DM5_CID = getVar(html, 'DM5_CID');
-					var page = match(link[pos],/m\d{6}-p(\d+)/, 1, 1);
+					var page = match(link[pos],/m\d+-p(\d+)/, 1, 1);
 					var url = '/chapterfun.ashx?cid=' + DM5_CID+'&page='+page;
 					var metadata = syncRequest(url, pos);
 					eval(metadata); // puts result in array "d"
