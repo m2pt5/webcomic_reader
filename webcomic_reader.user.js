@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.06.08
+// @version        2016.06.17
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -813,6 +813,7 @@ var defaultSettings = {
 // @include        http://www.demonicscans.com/FoOlSlide/read/*
 // @include        http://raws.yomanga.co/read/*
 // @include        http://*.dm5.com/m*
+// @include        https://nhentai.net/g/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4772,7 +4773,7 @@ function iniciar(){
 		teclado = getTeclas();
 
 		setEvt(window, 'keydown', teclaHandler);
-		setEvt(window, 'keyup', function(e){e.stopPropagation();});
+		setEvt(window, 'keyup', keyupHandler);
 		setEvt(window, 'resize', fitImagen);
 		setEvt('wcr_btn1', 'click', btnnext);
 		setEvt('wcr_btn-1', 'click', btnback);
@@ -5486,6 +5487,17 @@ function teclaHandler(evt){
 
 	evt.stopPropagation();
 	evt.preventDefault(); //frena el scrolleo con las flechas o el reloadeo original con f5
+}
+
+// Prevent the site from capturing the keys we use
+function keyupHandler(evt){
+	for (var key in teclado) {
+		if(checkTecla(key, evt)) {
+			evt.stopPropagation();
+			evt.preventDefault();
+			return;
+		}
+	}
 }
 
 //revisa si se apreto la tecla configurada
