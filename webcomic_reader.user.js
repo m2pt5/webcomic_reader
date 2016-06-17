@@ -5369,7 +5369,7 @@ function xpath(query, elem, arreglo){
 	}
 
 	var arr = new Array();
-	for (i = 0; i < res.snapshotLength; i++) arr.push(res.snapshotItem(i));
+	for (var i = 0; i < res.snapshotLength; i++) arr.push(res.snapshotItem(i));
 	return arr;
 }
 
