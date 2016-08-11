@@ -12,6 +12,12 @@ Able to remember the current page so that the next time you visit the site you c
 
 When using a download accelerator (like [DownThemAll](https://addons.mozilla.org/en-US/firefox/addon/downthemall/)) you can download all the fetched images by downloading all links with the text starting with "wcrimg" (just enter "wcrimg" as the filter in DownThemAll, other programs/extension may have similar options)
 
+### Installing
+
+1. Install a userscript manager: [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/) for Firefox, [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) for Google Chrome and [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) or [NinjaKit](https://github.com/os0x/NinjaKit) for Safari.
+2. Click [here](https://github.com/anka-213/webcomic_reader/raw/master/webcomic_reader.user.js) to install this script.
+
+
 #### Keyboard shortcuts
 
 They can be customized in the settings screen.
