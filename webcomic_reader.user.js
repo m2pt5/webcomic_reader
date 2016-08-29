@@ -410,6 +410,7 @@ var defaultSettings = {
 // @include        http://www.bearandtiger.com/*
 // @include        http://mangatopia.net/*
 // @include        http://exhentai.org/*
+// @include        https://exhentai.org/*
 // @include        http://www.wigucomics.com/*
 // @include        http://www.mankin-trad.net/*
 // @include        http://mankin-trad.net/*
