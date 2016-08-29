@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.06.17
+// @version        2016.08.29
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -814,6 +814,8 @@ var defaultSettings = {
 // @include        http://raws.yomanga.co/read/*
 // @include        http://*.dm5.com/m*
 // @include        https://nhentai.net/g/*
+// @include        http://www.marycagle.com/*
+// @include        http://www.sleeplessdomain.com/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -2129,14 +2131,15 @@ var paginas = [
 					if(!dir) document.onkeyup = '';
 				}
 	},
-	{	url:	'kiwiblitz.com|thepunchlineismachismo.com|zombieboycomics.com',
-		img:	[['#comic-1 img']],
+	{	url:	'kiwiblitz.com',
+		img:	[['#cc-comic']],
+		extra:	[[['.cc-newsarea']]],
+		style:	'#cc-comicbody{position: relative !important;} #pixiestrip {visibility: hidden;}',
+	},
+	{	url:	'thepunchlineismachismo.com|zombieboycomics.com',
+		img:	[['#comic img']],
 		extra:	[[['.entry']]],
 		style:	'#wcr_div button{float:none;}',
-		js:	function(dir){ breakbadtoys = null; },
-	},
-	{	url:	'whompcomic.com|sdamned.com',
-		js:	function(dir){ breakbadtoys = null; },
 	},
 	{	url:	'kafkaskoffee.com',
 		img:	[['.webcomic-object img']],
@@ -2212,16 +2215,12 @@ var paginas = [
 	},
 	{	url:	'nerfnow.com',
 		extra:	[[['.comment']]],
-		js:	function(dir){ breakbadtoys = null; },
 	},
 	{	url:	'zapcomic.com',
 		img:	'http://www.zapcomic.com?comic_object='
 	},
 	{	url:	'shortpacked.com',
 		img:	'http://www.shortpacked.com/comics/'
-	},
-	{	url:	'dumbingofage.com',
-		js:	function(dir){ window.removeEventListener('load', breakbadtoys, true); breakbadtoys = null; },
 	},
 	{	url:	'axecop.com',
 		img:	[['#comic img']],
@@ -3074,7 +3073,6 @@ var paginas = [
 				},
 		next:	'.="Next" or .="Next Chapter"',
 		extra:	[[['.entry']]],
-		js:	function(dir){ breakbadtoys = null; },
 	},
 	{	url:	'fayerwayer.com|niubie.com',
 		img:	[['.attachment-post-full-galeria']],
@@ -4015,7 +4013,6 @@ var paginas = [
  	{
 		url:	'http://www.egscomics.com/',
 		extra:	['<div id="wrapper"><div id="leftarea">',[['#newsarea']],'</div></div>'],
-		js:	function(dir){ breakbadtoys = null; },
 	},
 	{
 		url:	'http://mspfanventures.com/',
@@ -4290,10 +4287,6 @@ var paginas = [
 		img:	'http://www.girlgeniusonline.com/ggmain/strips/',
 		back:	[['#bottomprev']],
 		next:	[['#bottomnext']],
-		js:		function(dir){
-					window.removeEventListener('load', breakbadtoys, true);
-					breakbadtoys = null;
-				},
 	},
 	{
 		url:	'mangafast.online/manga/',
@@ -4673,9 +4666,21 @@ function run_script(){
 	}catch(e){ error('loadpag: '+e); }
 }
 
+// Disables common scripts that breaks WCR
+function fixbadjs(){
+	// Injected by jumpbar.js from TheHiveWorks
+	if ("breakbadtoys" in unsafeWindow) {
+		debugger
+		console.log("Disabling anti-wcr code");
+		window.removeEventListener('load', breakbadtoys, true);
+		breakbadtoys = null;
+	}
+}
+
 //setear el html nuevo y rellenarlo con los datos de la pag actual, aparte de prefetchear la de adelante y atras
 function iniciar(){
 	try{
+		fixbadjs();
 		if(firstRun && confirm(
 			'This seems to be your first time using Webcomic Reader. '+
 			'Do you want to look at the settings?\n'+
