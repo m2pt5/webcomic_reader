@@ -4982,7 +4982,7 @@ function cambiaPag(dir, poppedState, slidden){
 		get('wcr_btn-1').title = link[posActual - 1] + (imagen[posActual - 1] === null ? ' (image not found)' : '');
 
 		// Update list of pages
-		selCss('#wcr_pages option[value="'+posActual+'"]').selected = true;
+		try{selCss('#wcr_pages option[value="'+posActual+'"]').selected = true;}catch(e){}
 
 		var xel = get('wcr_extra');
 		if(keepLayout && extraElement){
