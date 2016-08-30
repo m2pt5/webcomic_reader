@@ -19,7 +19,7 @@ var defaultSettings = {
 	borderUD: 0, //pixels to leave as border above and below the image when zooming and scrolling
 	goToBookmark: true, //if you have 1 bookmark saved for a site, asks you if you want to go there when you visit the site
 	moveWhileLoading: false, //lets you change pages even if the image for the next page is still loading
-	debugMode: false, //alerts on errors, and shows some of the currently cache'd pages/images with the "," key
+	debugMode: true, //alerts on errors, and shows some of the currently cache'd pages/images with the "," key
 	showSettingsOnFail: false, //if no settings are found for this site and default ones didn't work, show settings screen
 	keyboardShortcuts: { //keyboard shortcuts...
 		back: {name: 'LEFT', keyCode: 37, ctrlKey: false, shiftKey: false, altKey: false},
