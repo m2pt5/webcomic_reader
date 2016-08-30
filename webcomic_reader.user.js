@@ -87,6 +87,7 @@ var defaultSettings = {
 // @include        http://www.phdcomics.com/*
 // @include        http://www.cad-comic.com/*
 // @include        http://www.smbc-comics.com/*
+// @include        http://smbc-comics.com/*
 // @include        http://abstrusegoose.com/*
 // @include        http://thedoghousediaries.com/*
 // @include        http://www.erfworld.com/*
@@ -989,7 +990,7 @@ var paginas = [
 		extra:	[['//title/text()'], ' - ', ['//td/font/i/b/text()'], ['//img[contains(@src, "/comics/archive/")]/following-sibling::table']]
 	},
 	{	url:	'smbc-comics.com',
-		img:	[['#comic']],
+		img:	[['#cc-comicbody img']],
 		back:	[['.prev']],
 		next:	[['.next']],
 		extra:	[['//div[@id="aftercomic"]/img[contains(@src,"/")]'], [['.cc-newscontent:first-of-type']]],
