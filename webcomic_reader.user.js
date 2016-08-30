@@ -862,7 +862,7 @@ try{
 			boton.innerHTML = txt;
 			setEvt(boton, 'click', fun);
 			document.body.appendChild(boton);
-		}
+		};
 	}
 }catch(e){}
 
@@ -931,7 +931,7 @@ var paginas = [
 
 	{	url:	'penny-arcade.com',
 		img:	[['#comicFrame img']],
-		fixurl:	function(url, img, link, pos){return url.replace("http:","")},
+		fixurl:	function(url, img, link, pos){return url.replace("http:","");},
 		extra:	[[['.title h2']]],
 		style:	'#bb,#header{position:relative;}'
 	},
@@ -2300,7 +2300,7 @@ var paginas = [
 
 					if(page < pages)
 						return path + "manga/" + escape(manga) + "/" + escape(chapter) + "/p-" + (page+1);
-					if(nextChapter != "")
+					if(nextChapter !== "")
 						return path + "manga/" + escape(manga) + "/" + escape(nextChapter) + "/p-1";
 					throw 'fin';
 				},
@@ -2547,7 +2547,7 @@ var paginas = [
 			try {
 				return selCss("#comic_page", html, 0);
 			} catch (e) { // Not loaded yet
-				if (pos == 0) setTimeout(run_script, 2000);
+				if (pos === 0) setTimeout(run_script, 2000);
 				throw e;
 			}
 		},
@@ -2582,7 +2582,7 @@ var paginas = [
 				function(html, pos){
 					var xs = selCss('.moderation_bar select', null, true);
 					for(var i =0; i<xs.length; i++) {
-						xs[i].addEventListener('change', function(){document.location.reload()})
+						xs[i].addEventListener('change', function(){document.location.reload();});
 					}
 					return "";
 				}],
@@ -2592,7 +2592,7 @@ var paginas = [
 				},
 		layelem:'//img[@id="comic_page"]',
 		js:	function(dir) {
-			if (dir == 0 && typeof(link[0]) == 'string') {
+			if (dir === 0 && typeof(link[0]) == 'string') {
 				url = link[0];
 				url2 = url.replace(/#[^_]*$/, "$&_1").replace("reader#", "areader?id=").replace("_", "&p=");
 				var both0 = [url, url2];
@@ -2879,10 +2879,11 @@ var paginas = [
 					return html.match(/img_url.push\('.+' \);/g)[num].match(/'(.+)'/)[1];
 				},
 		back:	function(html, pos){
+					var base;
 					var num = link[pos].match(/(##.*_|\/)(\d+)$/);
 					num = num ? parseInt(num[2])-1 : 0;
 					if(!num){
-						var base = '/' + html.match(/var prev_chap = '(.+)';/)[1] + '/';
+						base = '/' + html.match(/var prev_chap = '(.+)';/)[1] + '/';
 						var htmlPrev = syncRequest(base, pos);
 						num = parseInt(htmlPrev.match(/var page_max = parseInt\('(\d+)'\);/)[1]);
 						base += num + '/';
@@ -2895,11 +2896,12 @@ var paginas = [
 					return base+'##'+(pos-1)+'_'+num;
 				},
 		next:	function(html, pos){
+					var base;
 					var num = link[pos].match(/(##.*_|\/)(\d+)$/);
 					num = num ? parseInt(num[2])+1 : 2;
 					var page_max = parseInt(html.match(/var page_max = parseInt\('(.+)'\);/)[1]);
 					if(num > page_max){
-						var base = html.match(/var next_chap = '(.+)';/)[1]+'/1';
+						base = html.match(/var next_chap = '(.+)';/)[1]+'/1';
 						num = 1;
 					}
 					else{
@@ -2926,9 +2928,10 @@ var paginas = [
 	{	url:	'gallery.ryuutama.com/view.php',
 		img:	[['img']],
 		back:	function(html, pos){
+					var page;
 					if(!pos){
 						var manga = html.match(/current_manga = "(.+?)";/)[1];
-						var page = parseInt(html.match(/current_page = "(.+?)";/)[1]) - 1;
+						page = parseInt(html.match(/current_page = "(.+?)";/)[1]) - 1;
 						var total = parseInt(html.match(/total_pages = "(.+?)";/)[1]);
 						if(page) return '/api.php?grab=manga&id='+manga+'&page='+page+'##'+total;
 					}
@@ -2939,10 +2942,11 @@ var paginas = [
 					throw 'fail';
 				},
 		next:	function(html, pos){
+					var page, total;
 					if(!pos){
 						var manga = html.match(/current_manga = "(.+?)";/)[1];
-						var page = parseInt(html.match(/current_page = "(.+?)";/)[1]);
-						var total = parseInt(html.match(/total_pages = "(.+?)";/)[1]);
+						page = parseInt(html.match(/current_page = "(.+?)";/)[1]);
+						total = parseInt(html.match(/total_pages = "(.+?)";/)[1]);
 						return '/api.php?grab=manga&id='+manga+'&page='+page+'##'+total;
 					}
 					else{
@@ -3161,9 +3165,10 @@ var paginas = [
 					return imgs[num].match(/"(.+)"/)[1];
 				},
 		back:	function(html, pos){
+					var num;
 					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
 			
-					try {var num = Number(link[pos].match(/##(-?\d+)/)[1]);}
+					try {num = Number(link[pos].match(/##(-?\d+)/)[1]);}
 					catch (e) {var num = 0;}
 					if (num == -1) num = imgs.length - 1;
 			
@@ -3173,9 +3178,10 @@ var paginas = [
 						'##-1';
 				},
 		next:	function(html, pos){
+					var num;
 					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
 			
-					try {var num = Number(link[pos].match(/##(-?\d+)/)[1]);}
+					try {num = Number(link[pos].match(/##(-?\d+)/)[1]);}
 					catch (e) {var num = 0;}
 					if (num == -1) num = imgs.length - 1;
 			
@@ -3248,8 +3254,8 @@ var paginas = [
 					var code="";
 					var cid=0;
 					for(i=0;i<codes.length;i++){if(codes[i].indexOf(ch+" ")==0){cid=i;code=codes[i];break;};}
-					if(code=="") for(i=0;i<codes.length;i++){if(parseInt(codes[i].split(' ')[0])>ch) {cid=i;code=codes[i];ch=parseInt(codes[i].split(' ')[0]);break;}}
-					if(code=="") {cid=codes.length-1;code=codes[cid];ch=chs;}
+					if(code==="") for(i=0;i<codes.length;i++){if(parseInt(codes[i].split(' ')[0])>ch) {cid=i;code=codes[i];ch=parseInt(codes[i].split(' ')[0]);break;}}
+					if(code==="") {cid=codes.length-1;code=codes[cid];ch=chs;}
 
 					var previd=cid>0?parseInt(codes[cid-1].split(' ')[0]):ch;
 					var nextid=cid<codes.length-1?parseInt(codes[cid+1].split(' ')[0]):ch;
@@ -3276,9 +3282,9 @@ var paginas = [
 					var codes = html.match(/var codes="([^\"]+)"/)[1].split('|');
 					var code="";
 					var cid=0;
-					for(i=0;i<codes.length;i++){if(codes[i].indexOf(ch+" ")==0){cid=i;code=codes[i];break;};}
-					if(code=="") for(i=0;i<codes.length;i++){if(parseInt(codes[i].split(' ')[0])>ch) {cid=i;code=codes[i];ch=parseInt(codes[i].split(' ')[0]);break;}}
-					if(code=="") {cid=codes.length-1;code=codes[cid];ch=chs;}
+					for(i=0;i<codes.length;i++){if(codes[i].indexOf(ch+" ")===0){cid=i;code=codes[i];break;};}
+					if(code==="") for(i=0;i<codes.length;i++){if(parseInt(codes[i].split(' ')[0])>ch) {cid=i;code=codes[i];ch=parseInt(codes[i].split(' ')[0]);break;}}
+					if(code==="") {cid=codes.length-1;code=codes[cid];ch=chs;}
 
 					var previd=cid>0?parseInt(codes[cid-1].split(' ')[0]):ch;
 					var nextid=cid<codes.length-1?parseInt(codes[cid+1].split(' ')[0]):ch;
@@ -3306,9 +3312,9 @@ var paginas = [
 					var codes = html.match(/var codes="([^\"]+)"/)[1].split('|');
 					var code="";
 					var cid=0;
-					for(i=0;i<codes.length;i++){if(codes[i].indexOf(ch+" ")==0){cid=i;code=codes[i];break;};}
-					if(code=="") for(i=0;i<codes.length;i++){if(parseInt(codes[i].split(' ')[0])>ch) {cid=i;code=codes[i];ch=parseInt(codes[i].split(' ')[0]);break;}}
-					if(code=="") {cid=codes.length-1;code=codes[cid];ch=chs;}
+					for(i=0;i<codes.length;i++){if(codes[i].indexOf(ch+" ")===0){cid=i;code=codes[i];break;};}
+					if(code==="") for(i=0;i<codes.length;i++){if(parseInt(codes[i].split(' ')[0])>ch) {cid=i;code=codes[i];ch=parseInt(codes[i].split(' ')[0]);break;}}
+					if(code==="") {cid=codes.length-1;code=codes[cid];ch=chs;}
 
 					var previd=cid>0?parseInt(codes[cid-1].split(' ')[0]):ch;
 					var nextid=cid<codes.length-1?parseInt(codes[cid+1].split(' ')[0]):ch;
@@ -3571,7 +3577,7 @@ var paginas = [
 					var p = parseInt(match(link[pos], /[?&]p=(\d+)/, 1, 1)) - 1;
 					if(!p){
 						c--;
-						p=1
+						p=1;
 					}
 					console.log([pos,-1,c,p]);
 					if(!c) throw 'inicio';
@@ -4020,7 +4026,7 @@ var paginas = [
 		img:	[['article img']],
 		next:	[['#nextlinks a']],
 		extra:	[[['article']],'<script>assignOnClicks()</script>'],
-		js:	function(dir){debug; assignOnClicks();},
+		js:	function(dir){debugger; assignOnClicks();},
 		style:	'#wcr_imagen { display: none; }',
 	},
 	{
@@ -4057,7 +4063,7 @@ var paginas = [
 		js:	function(dir){/*[].slice.call(document.getElementsByTagName("table")).forEach(function(x){x.width = 800;})*/
 			
 			// Click on any img
-			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			var elemImagen=document.querySelectorAll('#wcr_extra img');
 			setEvt(elemImagen, 'click', imgClick);
 			setEvt(elemImagen, 'mousemove', imgCursor);},
 		style:	'#wcr_imagen { display: none; }\np { font-size: large; }',
@@ -4078,7 +4084,7 @@ var paginas = [
 		js:	function(dir){/*[].slice.call(document.getElementsByTagName("table")).forEach(function(x){x.width = 800;})*/
 			
 			// Click on any img
-			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			var elemImagen=document.querySelectorAll('#wcr_extra img');
 			setEvt(elemImagen, 'click', imgClick);
 			setEvt(elemImagen, 'mousemove', imgCursor);},
 		style:	'#wcr_imagen { display: none; }\np { font-size: large; }',
@@ -4091,7 +4097,7 @@ var paginas = [
 		extra:	[['//table[@width="600"]']],
 		js:	function(dir){
 			// Click on any img
-			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			var elemImagen=document.querySelectorAll('#wcr_extra img');
 			setEvt(elemImagen, 'click', imgClick);
 			setEvt(elemImagen, 'mousemove', imgCursor);},
 		style:	'#wcr_imagen { display: none; }\np { font-size: large; }',
@@ -4107,12 +4113,12 @@ var paginas = [
 		layelem:	'//table[@width="600"]',
 		js:	function(dir){
 			// Click on any img to switch page
-			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			var elemImagen=document.querySelectorAll('#wcr_extra img');
 			setEvt(elemImagen, 'click', imgClick);
 			setEvt(elemImagen, 'mousemove', imgCursor);
 			
 			// Show pesterlogs
-			var x = document.getElementsByClassName('spoiler')
+			var x = document.getElementsByClassName('spoiler');
 			for (var i = 0; i < x.length; i++) {x[i].previousSibling.firstChild.click();}
 			},
 		style:	'#wcr_imagen { display: none; }\np { font-size: large; }',
@@ -4147,14 +4153,14 @@ var paginas = [
 			    return xpath('//div[@class="page_select"]/select/option[@selected]/preceding-sibling::option[1]/@value',html);
 			} catch (e) {
 			    var chapterUrl = xpath('//h1/a/@href', html);
-			    var prevChapter = xpath('//select[@class="chapter_select"]/option[@value="' + chapterUrl + '"]/preceding-sibling::option[1]/@value')
+			    var prevChapter = xpath('//select[@class="chapter_select"]/option[@value="' + chapterUrl + '"]/preceding-sibling::option[1]/@value');
 			    return prevChapter;
 			}},
 		next:	function(html, pos){try {
 			    return xpath('//div[@class="page_select"]/select/option[@selected]/following-sibling::option[1]/@value',html);
 			} catch (e) {
 			    var chapterUrl = xpath('//h1/a/@href', html);
-			    var nextChapter = xpath('//select[@class="chapter_select"]/option[@value="' + chapterUrl + '"]/following-sibling::option[1]/@value')
+			    var nextChapter = xpath('//select[@class="chapter_select"]/option[@value="' + chapterUrl + '"]/following-sibling::option[1]/@value');
 			    return nextChapter;
 			}},
 		first:	['//div[@class="page_select"]/select/option[1]/@value'],
@@ -4218,16 +4224,16 @@ var paginas = [
 		back:	function(html, pos){
 					var chapter = link[pos].replace(/page.*/,"");
 					try {
-						return xpath('//div[contains(@class,"current")]/following-sibling::div/a', html)
+						return xpath('//div[contains(@class,"current")]/following-sibling::div/a', html);
 					} catch (e) {
-						return xpath('//li[a/@href="'+chapter+'"]/following-sibling::li/a', html)
+						return xpath('//li[a/@href="'+chapter+'"]/following-sibling::li/a', html);
 					}
 				},
 		next:	function(html, pos){
 					var chapter = link[pos].replace(/page.*/,"");
 					try {
 						var next_page = xpath('//div[contains(@class,"current")]/preceding-sibling::div[not(contains(@class,"dnone"))][1]/a/@href', html);
-						return next_page.replace(/^(\d+)$/,chapter+"page/$1")
+						return next_page.replace(/^(\d+)$/,chapter+"page/$1");
 					} catch (e) {
 						return xpath('//li[a/@href="'+chapter+'"]/preceding-sibling::li[1]/a/@href', html);
 					}
@@ -4236,12 +4242,13 @@ var paginas = [
 	{
 		url:	'dynasty-scans.com',
 		img:	function(html, pos){
+				var page;
 				var img = selCss("#image > img", html);
 				var pages = JSON.parse(html.match(/var pages = ([^;]*);/)[1]);
 				if (link[pos].match(/#last$/)) {
-					var page = pages.length - 1;
+					page = pages.length - 1;
 				} else {
-					var page = Number(match(link[pos], /#(\d+)$/, 1, 1));
+					page = Number(match(link[pos], /#(\d+)$/, 1, 1));
 				}
 				link[pos] = link[pos].replace(/(#?#.*)?$/,"##"+page);
 				var url = pages[page-1].image;
@@ -4454,7 +4461,7 @@ function layoutIntacto(){
 		try{
 			var back = contenido(document.documentElement.innerHTML, getBack, 0);
 			var linksBack = xpath('//*[@href="'+back+'"]', document, true);
-			for(i=0;i<linksBack.length;i++){
+			for(var i=0;i<linksBack.length;i++){
 				linksBack[i].href = '#back';
 				setEvt(linksBack[i], 'click', btnback);
 			}
@@ -4595,12 +4602,12 @@ function run_script(){
 		if(p){ //si esta deshabilitada esta pag p===null, si no es siempre un objeto
 			link[0] = document.location.href;
 			listabm = getListaBookmarks();
-			if(goToBookmark && listabm.length == 1 && listabm[0]['url'].split('#')[0] != link[0].split('#')[0] &&
+			if(goToBookmark && listabm.length == 1 && listabm[0].url.split('#')[0] != link[0].split('#')[0] &&
 				confirm('Go to last saved page?\n'+
-					listabm[0]['title']+'\n'+
-					listabm[0]['url']+
+					listabm[0].title+'\n'+
+					listabm[0].url+
 					'\n\n(This confirmation dialog can be disabled in the script settings)')){
-				redirect(listabm[0]['url']);
+				redirect(listabm[0].url);
 				return;
 			}
 			listabmTodos = getListaBookmarksTodos();
@@ -4693,11 +4700,12 @@ function iniciar(){
 			mostrarSettings();
 
 		setear(document.documentElement.innerHTML, 0, 0); //seteo el contenido de la pag inicial
-		if(imagen[0] == null) return;
+		if(imagen[0] === null) return;
 
-		try{ var first = getLink(document.documentElement.innerHTML, getFirst, 0); }
+		var first, last;
+		try{ first = getLink(document.documentElement.innerHTML, getFirst, 0); }
 		catch(e){ error('first: '+e); }
-		try{ var last = getLink(document.documentElement.innerHTML, getLast, 0); }
+		try{ last = getLink(document.documentElement.innerHTML, getLast, 0); }
 		catch(e){ error('last: '+e); }
 
 		if(keepLayout) layoutIntacto();
@@ -4886,7 +4894,7 @@ function setear(html, pos, dir){
 			pagelist += '<option value="'+ i +'" title="'+link[i]+'"' +
 				(i==posActual?" selected":"") + '>' +
 				titulo[i]+"</option>";
-		};
+		}
 		get("wcr_pages").children[0].innerHTML= pagelist;
 		} catch(e) {}
 
@@ -4900,7 +4908,7 @@ function setear(html, pos, dir){
 				}catch(e){error('set['+pos+']/extras['+i+']: '+e);}
 			}
 		}
-		
+	
 		if(dir) get('wcr_btn'+dir).innerHTML = (dir>0?'Next':'Back')+' ('+((pos-posActual)*dir)+(link[pos+dir]?'':'!')+')';
 	}
 	catch(e){
@@ -4939,18 +4947,18 @@ function absUrl(url, pos){
 		try{ base = xpath('//base/@href'); }
 		catch(e){}
 
-		if(url.indexOf('/') == 0){
-			if(url.indexOf('//') == 0) url = base.match(/^\w+:/) + url;
+		if(url.indexOf('/') === 0){
+			if(url.indexOf('//') === 0) url = base.match(/^\w+:/) + url;
 			else url = base.match(/^\w+:\/\/[^\/]+/) + url;
 		}
-		else if(url.indexOf('##') == 0)
+		else if(url.indexOf('##') === 0)
 			url = base.split('##')[0] + url;
 		else{
 			var ipars = base.indexOf('?');
 			if(ipars < 0) ipars = base.length;
 			if(url[0] == '?') return base.substr(0, ipars) + url;
 			base = base.substr(0, base.lastIndexOf('/', ipars));
-			while(url.indexOf('../') == 0){
+			while(url.indexOf('../') === 0){
 				url = url.substr(3);
 				if(!base.match(/:\/\/[^\/]+$/)) base = base.substr(0, base.lastIndexOf('/'));
 			}
@@ -5205,7 +5213,7 @@ function prefetch(dir, pos, prof, reintento){
 	if(typeof(url)=='object' && url.doubleLink){ // Para paginas con AJAX 
 		url = url[1];
 	}
-        
+
 	if(typeof(url)=='object'){
 		pars = url[1];
 		url = url[0];
@@ -5393,7 +5401,7 @@ function xpath(query, elem, arreglo){
 		return res;
 	}
 
-	var arr = new Array();
+	var arr = [];
 	for (var i = 0; i < res.snapshotLength; i++) arr.push(res.snapshotItem(i));
 	return arr;
 }
@@ -5601,7 +5609,6 @@ function btnback(evt){
 
 //onchange page selector
 function btnjump(evt){
-	debugger;
 	var step = get("wcr_pages").value - posActual;
 	var dir = Math.sign(step);
 	// Jump to one step before the target
@@ -5671,7 +5678,7 @@ function imgCursor(evt){
 	if(!evt || !evt.currentTarget) return;
 	var img = evt.currentTarget;
 	var dir = imgDerecha(evt) ? 1 : -1;
-	img.style.cursor = ''
+	img.style.cursor = '';
 	img.style.cursor = cursor(dir, 'img');
 	ultimoevt = evt;
 }
@@ -5712,7 +5719,7 @@ function redirect(url){
 		document.location.href = url.split('#')[0];
 		return;
 	}
-    
+
 	if(typeof(url)=='object' && url.doubleLink && false){
 		window.location.href = url[0];
 		document.location.reload();
@@ -5829,7 +5836,7 @@ function saveUltima(){
 //retorna una lista con las pags bookmarkeadas para este sitio en formato [{url:'...', title:'...'}]
 function getListaBookmarks(reloadCache){
 	var lista = getData('bm', '', '', reloadCache);
-	if(lista == '') return [];
+	if(lista === '') return [];
 
 	//convierte el formato viejo
 	if(typeof(lista) == 'string'){
@@ -5849,7 +5856,7 @@ function getListaBookmarksTodos(reloadCache){
 	for(var sitio in dataCache){
 		if(!dataCache[sitio].bm || sitio == este) continue;
 
-		lista = dataCache[sitio].bm
+		lista = dataCache[sitio].bm;
 		//convierte el formato viejo
 		if(typeof(lista) == 'string'){
 			lista = lista.split('|wcrbm|');
@@ -5873,8 +5880,8 @@ function saveListaBookmarks(lista){
 //agrega un item al div con los bookmarks
 function addLista(item){
 	var a = document.createElement('a');
-	a.href = a.title = item['url'];
-	a.innerHTML = item['title']+' ';
+	a.href = a.title = item.url;
+	a.innerHTML = item.title+' ';
 
 	var btndel = document.createElement('button');
 	btndel.innerHTML = 'Delete';
@@ -5891,7 +5898,7 @@ function addLista(item){
 function addBookmark(evt){
 	var lista = getListaBookmarks(true);
 	for(var i=0;i<lista.length;i++){
-		if(lista[i]['url']==link[posActual]) return;
+		if(lista[i].url==link[posActual]) return;
 	}
 	var url = link[posActual];
 	if(typeof(url)=='object' && url.doubleLink){
@@ -5981,11 +5988,11 @@ function confBool(conf, defval, defpag, reloadCache){
 //busca una conf especifica para esta pag, si no hay usa la default, si tampoco hay usa defval
 function confVal(conf, defval, defpag, reloadCache){
 	var val = getData(conf, '', undefined, reloadCache);
-	if(val == ''){
+	if(val === ''){
 		if(defpag !== undefined) val = defpag;
 		else val = getData(conf, '', 'default');
 	}
-	if(val == '') return defval;
+	if(val === '') return defval;
 	return val;
 }
 
@@ -7169,14 +7176,14 @@ function trExtraConfSitio(p, prop){
 	setEvt('wcr_btn_up_'+p, 'click', function(evt){
 		var tr = evt.target.parentNode.parentNode.parentNode;
 		var otro = tr.previousSibling;
-		if(otro.id.indexOf('wcr_tr_sitio_extra_')==0){
+		if(otro.id.indexOf('wcr_tr_sitio_extra_')===0){
 			tr.parentNode.insertBefore(tr, otro);
 		}
 	});
 	setEvt('wcr_btn_down_'+p, 'click', function(evt){
 		var tr = evt.target.parentNode.parentNode.parentNode;
 		var otro = tr.nextSibling;
-		if(otro.id.indexOf('wcr_tr_sitio_extra_')==0){
+		if(otro.id.indexOf('wcr_tr_sitio_extra_')===0){
 			tr.parentNode.insertBefore(otro, tr);
 		}
 	});
@@ -7249,7 +7256,7 @@ function guardarSettings(teclas, props, tiposUp, opsLayout){
 					try{
 						var xx = [];
 						var extras = selCss('tr.wcr_extras', document, true);
-						for(i=0; i<extras.length; i++){
+						for(var i=0; i<extras.length; i++){
 							try{
 								var p2 = extras[i].id.match(/extra_\d+$/)[0];
 								var x = parsearElementoConfSitio(p2);
@@ -7261,7 +7268,7 @@ function guardarSettings(teclas, props, tiposUp, opsLayout){
 				}
 				else{
 					try{
-						x = parsearElementoConfSitio(p);
+						var x = parsearElementoConfSitio(p);
 						if(x) customPag[p] = x;
 					}catch(e){ ok = false; }
 				}
@@ -7309,7 +7316,7 @@ function parsearElementoConfSitio(p){
 				ok = false;
 			}
 			if(elems.length>1){
-				if(!elems[1].value.match(/^\d+$/) || Number(elems[1].value)==0){
+				if(!elems[1].value.match(/^\d+$/) || Number(elems[1].value)===0){
 					alert(p+': "'+elems[1].value+'" is not a valid number');
 					ok = false;
 				}
@@ -7501,13 +7508,13 @@ function strToRegexp(url){
 function printarPaginaCustom(custom){
 	changeQuote = function(x) { // Changes a double quoted string to a single quoted one
 	    return x.replace(/\\"/g, '"').replace(/\'/g, "\\'").replace(/^"|"$/g, "'");
-	}
-	
+	};
+
 	function indent(x, n) {
 	    var indention = new Array((n||0) + 1).join("\t");
 	    return x.toString().replace(/\n/g,'\n'+ indention);
 	}
-	
+
 	function pretty(y) {
 		if (y.tipo == "str") return  changeQuote(JSON.stringify(y.valor));
 		if (typeof(y) == "string") return changeQuote(JSON.stringify(y));
@@ -7524,7 +7531,7 @@ function printarPaginaCustom(custom){
 	var x = custom;
 	z += "\t{\n";
 	for (var i in x) {
-		if (x[i].length == 0) continue;
+		if (x[i].length === 0) continue;
 		var z1 = "\t\t" + i + ":\t" + pretty(x[i]) + ",\n";
         z += z1;
 	}
