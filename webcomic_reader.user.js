@@ -4673,12 +4673,13 @@ function run_script(){
 // Disables common scripts that breaks WCR
 function fixbadjs(){
 	// Injected by jumpbar.js from TheHiveWorks
-	if ("breakbadtoys" in unsafeWindow) {
-		debugger
-		console.log("Disabling anti-wcr code");
-		window.removeEventListener('load', unsafeWindow.breakbadtoys, true);
-		unsafeWindow.breakbadtoys = null;
-	}
+	exec(
+	'if ("breakbadtoys" in window) {'+
+		'debugger;'+
+		'console.log("Disabling anti-wcr code");'+
+		'window.removeEventListener("load", window.breakbadtoys, true);'+
+		'window.breakbadtoys = null;'+
+	'}');
 }
 
 //setear el html nuevo y rellenarlo con los datos de la pag actual, aparte de prefetchear la de adelante y atras
