@@ -949,6 +949,10 @@ var paginas = [
 					var img = comic.getElementsByTagName('img')[0];
 					img.parentNode.removeChild(img);
 					return comic;
+				}, function(html, pos){
+					var nr = link[pos].match(/(\d+)\/$/)[1];
+					var url = 'http://www.explainxkcd.com/wiki/index.php/' + nr;
+					return '<a target=\"_blank\" href=\"' + url + '\">Explain Xkcd</a>';
 				}],
 		bgcol:	'#fff'
 	},
