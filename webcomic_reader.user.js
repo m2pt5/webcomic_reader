@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.08.30
+// @version        2016.08.30-1
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -817,6 +817,7 @@ var defaultSettings = {
 // @include        https://nhentai.net/g/*
 // @include        http://www.marycagle.com/*
 // @include        http://www.sleeplessdomain.com/*
+// @include        http://www.webtoons.com/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -2999,6 +3000,23 @@ var paginas = [
 		extra:	[[['.wt_viewer img', '<br/>', 1]]],
 		style:	'.wt_viewer>img{display:none;}'
 	},
+	{
+		url:	'webtoons.com',
+		img:	['//*[@id="_imageList"]/img/@data-url'],
+		back:	[['.pg_prev']],
+		next:	[['.pg_next']],
+		extra:	[[['#_imageList']]],
+		layelem:	'//*[@id="_imageList"]',
+		js:	function(dir){
+				// Refresh webtoon's image loading script
+				exec("oVisible.refresh();oVisible.check()");
+				// Click on any img
+				var elemImagen = document.querySelectorAll('#wcr_extra img');
+				setEvt(elemImagen, 'click', imgClick);
+				setEvt(elemImagen, 'mousemove', imgCursor);
+				},
+		style:	'#wcr_imagen{display:none;}',
+	},
 	{	url:	'mangatraders.com',
 		img:	[['#image']],
 		back:	[/value="Prev Page" onclick="window.location.href='([^']+)'"/, 1],
@@ -4040,7 +4058,7 @@ var paginas = [
 			  eval(syncRequest("ComicNotes.js",0));
 			  link.extraNotes = n; // For lack of a better place to store it
 			}
-			
+
 			if(comicNr == 269 || comicNr >= 275) {
 			  return 'comics/AGC' + comic_number + '.swf';
 			} else {
