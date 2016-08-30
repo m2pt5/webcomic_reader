@@ -5682,14 +5682,9 @@ function imgClick(evt){
 function imgDerecha(evt){
 	if(!leftImageClick) return true;
 	var img = evt.currentTarget;
-	var left = 0;
-	var offset = img;
-	while(offset){
-		left += offset.offsetLeft;
-		offset = offset.offsetParent;
-	}
-	if(img.style.paddingLeft) left += Number(img.style.paddingLeft.match(/\d+/)[0]);
-	left -= window.scrollX;
+	var left = img.getBoundingClientRect().left;
+	left += Number(getComputedStyle(img).paddingLeft.match(/\d+/)[0]);
+	//left -= window.scrollX;
 	var x = evt.clientX - left;
 	var w = img.width || img.offsetWidth;
 	return x/w>0.5;
