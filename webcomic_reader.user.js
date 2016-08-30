@@ -1952,7 +1952,9 @@ var paginas = [
 		scrollx:'R',
 		onerr:	function(url, img, num, pos){
 					if(num >= 4) return null;
-					var nl = extra[pos].innerHTML.match(/nl\((\d+)\)/)[1];
+					//var nl = extra[pos].innerHTML.match(/nl\((\d+)\)/)[1];
+					var nl = get('loadfail').getAttribute('onclick').match(/\(\'(.*)\'\)/)[1];
+					console.log(nl);
 					var u = url.split('?nl=');
 					if(u[1] == nl) return null;
 					return {url: u[1] + '?nl=' + nl };
