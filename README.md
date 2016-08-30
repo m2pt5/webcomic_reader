@@ -59,11 +59,11 @@ There's a version of Tampermonkey for Android, but I haven't tested it, though r
 
 If the browser you use doesn't support userscripts, you can use a bookmarklet to load it instead. Just copy the following code and add it as a bookmark, and when you want to use the script, go to the site you want to read and load that bookmark.
 ```javascript
-javascript: (function(){ document.body.appendChild(document.createElement("script")).src = "http://dl.dropbox.com/u/976471/webcomic_reader.user.js"; })();
+javascript: (function(){ document.body.appendChild(document.createElement("script")).src = "https://gitcdn.link/repo/anka-213/webcomic_reader/master/webcomic_reader.user.js"; })();
 ```
 Notice that this will download the script everytime you want to use it, so it will take more time to start. Also, the same drawbacks mentioned for Opera will apply. Avoid this technique if you can use a proper Greasemonkeysh extension.
-For step by step instructions on how to do this on an iPad, read [this topic](http://userscripts.org/topics/70361). I have only tested this on an iPad, iPhone and the major PC browsers and it works as expected, except on Internet Explorer (which you shouldn't be using anyway)
-Thanks to [krunkster](http://userscripts.org/users/308335) for this trick ;)
+For step by step instructions on how to do this on an iPad, read [this topic](http://userscripts-mirror.org/topics/70361). I have only tested this on an iPad, iPhone and the major PC browsers and it works as expected, except on Internet Explorer (which you shouldn't be using anyway)
+Thanks to [krunkster](http://userscripts-mirror.org/users/308335) for this trick ;)
 
 #### Internet Explorer
 
