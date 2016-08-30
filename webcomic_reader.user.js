@@ -4418,7 +4418,10 @@ var layoutDefault =
 				'<button id="wcr_btn1">Next</button> '+
 				'<a id="wcr_last" href="#">Last &gt;&gt;</a>'+
 			'</div><br/>'+
-			'<div><button id="wcr_btnaddbm" style="background-color:#0f0">Remember this page</button></div>'+
+			'<div>'+
+				'<button id="wcr_btnaddbm" style="background-color:#0f0">Remember this page</button>'+
+				'<select id="wcr_pages" autocomplete="off"><optgroup label="Preloaded pages"/></select> '+
+			'</div>'+
 			'<div id="wcr_listabm"></div>'+
 			'<div id="wcr_div_listabm_todos" style="display:none">'+
 				'<br/><a id="wcr_toggle_bm" href="#toggleBms">See bookmarks for other sites</a>'+
@@ -4783,6 +4786,7 @@ function iniciar(){
 		setEvt(window, 'resize', fitImagen);
 		setEvt('wcr_btn1', 'click', btnnext);
 		setEvt('wcr_btn-1', 'click', btnback);
+		setEvt('wcr_pages', 'change', btnjump);
 		if(clickImgNavigates){
 			setEvt(elemImagen, 'click', imgClick);
 			setEvt(elemImagen, 'mousemove', imgCursor);
@@ -4873,6 +4877,17 @@ function setear(html, pos, dir){
                 }
 			}
 		}
+
+		// Update list of pages
+		try {
+		var pagelist = "";
+		for (var i of Object.keys(titulo).sort((a,b)=>a-b)) {
+			pagelist += '<option value="'+ i +'" title="'+link[i]+'"' +
+				(i==posActual?" selected":"") + '>' +
+				titulo[i]+"</option>";
+		};
+		get("wcr_pages").children[0].innerHTML= pagelist;
+		} catch(e) {}
 
 		extra[pos] = '';
 		if(getExtras){
@@ -4965,6 +4980,9 @@ function cambiaPag(dir, poppedState, slidden){
 		get('wcr_btnaddbm').title = link[posActual];
 		get('wcr_btn1').title = link[posActual + 1] + (imagen[posActual + 1] === null ? ' (image not found)' : '');
 		get('wcr_btn-1').title = link[posActual - 1] + (imagen[posActual - 1] === null ? ' (image not found)' : '');
+
+		// Update list of pages
+		selCss('#wcr_pages option[value="'+posActual+'"]').selected = true;
 
 		var xel = get('wcr_extra');
 		if(keepLayout && extraElement){
@@ -5579,6 +5597,21 @@ function btnback(evt){
 	evt.preventDefault();
 	return false;
 }
+
+//onchange page selector
+function btnjump(evt){
+	debugger;
+	var step = get("wcr_pages").value - posActual;
+	var dir = Math.sign(step);
+	// Jump to one step before the target
+	posActual += step - dir;
+	// And then take a single step
+	if(dir) {cambiaPag(dir);}
+	evt.stopPropagation();
+	evt.preventDefault();
+	return false;
+}
+
 
 //para recordar donde parten los swipes
 var touchpos = {x:0, y:0, t:0};
