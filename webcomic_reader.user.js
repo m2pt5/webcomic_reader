@@ -4917,7 +4917,7 @@ function setear(html, pos, dir){
 		var pagelist = "";
 		for (var i of Object.keys(titulo).sort(function(a,b){return a-b;})) {
 			debugger;
-			if (IsNumeric(i)){
+			if (!IsNaN(i)){
 				pagelist += '<option value="'+ i +'" title="'+link[i]+'"' +
 					(i==posActual?" selected":"") + '>' +
 					titulo[i]+"</option>";
