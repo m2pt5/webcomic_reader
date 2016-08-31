@@ -43,10 +43,11 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader - beta
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2015.12.13
-// @namespace      https://github.com/anka-213/webcomic_reader
+// @version        2016.08.31
+// @namespace      https://github.com/anka-213/webcomic_reader/tree/beta
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
+// @supportURL     https://github.com/anka-213/webcomic_reader/issues
 // @updateURL      https://raw.githubusercontent.com/anka-213/webcomic_reader/master/webcomic_reader.user.js
 // @updatetype     24
 // @grant          GM_getValue
@@ -59,6 +60,8 @@ var defaultSettings = {
 // @include        http://sluggy.com/*
 // @include        http://www.penny-arcade.com/comic*
 // @include        http://penny-arcade.com/comic*
+// @include        https://www.penny-arcade.com/comic*
+// @include        https://penny-arcade.com/comic*
 // @include        http://www.xkcd.com/*
 // @include        http://xkcd.com/*
 // @include        http://www.xkcd.org/*
@@ -84,6 +87,7 @@ var defaultSettings = {
 // @include        http://www.phdcomics.com/*
 // @include        http://www.cad-comic.com/*
 // @include        http://www.smbc-comics.com/*
+// @include        http://smbc-comics.com/*
 // @include        http://abstrusegoose.com/*
 // @include        http://thedoghousediaries.com/*
 // @include        http://www.erfworld.com/*
@@ -407,6 +411,7 @@ var defaultSettings = {
 // @include        http://www.bearandtiger.com/*
 // @include        http://mangatopia.net/*
 // @include        http://exhentai.org/*
+// @include        https://exhentai.org/*
 // @include        http://www.wigucomics.com/*
 // @include        http://www.mankin-trad.net/*
 // @include        http://mankin-trad.net/*
@@ -495,7 +500,7 @@ var defaultSettings = {
 // @include        http://goldenagecomics.co.uk/*
 // @include        http://fourcolorshadows.blogspot.com/*
 // @include        http://thehorrorsofitall.blogspot.com/*
-// @include        http://bato.to/reader*
+// @include        *//bato.to/reader*
 // @include        http://www.eegra.com/*
 // @include        http://www.octopuspie.com/*
 // @include        http://www.lovemenicecomic.com/*
@@ -527,6 +532,7 @@ var defaultSettings = {
 // @include        http://ravensdojo.com/*
 // @include        http://freefall.purrsia.com/*
 // @include        http://www.mangachapter.net/*
+// @include        http://www.mangachapter.me/*
 // @include        http://www.shd-wk.com/*
 // @include        http://shd-wk.com/*
 // @include        http://www.pepsaga.com/*
@@ -563,6 +569,7 @@ var defaultSettings = {
 // @include        http://*.thewebcomic.com/*
 // @include        http://www.mangapark.com/*
 // @include        http://mangapark.com/*
+// @include        http*://mangapark.me/*
 // @include        http://www.manga-go.com/*
 // @include        http://www.comicstriplibrary.org/display/*
 // @include        http://comicstriplibrary.org/display/*
@@ -653,8 +660,6 @@ var defaultSettings = {
 // @include        http://www.animephile.com/*
 // @include        http://hentaistreamer.com/*
 // @include        http://kissmanga.com/*
-// @include        http://www.readmangahentai.com/*
-// @include        http://readmangahentai.com/*
 // @include        http://www.mangatank.com/*
 // @include        http://www.snowflakescomic.com/*
 // @include        http://mangafox.mobi/*
@@ -693,7 +698,7 @@ var defaultSettings = {
 // @include        http://bradcolbow.com/*
 // @include        http://www.gaomanga.com/*
 // @include        http://www.theherobiz.com/*
-// @include        http://guildedage.net/comic/*
+// @include        http://guildedage.net/*
 // @include        http://betweenfailures.com/*
 // @include        http://www.claudeandmonet.com/*
 // @include        http://phobia.subcultura.es/tira/*
@@ -702,8 +707,8 @@ var defaultSettings = {
 // @include        http://proxer.me/*
 // @include        http://www.demanga.com/*
 // @include        http://www.meinmanga.com/*
-// @include        http://www.senmanga.com/*
-// @include        http://raw.senmanga.com/*
+// @include        http*://www.senmanga.com/*
+// @include        http*://raw.senmanga.com/*
 // @include        http://www.mangaesta.net/*
 // @include        http://www.mabuns.web.id/*
 // @include        http://www.manga4indo.com/*
@@ -791,10 +796,29 @@ var defaultSettings = {
 // @include        http://www.omgbeaupeep.com/*
 // @include        http://orgymania.net/*
 // @include        http://mspaintadventures.com/*
-// @include        http://daisyowl.com/*
+// @include        http://www.mspaintadventures.com/*
+// @include        http://mspfanventures.com/
 // @include        http://agc.deskslave.org/comic_viewer.html
- 
- 
+// @include        http://www.readmanga.today/*
+// @include        http://www.mangatown.com/manga/*
+// @include        http://www.mymanga.me/manga/*
+// @include        http://www.blindsprings.com/comic/*
+// @include        http://www.legostargalactica.net/*
+// @include        http://hentaihere.com/m/*/*/*
+// @include        http://gomanga.co/reader/read*
+// @include        http://mangafap.com/image/*
+// @include        http://*.keenspot.com/*
+// @include        http://dynasty-scans.com/*
+// @include        http://*.dynasty-scans.com/*
+// @include        http://mangasee.co/manga/*
+// @include        http://mangafast.online/manga/*
+// @include        http://www.demonicscans.com/FoOlSlide/read/*
+// @include        http://raws.yomanga.co/read/*
+// @include        http://*.dm5.com/m*
+// @include        https://nhentai.net/g/*
+// @include        http://www.marycagle.com/*
+// @include        http://www.sleeplessdomain.com/*
+// @include        http://www.webtoons.com/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -840,7 +864,7 @@ try{
 			boton.innerHTML = txt;
 			setEvt(boton, 'click', fun);
 			document.body.appendChild(boton);
-		}
+		};
 	}
 }catch(e){}
 
@@ -909,6 +933,7 @@ var paginas = [
 
 	{	url:	'penny-arcade.com',
 		img:	[['#comicFrame img']],
+		fixurl:	function(url, img, link, pos){return url.replace("http:","");},
 		extra:	[[['.title h2']]],
 		style:	'#bb,#header{position:relative;}'
 	},
@@ -926,6 +951,10 @@ var paginas = [
 					var img = comic.getElementsByTagName('img')[0];
 					img.parentNode.removeChild(img);
 					return comic;
+				}, function(html, pos){
+					var nr = link[pos].match(/(\d+)\/$/)[1];
+					var url = 'http://www.explainxkcd.com/wiki/index.php/' + nr;
+					return '<a target=\"_blank\" href=\"' + url + '\">Explain Xkcd</a>';
 				}],
 		bgcol:	'#fff'
 	},
@@ -961,7 +990,7 @@ var paginas = [
 		extra:	[['//title/text()'], ' - ', ['//td/font/i/b/text()'], ['//img[contains(@src, "/comics/archive/")]/following-sibling::table']]
 	},
 	{	url:	'smbc-comics.com',
-		img:	[['#comic']],
+		img:	[['#cc-comicbody img']],
 		back:	[['.prev']],
 		next:	[['.next']],
 		extra:	[['//div[@id="aftercomic"]/img[contains(@src,"/")]'], [['.cc-newscontent:first-of-type']]],
@@ -1239,7 +1268,7 @@ var paginas = [
 						chap = selchap[selchap.selectedIndex-1].value;
 						page = 0;
 					}
-					else throw 'primera pag del primer cap';
+					else throw new Error('primera pag del primer cap');
 
 					return [link[0],
 						'chapter=' + chap + '&chapter_hid=' + chap +
@@ -1261,7 +1290,7 @@ var paginas = [
 						chap = selchap[selchap.selectedIndex+1].value;
 						page = 0;
 					}
-					else throw 'ultima pag del ultimo cap';
+					else throw new Error('ultima pag del ultimo cap');
 
 					return [link[0],
 						'chapter=' + chap + '&chapter_hid=' + chap +
@@ -1499,7 +1528,7 @@ var paginas = [
 						var htmlPrev = syncRequest(chap, pos);
 						return chap + "/" + xpath('//select[@id="page_select"]/option[last()]/@value', htmlPrev);
 					}
-					throw 'fail';
+					throw new Error('fail');
 				},
 		next:	function(html, pos){
 					var selpag = selCss('#page_select', html);
@@ -1513,7 +1542,7 @@ var paginas = [
 						return "http://reader.imangascans.org/" +
 							pars[1] + "/" + selchap.options[selchap.selectedIndex + 1].value;
 					}
-					throw 'fail';
+					throw new Error('fail');
 				},
 		extra:	[['//div[@class="pager"]']],
 		xelem:	'//div[@class="pager"]/..',
@@ -1601,7 +1630,7 @@ var paginas = [
 					var x = link[0].match(/page=(\d+)/);
 					x = Number(x ? x[1] : 0)+pos;
 					if(!x) return '.';
-					if(x<0 || x>thumbs.length) throw 'fail';
+					if(x<0 || x>thumbs.length) throw new Error('fail');
 					x = x.toString();
 					while(x.length<3) x='0'+x;
 					return html.match(/'([^']+\/images\/manga\/[^']+)'/)[1] + x + '.jpg'; 
@@ -1610,14 +1639,14 @@ var paginas = [
 					var thumbs = JSON.parse(match(html, /params\.thumbs\s*=\s*(.+);/, 1));
 					var x = link[0].match(/page=(\d+)/);
 					x = Number(x ? x[1] : 0)+pos-1;
-					if(x<0 || x>thumbs.length) throw 'fail';
+					if(x<0 || x>thumbs.length) throw new Error('fail');
 					return link[0].replace(/#.+/, '')+'##page='+x;
 				},
 		next:	function(html, pos){
 					var thumbs = JSON.parse(match(html, /params\.thumbs\s*=\s*(.+);/, 1));
 					var x = link[0].match(/page=(\d+)/);
 					x = Number(x ? x[1] : 0)+pos+1;
-					if(x<0 || x>thumbs.length) throw 'fail';
+					if(x<0 || x>thumbs.length) throw new Error('fail');
 					return link[0].replace(/#.+/, '')+'##page='+x;
 				},
 		js:		function(dir){
@@ -1910,7 +1939,7 @@ var paginas = [
 					for(var i=0; i<as.length; i++)
 						if(as[i].href.match(new RegExp('-'+(num-1)+'(\\?|$)')))
 							return as[i].href;
-					throw 'fail';
+					throw new Error('fail');
 				},
 		next:	function(html, pos){
 					var num = Number(link[pos].match(/-(\d+)(\?.+)?$/)[1]);
@@ -1918,7 +1947,7 @@ var paginas = [
 					for(var i=0; i<as.length; i++)
 						if(as[i].href.match(new RegExp('-'+(num+1)+'(\\?|$)')))
 							return as[i].href;
-					throw 'fail';
+					throw new Error('fail');
 				},
 		extra:	[['//div[span]'], '<span style="display:none">', ['//a[@onclick[contains(., "nl")]]'], '</span>'],
 		scrollx:'R',
@@ -2109,10 +2138,15 @@ var paginas = [
 					if(!dir) document.onkeyup = '';
 				}
 	},
-	{	url:	'kiwiblitz.com|thepunchlineismachismo.com|zombieboycomics.com',
-		img:	[['#comic-1 img']],
+	{	url:	'kiwiblitz.com',
+		img:	[['#cc-comic']],
+		extra:	[[['.cc-newsarea']]],
+		style:	'#cc-comicbody{position: relative !important;} #pixiestrip {visibility: hidden;}',
+	},
+	{	url:	'thepunchlineismachismo.com|zombieboycomics.com',
+		img:	[['#comic img']],
 		extra:	[[['.entry']]],
-		style:	'#wcr_div button{float:none;}'
+		style:	'#wcr_div button{float:none;}',
 	},
 	{	url:	'kafkaskoffee.com',
 		img:	[['.webcomic-object img']],
@@ -2187,7 +2221,8 @@ var paginas = [
 		extra:	[[['.newsBox p', '']]]
 	},
 	{	url:	'nerfnow.com',
-		extra:	[[['.comment']]]
+		img:	[['#comic img']],
+		extra:	[[['.comment']]],
 	},
 	{	url:	'zapcomic.com',
 		img:	'http://www.zapcomic.com?comic_object='
@@ -2272,9 +2307,9 @@ var paginas = [
 
 					if(page < pages)
 						return path + "manga/" + escape(manga) + "/" + escape(chapter) + "/p-" + (page+1);
-					if(nextChapter != "")
+					if(nextChapter !== "")
 						return path + "manga/" + escape(manga) + "/" + escape(nextChapter) + "/p-1";
-					throw 'fin';
+					throw new Error('fin');
 				},
 		extra:	[[['.mangareader select', '']]],
 		scrollx:'R'
@@ -2476,11 +2511,11 @@ var paginas = [
 					return get('img_'+pos).href;
 				},
 		back:	function(html, pos){
-					if(!pos) throw 'fail';
+					if(!pos) throw new Error('fail');
 					return '##'+(pos-1);
 				},
 		next:	function(html, pos){
-					if(!get('img_'+(pos+1))) throw 'fail';
+					if(!get('img_'+(pos+1))) throw new Error('fail');
 					return '##'+(pos+1);
 				},
 		layelem:'//div'
@@ -2493,7 +2528,7 @@ var paginas = [
 					return aimgs[pos-num].href;
 				},
 		back:	function(html, pos){
-					throw 'fail';
+					throw new Error('fail');
 				},
 		next:	function(html, pos){
 					if(!pos) return '##0;1';
@@ -2519,8 +2554,8 @@ var paginas = [
 			try {
 				return selCss("#comic_page", html, 0);
 			} catch (e) { // Not loaded yet
-				if (pos == 0) setTimeout(run_script, 2000);
-				throw e;
+				if (pos === 0) setTimeout(run_script, 2000);
+				throw new Error(e);
 			}
 		},
 		back:	function(html, pos) {
@@ -2531,7 +2566,7 @@ var paginas = [
 				url = xpath('//a[img[@title="Previous Chapter"]]', html).href;
 			}
 
-			url2 = url.replace(/#[^_]*$/, "$&_1").replace("reader#", "areader?id=").replace("_", "&p=");
+			url2 = url.replace(/#[^_]*$/, "$&_1").replace("reader#", "areader?id=").replace("_", "&p=").replace("http:","");
 			var both = [url, url2];
 			both.doubleLink = true;
 			return both;
@@ -2543,7 +2578,7 @@ var paginas = [
 			} catch (e) {
 				url = xpath('//a[img[@title="Next Chapter"]]', html).href;
 			}
-			url2 = url.replace(/#[^_]*$/, "$&_1").replace("reader#", "areader?id=").replace("_", "&p=");
+			url2 = url.replace(/#[^_]*$/, "$&_1").replace("reader#", "areader?id=").replace("_", "&p=").replace("http:","");
 			var both = [url, url2];
 			both.doubleLink = true;
 
@@ -2554,7 +2589,7 @@ var paginas = [
 				function(html, pos){
 					var xs = selCss('.moderation_bar select', null, true);
 					for(var i =0; i<xs.length; i++) {
-						xs[i].addEventListener('change', function(){document.location.reload()})
+						xs[i].addEventListener('change', function(){document.location.reload();});
 					}
 					return "";
 				}],
@@ -2564,7 +2599,7 @@ var paginas = [
 				},
 		layelem:'//img[@id="comic_page"]',
 		js:	function(dir) {
-			if (dir == 0 && typeof(link[0]) == 'string') {
+			if (dir === 0 && typeof(link[0]) == 'string') {
 				url = link[0];
 				url2 = url.replace(/#[^_]*$/, "$&_1").replace("reader#", "areader?id=").replace("_", "&p=");
 				var both0 = [url, url2];
@@ -2668,7 +2703,7 @@ var paginas = [
 		back:	'contains(.,"Previous")',
 		next:	'contains(.,"Next")'
 	},
-	{	url:	'mangachapter.net',
+	{	url:	'mangachapter.',
 		img:	[['#mangaImg']],
 		back:	function(html, pos){
 					try{ return xpath('//a[.="Previous page"]', html); }
@@ -2851,10 +2886,11 @@ var paginas = [
 					return html.match(/img_url.push\('.+' \);/g)[num].match(/'(.+)'/)[1];
 				},
 		back:	function(html, pos){
+					var base;
 					var num = link[pos].match(/(##.*_|\/)(\d+)$/);
 					num = num ? parseInt(num[2])-1 : 0;
 					if(!num){
-						var base = '/' + html.match(/var prev_chap = '(.+)';/)[1] + '/';
+						base = '/' + html.match(/var prev_chap = '(.+)';/)[1] + '/';
 						var htmlPrev = syncRequest(base, pos);
 						num = parseInt(htmlPrev.match(/var page_max = parseInt\('(\d+)'\);/)[1]);
 						base += num + '/';
@@ -2867,11 +2903,12 @@ var paginas = [
 					return base+'##'+(pos-1)+'_'+num;
 				},
 		next:	function(html, pos){
+					var base;
 					var num = link[pos].match(/(##.*_|\/)(\d+)$/);
 					num = num ? parseInt(num[2])+1 : 2;
 					var page_max = parseInt(html.match(/var page_max = parseInt\('(.+)'\);/)[1]);
 					if(num > page_max){
-						var base = html.match(/var next_chap = '(.+)';/)[1]+'/1';
+						base = html.match(/var next_chap = '(.+)';/)[1]+'/1';
 						num = 1;
 					}
 					else{
@@ -2898,9 +2935,10 @@ var paginas = [
 	{	url:	'gallery.ryuutama.com/view.php',
 		img:	[['img']],
 		back:	function(html, pos){
+					var page;
 					if(!pos){
 						var manga = html.match(/current_manga = "(.+?)";/)[1];
-						var page = parseInt(html.match(/current_page = "(.+?)";/)[1]) - 1;
+						page = parseInt(html.match(/current_page = "(.+?)";/)[1]) - 1;
 						var total = parseInt(html.match(/total_pages = "(.+?)";/)[1]);
 						if(page) return '/api.php?grab=manga&id='+manga+'&page='+page+'##'+total;
 					}
@@ -2908,13 +2946,14 @@ var paginas = [
 						page = parseInt(link[pos].match(/page=(\d+)/)[1]) - 1;
 						if(page) return link[pos].replace(/page=(\d+)/,'page='+page);
 					}
-					throw 'fail';
+					throw new Error('fail');
 				},
 		next:	function(html, pos){
+					var page, total;
 					if(!pos){
 						var manga = html.match(/current_manga = "(.+?)";/)[1];
-						var page = parseInt(html.match(/current_page = "(.+?)";/)[1]);
-						var total = parseInt(html.match(/total_pages = "(.+?)";/)[1]);
+						page = parseInt(html.match(/current_page = "(.+?)";/)[1]);
+						total = parseInt(html.match(/total_pages = "(.+?)";/)[1]);
 						return '/api.php?grab=manga&id='+manga+'&page='+page+'##'+total;
 					}
 					else{
@@ -2922,7 +2961,7 @@ var paginas = [
 						total = parseInt(link[pos].match(/#(\d+)/)[1]);
 						if(page <= total) return link[pos].replace(/page=(\d+)/,'page='+page);
 					}
-					throw 'fail';
+					throw new Error('fail');
 				},
 		scrollx:'R',
 		layelem:'//div[@id="imageContainer"]'
@@ -2962,6 +3001,23 @@ var paginas = [
 		next:	[['.next a']],
 		extra:	[[['.wt_viewer img', '<br/>', 1]]],
 		style:	'.wt_viewer>img{display:none;}'
+	},
+	{
+		url:	'webtoons.com',
+		img:	['//*[@id="_imageList"]/img/@data-url'],
+		back:	[['.pg_prev']],
+		next:	[['.pg_next']],
+		extra:	[[['#_imageList']]],
+		layelem:	'//*[@id="_imageList"]',
+		js:	function(dir){
+				// Refresh webtoon's image loading script
+				exec("oVisible.refresh();oVisible.check()");
+				// Click on any img
+				var elemImagen = document.querySelectorAll('#wcr_extra img');
+				setEvt(elemImagen, 'click', imgClick);
+				setEvt(elemImagen, 'mousemove', imgCursor);
+				},
+		style:	'#wcr_imagen{display:none;}',
 	},
 	{	url:	'mangatraders.com',
 		img:	[['#image']],
@@ -3045,7 +3101,7 @@ var paginas = [
 					catch(e){ return xpath('//a[.="Previous Chapter"]', html); }
 				},
 		next:	'.="Next" or .="Next Chapter"',
-		extra:	[[['.entry']]]
+		extra:	[[['.entry']]],
 	},
 	{	url:	'fayerwayer.com|niubie.com',
 		img:	[['.attachment-post-full-galeria']],
@@ -3120,58 +3176,48 @@ var paginas = [
 		scrollx:'R',
 		style:	'#container{width:auto;}'
 	},
-	{	url:	'kissmanga.com',
+	{
+		url:	'kissmanga.com',
 		img:	function(html, pos){
 					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
-					var num = pos ? Number(link[pos].match(/##(\d+);/)[1]) : 0;
 
-					return imgs[pos-num].match(/"(.+)"/)[1];
+					var num = 0;
+					try {num = Number(link[pos].match(/##(-?\d+)/)[1]);}
+					catch (e) {num = 0;}
+					if (num == -1) num = imgs.length - 1;
+			
+					return imgs[num].match(/"(.+)"/)[1];
 				},
 		back:	function(html, pos){
-					throw 'fail';
+					var num;
+					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
+			
+					try {num = Number(link[pos].match(/##(-?\d+)/)[1]);}
+					catch (e) {var num = 0;}
+					if (num == -1) num = imgs.length - 1;
+			
+					if (num > 0) return '##' + (num-1);
+			
+					return xpath('//select[(@id|@class)="selectChapter"]/option[@selected]/preceding-sibling::option[1]/@value', html) +
+						'##-1';
 				},
 		next:	function(html, pos){
-					if(!pos) return '##0;1';
-
+					var num;
 					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
-					var num = Number(link[pos].match(/##(\d+);/)[1]);
-
-					if(num+imgs.length > pos+1) return '##' + num + ';' + (pos+1);
-
-					return xpath('//select[@id="selectChapter"]/option[@selected]/following-sibling::option[1]/@value', html) +
-						'##' + (num+imgs.length) + ';' + (pos+1);
+			
+					try {num = Number(link[pos].match(/##(-?\d+)/)[1]);}
+					catch (e) {var num = 0;}
+					if (num == -1) num = imgs.length - 1;
+			
+					if (imgs.length > num+1) return '##' + (num+1);
+			
+					return xpath('//select[(@id|@class)="selectChapter"]/option[@selected]/following-sibling::option[1]/@value', html) +
+						'##0';
 				},
-		scrollx:'R',
-		layelem:'//img[@id="imgCurrent"]'
+		scrollx:	'R',
+		layelem:	'//div[@id="divImage"]',
 	},
-	{	url:	'readmangahentai.com',
-		img:	function(html, pos){
-					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
-					var num = pos ? Number(link[pos].match(/##(\d+);/)[1]) : 0;
-
-					return imgs[pos-num].match(/"(.+)"/)[1];
-				},
-		back:	function(html, pos){
-					throw 'fail';
-				},
-		next:	function(html, pos){
-					if(!pos) return '##0;1';
-
-					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
-					var num = Number(link[pos].match(/##(\d+);/)[1]);
-
-					if(num+imgs.length > pos+1) return '##' + num + ';' + (pos+1);
-
-					return xpath('//select[@id="chapter_select"]/option[@selected]/preceding-sibling::option[1]/@value', html) +
-						'.html##' + (num+imgs.length) + ';' + (pos+1);
-				},
-		scrollx:'R',
-		layelem:'//div[@id="image"]',
-		js:		function(dir){
-					if(!dir) document.onkeyup = '';
-				}
-	},
-	{	url:	'mangatank.com|mangapark.com|mangawindow.com',
+	{	url:	'mangatank.com|mangapark.com|mangawindow.com|mangapark.me',
 		img:	[['.img-link img']],
 		style:	'#wcr_div{line-height:1;}',
 		js:		function(dir){
@@ -3232,8 +3278,8 @@ var paginas = [
 					var code="";
 					var cid=0;
 					for(i=0;i<codes.length;i++){if(codes[i].indexOf(ch+" ")==0){cid=i;code=codes[i];break;};}
-					if(code=="") for(i=0;i<codes.length;i++){if(parseInt(codes[i].split(' ')[0])>ch) {cid=i;code=codes[i];ch=parseInt(codes[i].split(' ')[0]);break;}}
-					if(code=="") {cid=codes.length-1;code=codes[cid];ch=chs;}
+					if(code==="") for(i=0;i<codes.length;i++){if(parseInt(codes[i].split(' ')[0])>ch) {cid=i;code=codes[i];ch=parseInt(codes[i].split(' ')[0]);break;}}
+					if(code==="") {cid=codes.length-1;code=codes[cid];ch=chs;}
 
 					var previd=cid>0?parseInt(codes[cid-1].split(' ')[0]):ch;
 					var nextid=cid<codes.length-1?parseInt(codes[cid+1].split(' ')[0]):ch;
@@ -3260,9 +3306,9 @@ var paginas = [
 					var codes = html.match(/var codes="([^\"]+)"/)[1].split('|');
 					var code="";
 					var cid=0;
-					for(i=0;i<codes.length;i++){if(codes[i].indexOf(ch+" ")==0){cid=i;code=codes[i];break;};}
-					if(code=="") for(i=0;i<codes.length;i++){if(parseInt(codes[i].split(' ')[0])>ch) {cid=i;code=codes[i];ch=parseInt(codes[i].split(' ')[0]);break;}}
-					if(code=="") {cid=codes.length-1;code=codes[cid];ch=chs;}
+					for(i=0;i<codes.length;i++){if(codes[i].indexOf(ch+" ")===0){cid=i;code=codes[i];break;};}
+					if(code==="") for(i=0;i<codes.length;i++){if(parseInt(codes[i].split(' ')[0])>ch) {cid=i;code=codes[i];ch=parseInt(codes[i].split(' ')[0]);break;}}
+					if(code==="") {cid=codes.length-1;code=codes[cid];ch=chs;}
 
 					var previd=cid>0?parseInt(codes[cid-1].split(' ')[0]):ch;
 					var nextid=cid<codes.length-1?parseInt(codes[cid+1].split(' ')[0]):ch;
@@ -3274,7 +3320,7 @@ var paginas = [
 
 					var x = ch+'-'+(p-1);
 					if(p<=1){
-						if(ch<=1) throw 'first';
+						if(ch<=1) throw new Error('first');
 						x = previd;
 					}
 					return link[pos].replace(/ch=.+/, 'ch='+x);
@@ -3290,9 +3336,9 @@ var paginas = [
 					var codes = html.match(/var codes="([^\"]+)"/)[1].split('|');
 					var code="";
 					var cid=0;
-					for(i=0;i<codes.length;i++){if(codes[i].indexOf(ch+" ")==0){cid=i;code=codes[i];break;};}
-					if(code=="") for(i=0;i<codes.length;i++){if(parseInt(codes[i].split(' ')[0])>ch) {cid=i;code=codes[i];ch=parseInt(codes[i].split(' ')[0]);break;}}
-					if(code=="") {cid=codes.length-1;code=codes[cid];ch=chs;}
+					for(i=0;i<codes.length;i++){if(codes[i].indexOf(ch+" ")===0){cid=i;code=codes[i];break;};}
+					if(code==="") for(i=0;i<codes.length;i++){if(parseInt(codes[i].split(' ')[0])>ch) {cid=i;code=codes[i];ch=parseInt(codes[i].split(' ')[0]);break;}}
+					if(code==="") {cid=codes.length-1;code=codes[cid];ch=chs;}
 
 					var previd=cid>0?parseInt(codes[cid-1].split(' ')[0]):ch;
 					var nextid=cid<codes.length-1?parseInt(codes[cid+1].split(' ')[0]):ch;
@@ -3304,7 +3350,7 @@ var paginas = [
 
 					var x = ch+'-'+(p+1);
 					if(p>=page){
-						if(ch>=chs) throw 'last';
+						if(ch>=chs) throw new Error('last');
 						x = nextid;
 					}
 					return link[pos].replace(/ch=.+/, 'ch='+x);
@@ -3410,14 +3456,14 @@ var paginas = [
 					var pageid = match(html, /var pageid = (\w+);/, 1);
 					var pages = match(html, /var pages=new Array\((.+?)\);/, 1).split(',');
 					var idx = pages.indexOf(pageid);
-					if(!pages[idx-1]) throw 'fail';
+					if(!pages[idx-1]) throw new Error('fail');
 					return link[pos].replace(pageid, pages[idx-1]);
 				},
 		next:	function(html, pos){
 					var pageid = match(html, /var pageid = (\w+);/, 1);
 					var pages = match(html, /var pages=new Array\((.+?)\);/, 1).split(',');
 					var idx = pages.indexOf(pageid);
-					if(!pages[idx+1]) throw 'fail';
+					if(!pages[idx+1]) throw new Error('fail');
 					return link[pos].replace(pageid, pages[idx+1]);
 				},
 		style:	'.pull-left{max-width:none !important;}',
@@ -3449,7 +3495,7 @@ var paginas = [
 					x = link[0].match(/[&?]ipage=(.*?)(&|$)/i);
 					x = Number(x ? x[1] : 0) + pos;
 					if(!x) return '.';
-					if(x<0 || x>data.length) throw 'fail';
+					if(x<0 || x>data.length) throw new Error('fail');
 					return data[x-1].getAttribute('image-src') || data[x-1].href;
 				},
 		back:	function(html, pos){
@@ -3457,7 +3503,7 @@ var paginas = [
 					pgregex = /(\\?|\\&)ipage=(.*?)(?=(&|$))/i,
 					x = link[0].match(pgregex);
 					x = Number(x ? x[2] : 0) + pos - 1;
-					if (x<0 || x>data.length) throw 'fail';
+					if (x<0 || x>data.length) throw new Error('fail');
 					if (!x) return link[0].replace(/#.*$|(\\?|\\&)ipage=(.*?)(&|$)/gi, '');
 					if (pgregex.test(link[0])) return link[0].replace(pgregex, '$1ipage=' + x);
 					return link[0].replace(/#.*$/, '') + (/\?./.test(link[0])?'&':'?') + 'ipage=' + x;
@@ -3467,7 +3513,7 @@ var paginas = [
 					pgregex = /(\\?|\\&)ipage=(.*?)(?=(&|$))/i,
 					x = link[0].match(pgregex);
 					x = Number(x ? x[2] : 0)+pos+1;
-					if(x<0 || x>data.length) throw 'fail';
+					if(x<0 || x>data.length) throw new Error('fail');
 					if (pgregex.test(link[0])) return link[0].replace(pgregex, '$1ipage=' + x);
 					return link[0].replace(/#.*$/, '') + (/\?./.test(link[0])?'&':'?') + 'ipage=' + x;
 				},
@@ -3475,7 +3521,7 @@ var paginas = [
 					function(html, pos){
 						var data = document.querySelectorAll('a.sigProLink'),
 						x = link[0].match(/[&?]ipage=(.*?)(&|$)/i);
-						if (!(data && data.length)) throw 'fail';
+						if (!(data && data.length)) throw new Error('fail');
 						x = Number(x ? x[1] : 0)+pos;
 						if (!x) return "<br/>Thumbs";
 						var filename = data[x-1].getAttribute('image-src') || data[x-1].href;
@@ -3555,10 +3601,10 @@ var paginas = [
 					var p = parseInt(match(link[pos], /[?&]p=(\d+)/, 1, 1)) - 1;
 					if(!p){
 						c--;
-						p=1
+						p=1;
 					}
 					console.log([pos,-1,c,p]);
-					if(!c) throw 'inicio';
+					if(!c) throw new Error('inicio');
 					return link[pos].replace(/&[cp]=\d+/g, '') + '&c='+c+'&p='+p;
 				},
 		next:	function(html, pos){
@@ -3595,14 +3641,14 @@ var paginas = [
 					catch(e){ return selCss('#picture', html); }
 				},
 		back:	function(html, pos){
-					try{ return xpath('//a[.="Back"]', html); }
+					try{ return xpath('//a[.="Previous Page"]', html); }
 					catch(e){
 						var manga = document.location.pathname.match(/^\/[^\/]+\//)[0];
 						return manga + xpath('//select[@name="chapter"]/option[@selected]/following-sibling::option[1]/@value', html);
 					}
 				},
 		next:	function(html, pos){
-					try{ return xpath('//a[.="Next"]', html); }
+					try{ return xpath('//a[.="Next Page"]', html); }
 					catch(e){
 						var manga = document.location.pathname.match(/^\/[^\/]+\//)[0];
 						return manga + xpath('//select[@name="chapter"]/option[@selected]/preceding-sibling::option[1]/@value', html);
@@ -3619,13 +3665,13 @@ var paginas = [
 		back:	function(html, pos){
 					var page = match(link[pos], /page=(\d+)$/, 1, 1);
 					if(--page) return link[pos].replace(/(##page=\d+)?$/, '##page='+page);
-					throw 'first';
+					throw new Error('first');
 				},
 		next:	function(html, pos){
 					var page = match(link[pos], /page=(\d+)$/, 1, 1);
 					var pages = html.match(/addpage\('(.+)?'.*\)/g);
 					if(++page <= pages.length) return link[pos].replace(/(##page=\d+)?$/, '##page='+page);
-					throw 'last';
+					throw new Error('last');
 				},
 		layelem:'//span[@id="page"]',
 		scrollx:'R'
@@ -3843,8 +3889,22 @@ var paginas = [
 	{	url:	'bringbackroomies.com',
 		img:	[['#comic img']]
 	},
-	{	url:	'blindsprings.com',
-		img:	[['#comic img']]
+	{
+		url:	'blindsprings.com',
+		img:	[['#cc-comic']],
+		next:	[['.next']],
+		extra:	[[['#bottomleft']]],
+		xelem:	'//div[@id="bottomleft"]',
+		js:	function(dir){
+				var disqusJs = selCss('.cc-commentbody>script').innerHTML;
+				DISQUS && DISQUS.reset({
+			  		reload: true,
+			  		config: function () {  
+			  			this.page.identifier = disqusJs.match(/identifier = '(.*)'/)[1];  
+			  			this.page.url = disqusJs.match(/url = '(.*)'/)[1];
+					}
+				});
+			},
 	},
 	{	url:	'wtfcomics.com',
 		img:	function(html, pos){
@@ -3855,13 +3915,13 @@ var paginas = [
 		back:	function(html, pos){
 					var m = link[pos].match(/([^\/]+\?)(\d+)_(\d+)?/);
 					var id = Math.max(Math.min(Number(m[3] || '1'), Number(m[2])), 1);
-					if(id == 1) throw 'first';
+					if(id == 1) throw new Error('first');
 					return m[1] + m[2] + '_' + (id-1);
 				},
 		next:	function(html, pos){
 					var m = link[pos].match(/([^\/]+\?)(\d+)_(\d+)?/);
 					var id = Math.max(Math.min(Number(m[3] || '1'), Number(m[2])), 1);
-					if(id == m[2]) throw 'last';
+					if(id == m[2]) throw new Error('last');
 					return m[1] + m[2] + '_' + (id+1);
 				},
 		layelem:'//img'
@@ -3986,128 +4046,12 @@ var paginas = [
 		extra:	['<div id="wrapper"><div id="leftarea">',[['#newsarea']],'</div></div>'],
 	},
 	{
-		url:	'daisyowl.com',
-		img:	['//div[@align="center"]//img[starts-with(@src,"/comic_images/")]'],
-		extra:	[],
-		style:	'div#wcr_title {\n    font-size: xx-large;\n}',
-	},
-	{
-		url:	'nhentai.net',
-		img:	['//section[@id="image-container"]//img/@src | //section[@id="image-container"]//img/@data-cfsrc'],
-		back:	[['.previous']],
-		next:	[['.next']],
-		extra:	[[['#page-container > *','<br/>',2]]],
-		layelem:	'//div[@id="content"]',
-		style:	'#page-container img{max-width: none;}',
-		scrollx:	'R',
-	},
-	{
-		url:	'bato.to',
-		img:	function(html, pos){try {
-			  // debugger;
-			  return selCss("#comic_page", html, 0);
-			} catch (e) {
-			  if(pos==0) setTimeout(run_script, 2000);
-			  throw e;
-			}},
-		back:	function(html, pos){//debugger;
-			var url;
-			try{ 
-			url = xpath('//a[img[@title="Previous Page"]]', html).href;
-			 }
-			catch(e){ url = xpath('//a[img[@title="Previous Chapter"]]', html).href; }
-			  
-			url2 = url.replace(/#[^_]*$/,"$&_1").replace("reader#","areader?id=").replace("_","&p=");
-			var both = [url,url2];
-			both.doubleLink = true;
-			return both;},
-		next:	function(html, pos){//debugger;
-			console.log("Second");
-			var url;
-			try{ 
-			url =xpath('//a[img[@title="Next Page"]]', html).href;
-			}
-			catch(e){ url= xpath('//a[img[@title="Next Chapter"]]', html).href; }
-			url2 = url.replace(/#[^_]*$/,"$&_1").replace("reader#","areader?id=").replace("_","&p=");
-			var both = [url,url2];
-			both.doubleLink = true;
-			
-			// Fix original url
-			return both;},
-		fixurl:	function(url, img, link, pos){// debugger;
-			if(img)  return encodeURI(url);
-			// if(!img) return url.replace("reader#","areader?id=").replace("_","&p=");
-			// if(!img) return url.replace(/#/,"##");
-			
-			return url;},
-		extra:	[['//img[@id="comic_page" and not(./ancestor::div[contains(@style, "display: none;")])]','<br/>',1],[['.moderation_bar']],function(html, pos){
-										var xs = selCss('.moderation_bar select', null, true);
-										for(var i =0; i<xs.length; i++) {
-										  xs[i].addEventListener('change', function(){document.location.reload()})
-										}
-										return "";
-										}],
-		layelem:	'//img[@id="comic_page"]',
-		js:	function(dir){if (dir == 0 && typeof(link[0]) == 'string') {
-			console.log("First");
-			url = link[0];
-			url2 = url.replace(/#[^_]*$/,"$&_1").replace("reader#","areader?id=").replace("_","&p=");
-			var both0 = [url,url2];
-			both0.doubleLink = true;
-			link[0] = both0;
-			}},
-		scrollx:	'R',
-	},
-	{
-		url:	'omgbeaupeep.com',
-		img:	[['#omv .picture']],
-		back:	function(html, pos){try{return xpath('//a[img[@alt="Previous Page"]]/@href',html);}
-			catch(e) {
-			debugger;
-			var newChapter = xpath('//select[@name="chapter"]/*[@selected]/preceding-sibling::*[1]/@value',html);
-			var currChapter = xpath('//select[@name="chapter"]/*[@selected]/@value',html);
-			return link[pos].replace(currChapter,newChapter);
-			}},
-		next:	function(html, pos){try{
-			return xpath('//a[img[@alt="Next Page"]]/@href',html);
-			} catch (e) {
-			debugger;
-			var newChapter = xpath('//select[@name="chapter"]/*[@selected]/following-sibling::*[1]/@value',html);
-			var currChapter = xpath('//select[@name="chapter"]/*[@selected]/@value',html);
-			return link[pos].replace(currChapter,newChapter).replace(/\/[^\/]*$/,"/1");
-			}},
-		extra:	[[['.pager']]],
-	},
-	{
-		url:	'http://orgymania.net/',
-		img:	'/slippreview/',
-		back:	'text()="< prev"',
-		next:	'text()="next >"',
-		first:	'text()="|<"',
-		extra:	[],
-	},
-	{
 		url:	'http://mspfanventures.com/',
 		img:	[['article img']],
 		next:	[['#nextlinks a']],
 		extra:	[[['article']],'<script>assignOnClicks()</script>'],
-		js:	function(dir){debug; assignOnClicks();},
+		js:	function(dir){debugger; assignOnClicks();},
 		style:	'#wcr_imagen { display: none; }',
-	},
-	{
-		url:	'mspaintadventures.com/?s=4',
-		img:	'http://cdn.mspaintadventures.com/advimgs',
-		back:	'text()="Go Back"',
-		next:	[['font[size="5"]>a']],
-		extra:	[['//table[@width="600"]']],
-		js:	function(dir){/*[].slice.call(document.getElementsByTagName("table")).forEach(function(x){x.width = 800;})*/
-			debugger;
-			
-			// Click on any img
-			var elemImagen=document.querySelectorAll('#wcr_extra img')
-			setEvt(elemImagen, 'click', imgClick);
-			setEvt(elemImagen, 'mousemove', imgCursor);},
-		style:	'#wcr_imagen { display: none; }\np { font-size: large; }',
 	},
 	{
 		url:	'http://agc.deskslave.org/comic_viewer.html',
@@ -4116,14 +4060,14 @@ var paginas = [
 			  eval(syncRequest("ComicNotes.js",0));
 			  link.extraNotes = n; // For lack of a better place to store it
 			}
-			
+
 			if(comicNr == 269 || comicNr >= 275) {
 			  return 'comics/AGC' + comic_number + '.swf';
 			} else {
 			  return "comics/AGC"+ comicNr+".GIF";
 			}},
 		back:	function(html, pos){var comicNr = parseInt(link[pos].match(/\d+$/)[0]);
-			if(comicNr == 1) throw "First comic";
+			if(comicNr == 1) throw new Error("First comic");
 			return link[pos].replace(/\d+$/,comicNr-1);},
 		next:	function(html, pos){var comicNr = parseInt(link[pos].match(/\d+$/)[0]);
 			// var maxPage = parseInt(html.match(/var MAXCOMIC = (\d+);/)[1]);
@@ -4143,7 +4087,7 @@ var paginas = [
 		js:	function(dir){/*[].slice.call(document.getElementsByTagName("table")).forEach(function(x){x.width = 800;})*/
 			
 			// Click on any img
-			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			var elemImagen=document.querySelectorAll('#wcr_extra img');
 			setEvt(elemImagen, 'click', imgClick);
 			setEvt(elemImagen, 'mousemove', imgCursor);},
 		style:	'#wcr_imagen { display: none; }\np { font-size: large; }',
@@ -4152,13 +4096,11 @@ var paginas = [
 		url:	'mspaintadventures.com/extras',
 		img:	'http://www.mspaintadventures.com/extra',
 		back:	function(html, pos){var comicNr = parseInt(link[pos].match(/\d+/)[0]);
-			//debugger
-			if (comicNr == 1) throw "First comic";
+			if (comicNr == 1) throw new Error("First comic");
 			comicNr--;
 			comicNr = ("000000" + comicNr).match(/0*(\d{6})$/)[1];
 			return link[pos].replace(/\d+/, comicNr);},
 		next:	function(html, pos){var comicNr = parseInt(link[pos].match(/\d+/)[0]);
-			//debugger
 			comicNr++;
 			comicNr = ("000000" + comicNr).match(/0*(\d{6})/)[1];
 			return link[pos].replace(/\d+/, comicNr);},
@@ -4166,7 +4108,20 @@ var paginas = [
 		js:	function(dir){/*[].slice.call(document.getElementsByTagName("table")).forEach(function(x){x.width = 800;})*/
 			
 			// Click on any img
-			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			var elemImagen=document.querySelectorAll('#wcr_extra img');
+			setEvt(elemImagen, 'click', imgClick);
+			setEvt(elemImagen, 'mousemove', imgCursor);},
+		style:	'#wcr_imagen { display: none; }\np { font-size: large; }',
+	},
+	{
+		url:	'mspaintadventures.com/?s=4',
+		img:	'http://cdn.mspaintadventures.com/advimgs',
+		back:	'text()="Go Back"',
+		next:	[['font[size="5"]>a']],
+		extra:	[['//table[@width="600"]']],
+		js:	function(dir){
+			// Click on any img
+			var elemImagen=document.querySelectorAll('#wcr_extra img');
 			setEvt(elemImagen, 'click', imgClick);
 			setEvt(elemImagen, 'mousemove', imgCursor);},
 		style:	'#wcr_imagen { display: none; }\np { font-size: large; }',
@@ -4182,12 +4137,12 @@ var paginas = [
 		layelem:	'//table[@width="600"]',
 		js:	function(dir){
 			// Click on any img to switch page
-			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			var elemImagen=document.querySelectorAll('#wcr_extra img');
 			setEvt(elemImagen, 'click', imgClick);
 			setEvt(elemImagen, 'mousemove', imgCursor);
 			
 			// Show pesterlogs
-			var x = document.getElementsByClassName('spoiler')
+			var x = document.getElementsByClassName('spoiler');
 			for (var i = 0; i < x.length; i++) {x[i].previousSibling.firstChild.click();}
 			},
 		style:	'#wcr_imagen { display: none; }\np { font-size: large; }',
@@ -4198,23 +4153,226 @@ var paginas = [
 		back:	'text()="Go Back"',
 		next:	function(html, pos){var x = selCss('font[size="5"]>a',html,true);
 			return x[x.length-1];},
-		extra:	[['//table[@width="600"]'],function(html, pos){debugger
-										return ""}],
+		extra:	[['//table[@width="600"]']],
 		xelem:	'//table[@width="600"]/tbody',
 		layelem:	'//table[@width="600"]',
 		js:	function(dir){/*[].slice.call(document.getElementsByTagName("table")).forEach(function(x){x.width = 800;})*/
 			
 			// Click on any img to switch page
-			var elemImagen=document.querySelectorAll('#wcr_extra img')
+			var elemImagen=document.querySelectorAll('#wcr_extra img');
 			setEvt(elemImagen, 'click', imgClick);
 			setEvt(elemImagen, 'mousemove', imgCursor);
 			
 			// Show pesterlogs
-			var x = document.getElementsByClassName('spoiler')
+			var x = document.getElementsByClassName('spoiler');
 			for (var i = 0; i < x.length; i++) {x[i].previousSibling.firstChild.click();}
 			
 			typeof onChange == 'function' && onChange(dir);},
 		style:	'#wcr_imagena { display: none; }\np { font-size: large; }',
+	},
+	{
+		url:	'mangatown.com/manga/',
+		img:	[['#image']],
+		back:	function(html, pos){try {
+			    return xpath('//div[@class="page_select"]/select/option[@selected]/preceding-sibling::option[1]/@value',html);
+			} catch (e) {
+			    var chapterUrl = xpath('//h1/a/@href', html);
+			    var prevChapter = xpath('//select[@class="chapter_select"]/option[@value="' + chapterUrl + '"]/preceding-sibling::option[1]/@value');
+			    return prevChapter;
+			}},
+		next:	function(html, pos){try {
+			    return xpath('//div[@class="page_select"]/select/option[@selected]/following-sibling::option[1]/@value',html);
+			} catch (e) {
+			    var chapterUrl = xpath('//h1/a/@href', html);
+			    var nextChapter = xpath('//select[@class="chapter_select"]/option[@value="' + chapterUrl + '"]/following-sibling::option[1]/@value');
+			    return nextChapter;
+			}},
+		first:	['//div[@class="page_select"]/select/option[1]/@value'],
+		last:	['//div[@class="page_select"]/select/option[last()]/@value'],
+		js:	function(dir){document.onkeyup = null;},
+		scrollx:'R'
+	},
+	{
+		url:	'readmanga.today',
+		img:	'http://manga-joy.com/wp-content/manga/',
+		back:	[['.prev-a-btn']],
+		next:	[['.next-a-btn']],
+		scrollx:'R'
+	},
+	{
+		url:	'mymanga.me/manga/*/*/*',
+		img:	[['.reader-image img']],
+		back:	'text()="Prev"',
+		next:	'text()="Next"',
+		scrollx:'R'
+	},
+	{
+		url:	'http://www.legostargalactica.net/',
+		extra:	[['//div[@class="post-comic"]'],[['.comment-wrap']]],
+		xelem:	'//div[@class="post-comic"]',
+		layelem:	'//div[@id="comic"]',
+	},
+	{
+		url:	'http://hentaihere.com/m/',
+		img:	[['#arf-reader-img']],
+		back:	function(html, pos){var page = parseInt(html.match(/var rff_thisIndex = (\d+);/)[1]);
+			var pages = html.match(/var rff_imageList = (.+);/)[1];
+			var previous_chapter = html.match(/var rff_previousChapter = "([^"]*?)";/)[1];
+			var base_url = html.match(/var rff_thisChapter = "(.+?)";/)[1];
+			
+			if (page >1) {
+			  return base_url + (page-1);
+			} else {
+			  return previous_chapter;
+			}},
+		next:	function(html, pos){var page = parseInt(html.match(/var rff_thisIndex = (\d+);/)[1]);
+			var pages = html.match(/var rff_imageList = (.+);/)[1];
+			var num_pages = JSON.parse(pages).length;
+			var next_chapter = html.match(/var rff_nextChapter = "([^"]*?)";/)[1];
+			var base_url = html.match(/var rff_thisChapter = "(.+?)";/)[1];
+			
+			if (page < num_pages) {
+			  return base_url + (page+1);
+			} else {
+			  return next_chapter;
+			}},
+	},
+	{
+		url:	'http://mangafap.com/image/',
+		back:	function(html, pos){return "/image/"+html.match(/pageid = (\d+);[^;]*[(,](\d+),\1/)[2]+"/";},
+		next:	function(html, pos){return "/image/"+html.match(/pageid = (\d+);[^;]*\1,(\d+)/)[2]+"/";},
+	},
+	{
+		url:	'http://gomanga.co/reader/read/',
+		img:	'http://gomanga.co/reader/content/comics/',
+		back:	function(html, pos){
+					var chapter = link[pos].replace(/page.*/,"");
+					try {
+						return xpath('//div[contains(@class,"current")]/following-sibling::div/a', html);
+					} catch (e) {
+						return xpath('//li[a/@href="'+chapter+'"]/following-sibling::li/a', html);
+					}
+				},
+		next:	function(html, pos){
+					var chapter = link[pos].replace(/page.*/,"");
+					try {
+						var next_page = xpath('//div[contains(@class,"current")]/preceding-sibling::div[not(contains(@class,"dnone"))][1]/a/@href', html);
+						return next_page.replace(/^(\d+)$/,chapter+"page/$1");
+					} catch (e) {
+						return xpath('//li[a/@href="'+chapter+'"]/preceding-sibling::li[1]/a/@href', html);
+					}
+				},
+	},
+	{
+		url:	'dynasty-scans.com',
+		img:	function(html, pos){
+				var page;
+				var img = selCss("#image > img", html);
+				var pages = JSON.parse(html.match(/var pages = ([^;]*);/)[1]);
+				if (link[pos].match(/#last$/)) {
+					page = pages.length - 1;
+				} else {
+					page = Number(match(link[pos], /#(\d+)$/, 1, 1));
+				}
+				link[pos] = link[pos].replace(/(#?#.*)?$/,"##"+page);
+				var url = pages[page-1].image;
+				img.src = url;
+				return img;
+			},
+		back:	function(html, pos){
+				var page = Number(match(link[pos], /#(\d+)$/, 1, 1));
+				if (--page) {
+					return link[pos].replace(/(#?#.*)?$/,"##"+page);
+				}
+
+				return selCss("#prev_link", html).href.replace(/$/,"##last");
+			},
+		next:	function(html, pos){
+				var page = Number(match(link[pos], /#(\d+)$/, 1, 1));
+				var pages = JSON.parse(html.match(/var pages = ([^;]*);/)[1]);
+				if (++page < pages.length) {
+				  return link[pos].replace(/(#?#.*)?$/,"##"+page);
+				}
+
+				var url = selCss("#next_link", html).href;
+				if (url.match(/#$/)) {
+				  throw new Error("Last page");
+				}
+				return url;
+			},
+		extra:	[[['.pages-list']]],
+		layelem:'//*[@id="image"]',
+	},
+	{
+		url:	'mangasee.co/manga/',
+		img:	[['a > img']],
+		next:	function(html, pos) {
+					return match(match(html, /<a [^>]*next[^>]*>/i, 0), /href="([^"]*)"/, 1);
+				},
+		extra:	[[['.navbar > *']]],
+		js:		function(dir){
+					document.querySelector('.navbar').className = "navbar navbar-default";
+				},
+	},
+	{
+		url:	'girlgeniusonline.com/comic.php',
+		img:	'http://www.girlgeniusonline.com/ggmain/strips/',
+		back:	[['#bottomprev']],
+		next:	[['#bottomnext']],
+	},
+	{
+		url:	'mangafast.online/manga/',
+		img:	[['#ppp img']],
+		back:	function(html, pos){
+					var current_page = getVar(html, "current_page");
+					var base_url = getVar(html, "base_url");
+					var prev_chapter = getVar(html,"prev_chapter");
+					if (current_page > 1) {
+						return base_url + "/" + (current_page-1);
+					} else {
+						return prev_chapter;
+					}
+				},
+		next:	function(html, pos){
+					var current_page = getVar(html, "current_page");
+					var base_url = getVar(html, "base_url");
+					var next_chapter = getVar(html,"next_chapter");
+					var pages = getVar(html,"pages");
+					if (current_page < pages.length) {
+						return base_url + "/" + (current_page+1);
+					} else {
+						return next_chapter;
+					}
+				},
+	},
+	{
+		url:	'demonicscans.com/FoOlSlide/read|raws.yomanga.co/read',
+		back:	function(html, pos){
+					var base_url = match(html, /var base_url *= *'([^']+)'/,1);
+					var current_page = getVar(html, "current_page")+1;
+					if (current_page > 1) {
+						return base_url + "page/" + (current_page-1);
+					} else {
+						var chap = xpath('//li[a/@href="'+base_url+'"]/following-sibling::li[1]/a/@href', html);
+						var htmlPrev = syncRequest(chap, pos);
+						return xpath('//*[contains(@class, "dropdown_right" )]//li[last()]/a/@href', htmlPrev);
+					}
+				},
+		next:	[['.inner>a']],
+	},
+	{
+		url:	'dm5.com/m|en.dm5.com/m',
+		img:	function(html, pos){
+					var DM5_CID = getVar(html, 'DM5_CID');
+					var page = match(link[pos],/m\d+-p(\d+)/, 1, 1);
+					var url = '/chapterfun.ashx?cid=' + DM5_CID+'&page='+page;
+					var metadata = syncRequest(url, pos);
+					eval(metadata); // puts result in array "d"
+					return d[0];
+				},
+		back:	[['#s_pre>a']],
+		next:	[['#s_next>a']],
+		layelem:'//*[@id="cp_img"]',
 	},
 	/*
 	,
@@ -4291,7 +4449,10 @@ var layoutDefault =
 				'<button id="wcr_btn1">Next</button> '+
 				'<a id="wcr_last" href="#">Last &gt;&gt;</a>'+
 			'</div><br/>'+
-			'<div><button id="wcr_btnaddbm" style="background-color:#0f0">Remember this page</button></div>'+
+			'<div>'+
+				'<button id="wcr_btnaddbm" style="background-color:#0f0">Remember this page</button>'+
+				'<select id="wcr_pages" autocomplete="off"><optgroup label="Preloaded pages"/></select> '+
+			'</div>'+
 			'<div id="wcr_listabm"></div>'+
 			'<div id="wcr_div_listabm_todos" style="display:none">'+
 				'<br/><a id="wcr_toggle_bm" href="#toggleBms">See bookmarks for other sites</a>'+
@@ -4324,7 +4485,7 @@ function layoutIntacto(){
 		try{
 			var back = contenido(document.documentElement.innerHTML, getBack, 0);
 			var linksBack = xpath('//*[@href="'+back+'"]', document, true);
-			for(i=0;i<linksBack.length;i++){
+			for(var i=0;i<linksBack.length;i++){
 				linksBack[i].href = '#back';
 				setEvt(linksBack[i], 'click', btnback);
 			}
@@ -4449,12 +4610,12 @@ var flipControls = false; //invertir flechas/clicks/botones para mangas u otros 
 var clickImgNavigates = confBool('clickImgNavigates', true);
 
 function run_script(){
-    debugger
+	debugger;
 	try{
 		if(useHistoryAPI && history.pushState){
 			setEvt(window, 'popstate', function(evt){
 				if(evt.state && evt.state.wcr_url){
-					var dir = evt.state.wcr_pos - posActual;
+					var dir = (link[posActual+1] == evt.state.wcr_url) || -(link[posActual-1] == evt.state.wcr_url);
 					if(dir*dir == 1) cambiaPag(dir, true);
 					else redirect(evt.state.wcr_url);
 				}
@@ -4465,12 +4626,12 @@ function run_script(){
 		if(p){ //si esta deshabilitada esta pag p===null, si no es siempre un objeto
 			link[0] = document.location.href;
 			listabm = getListaBookmarks();
-			if(goToBookmark && listabm.length == 1 && listabm[0]['url'].split('#')[0] != link[0].split('#')[0] &&
+			if(goToBookmark && listabm.length == 1 && listabm[0].url.split('#')[0] != link[0].split('#')[0] &&
 				confirm('Go to last saved page?\n'+
-					listabm[0]['title']+'\n'+
-					listabm[0]['url']+
+					listabm[0].title+'\n'+
+					listabm[0].url+
 					'\n\n(This confirmation dialog can be disabled in the script settings)')){
-				redirect(listabm[0]['url']);
+				redirect(listabm[0].url);
 				return;
 			}
 			listabmTodos = getListaBookmarksTodos();
@@ -4537,12 +4698,24 @@ function run_script(){
 				redirect(link[posActual]);
 			});
 		}
-	}catch(e){ error('loadpag: '+e); }
+	}catch(e){ error('loadpag: ', e); }
+}
+
+// Disables common scripts that breaks WCR
+function fixbadjs(){
+	// Injected by jumpbar.js from TheHiveWorks
+	if (typeof breakbadtoys !== "undefined") {
+		debugger;
+		console.log("Disabling anti-wcr code");
+		window.removeEventListener("load", breakbadtoys, true);
+		breakbadtoys = null;
+	}
 }
 
 //setear el html nuevo y rellenarlo con los datos de la pag actual, aparte de prefetchear la de adelante y atras
 function iniciar(){
 	try{
+		fixbadjs();
 		if(firstRun && confirm(
 			'This seems to be your first time using Webcomic Reader. '+
 			'Do you want to look at the settings?\n'+
@@ -4550,12 +4723,13 @@ function iniciar(){
 			mostrarSettings();
 
 		setear(document.documentElement.innerHTML, 0, 0); //seteo el contenido de la pag inicial
-		if(imagen[0] == null) return;
+		if(imagen[0] === null) return;
 
-		try{ var first = getLink(document.documentElement.innerHTML, getFirst, 0); }
-		catch(e){ error('first: '+e); }
-		try{ var last = getLink(document.documentElement.innerHTML, getLast, 0); }
-		catch(e){ error('last: '+e); }
+		var first, last;
+		try{ first = getLink(document.documentElement.innerHTML, getFirst, 0); }
+		catch(e){ error('first: ', e); }
+		try{ last = getLink(document.documentElement.innerHTML, getLast, 0); }
+		catch(e){ error('last: ', e); }
 
 		if(keepLayout) layoutIntacto();
 		else layoutMinimo();
@@ -4639,16 +4813,20 @@ function iniciar(){
 
 		teclado = getTeclas();
 
+		document.onkeydown = null;
+		document.onkeyup = null;
 		setEvt(window, 'keydown', teclaHandler);
+		setEvt(window, 'keyup', keyupHandler);
 		setEvt(window, 'resize', fitImagen);
 		setEvt('wcr_btn1', 'click', btnnext);
 		setEvt('wcr_btn-1', 'click', btnback);
+		setEvt('wcr_pages', 'change', btnjump);
 		if(clickImgNavigates){
 			setEvt(elemImagen, 'click', imgClick);
 			setEvt(elemImagen, 'mousemove', imgCursor);
 		}
 		setEvt(elemImagen, 'load', function(){
-			fitImagen(); 
+			fitImagen();
 			scrollear();
 		});
 		setEvt('wcr_btnaddbm', 'click', addBookmark);
@@ -4677,7 +4855,7 @@ function iniciar(){
 			imagen[-1] = null;
 		}
 	} catch(e){
-		error('init: '+e);
+		error('init: ', e);
 		if(defaultSettings.showSettingsOnFail) mostrarSettings();
 	}
 }
@@ -4706,19 +4884,19 @@ function setear(html, pos, dir){
 			try{ link[poslink] = getLink(pag, dir > 0 ? getNext : getBack, pos); }
 			catch(e){
 				link[poslink] = null;
-				error('set['+pos+']/link['+poslink+']: '+e);
+				error('set['+pos+']/link['+poslink+']: ', e);
 			}
 		}
 		else{
 			try{ link[1] = getLink(pag, getNext, pos); }
 			catch(e){
 				link[1] = null;
-				error('set['+pos+']/link[1]: '+e);
+				error('set['+pos+']/link[1]: ', e);
 			}
 			try{ link[-1] = getLink(pag, getBack, pos); }
 			catch(e){
 				link[-1] = null;
-				error('set['+pos+']/link[-1]: '+e);
+				error('set['+pos+']/link[-1]: ', e);
 			}
 		}
 
@@ -4728,11 +4906,25 @@ function setear(html, pos, dir){
 			catch(e){
                 try{ titulo[pos] = match(html, /document.title = '([^']+?)'/, 1); }
                 catch(e){
-                    error('set['+pos+']/titulo: '+e);
+                    error('set['+pos+']/titulo: ', e);
                     titulo[pos] = link[pos];
                 }
 			}
 		}
+
+		// Update list of pages
+		try {
+		var pagelist = "";
+		for (var i of Object.keys(titulo).sort(function(a,b){return a-b;})) {
+			debugger;
+			if (IsNumeric(i)){
+				pagelist += '<option value="'+ i +'" title="'+link[i]+'"' +
+					(i==posActual?" selected":"") + '>' +
+					titulo[i]+"</option>";
+			}
+		}
+		get("wcr_pages").children[0].innerHTML= pagelist;
+		} catch(e) {}
 
 		extra[pos] = '';
 		if(getExtras){
@@ -4741,14 +4933,14 @@ function setear(html, pos, dir){
 					var x = contenido(pag, getExtras[i], pos);
 					if(typeof(x)=='object') x = outerHTML(x);
 					extra[pos] += x;
-				}catch(e){error('set['+pos+']/extras['+i+']: '+e);}
+				}catch(e){error('set['+pos+']/extras['+i+']: ', e);}
 			}
 		}
-		
+	
 		if(dir) get('wcr_btn'+dir).innerHTML = (dir>0?'Next':'Back')+' ('+((pos-posActual)*dir)+(link[pos+dir]?'':'!')+')';
 	}
 	catch(e){
-		error('set['+pos+']: '+e);
+		error('set['+pos+']: ',e);
 		imagen[pos] = null;
 		if(dir){
 			get('wcr_btn'+dir).innerHTML = (dir>0?'Next':'Back')+' ('+((pos-posActual)*dir-1)+'...)';
@@ -4783,18 +4975,18 @@ function absUrl(url, pos){
 		try{ base = xpath('//base/@href'); }
 		catch(e){}
 
-		if(url.indexOf('/') == 0){
-			if(url.indexOf('//') == 0) url = base.match(/^\w+:/) + url;
+		if(url.indexOf('/') === 0){
+			if(url.indexOf('//') === 0) url = base.match(/^\w+:/) + url;
 			else url = base.match(/^\w+:\/\/[^\/]+/) + url;
 		}
-		else if(url.indexOf('##') == 0)
+		else if(url.indexOf('##') === 0)
 			url = base.split('##')[0] + url;
 		else{
 			var ipars = base.indexOf('?');
 			if(ipars < 0) ipars = base.length;
 			if(url[0] == '?') return base.substr(0, ipars) + url;
 			base = base.substr(0, base.lastIndexOf('/', ipars));
-			while(url.indexOf('../') == 0){
+			while(url.indexOf('../') === 0){
 				url = url.substr(3);
 				if(!base.match(/:\/\/[^\/]+$/)) base = base.substr(0, base.lastIndexOf('/'));
 			}
@@ -4826,10 +5018,13 @@ function cambiaPag(dir, poppedState, slidden){
 		get('wcr_btn1').title = link[posActual + 1] + (imagen[posActual + 1] === null ? ' (image not found)' : '');
 		get('wcr_btn-1').title = link[posActual - 1] + (imagen[posActual - 1] === null ? ' (image not found)' : '');
 
+		// Update list of pages
+		try{selCss('#wcr_pages option[value="'+posActual+'"]').selected = true;}catch(e){}
+
 		var xel = get('wcr_extra');
 		if(keepLayout && extraElement){
 			try{ xel = xpath(extraElement); }
-			catch(e){ error('extraElement: ' + e); }
+			catch(e){ error('extraElement: ' , e); }
 		}
 		if(xel) xel.innerHTML = extra[posActual];
 
@@ -4855,7 +5050,7 @@ function cambiaPag(dir, poppedState, slidden){
 		}
 
 		try{ if(funcionJs) funcionJs(dir); }
-		catch(e){ error('js('+dir+'): '+e); }
+		catch(e){ error('js('+dir+'): ', e); }
 
 		saveUltima();
 		setCursores();
@@ -4884,7 +5079,7 @@ function cambiaPag(dir, poppedState, slidden){
 			//prefetcheo la pag q viene en esta direccion
 			prefetch(dir, pd, prefetchSize[dir>0?1:0]);
 		}
-	} catch(e){ error('cambia['+dir+']: '+e); }
+	} catch(e){ error('cambia['+dir+']: ', e); }
 }
 
 //si la conf lo pide, ajustar la imagen al tamaño de la ventana
@@ -5046,7 +5241,7 @@ function prefetch(dir, pos, prof, reintento){
 	if(typeof(url)=='object' && url.doubleLink){ // Para paginas con AJAX 
 		url = url[1];
 	}
-        
+
 	if(typeof(url)=='object'){
 		pars = url[1];
 		url = url[0];
@@ -5072,7 +5267,7 @@ function prefetch(dir, pos, prof, reintento){
 						cargarImagen(pos, dir, prof, reintento);
 					}
 					else setCol(dir, colOK);
-				} catch(e){ error('pre['+pos+']: '+e); }
+				} catch(e){ error('pre['+pos+']: ', e); }
 			}
 			else{
 				prefetcheado[dir] = pos-dir; //hago q pase de nuevo por aca
@@ -5102,7 +5297,7 @@ function prefetch(dir, pos, prof, reintento){
 	catch(e){
 		if(e.toString().indexOf('Component returned failure code: 0x805e000a') > -1)
 			alert('Error when trying to load '+url+'\nIf you\'re using AdBlock Plus, NoScript or some other extension that might be blocking the request, temporarily disable it (or whitelist this page) and try again');
-		error('ajax '+url+(pars?' ; '+pars:'')+': '+e);
+		error('ajax '+url+(pars?' ; '+pars:'')+': ', e);
 	}
 }
 
@@ -5200,12 +5395,17 @@ function isArray(o){
 	return '[object Array];[object NodeList]'.indexOf(Object.prototype.toString.call(o)) >= 0;
 }
 
+// Get the value of a javascript variable from the page
+function getVar(s, name, def) {
+	return JSON.parse(match(s, new RegExp("var "+name+" *= *([^;]+);"),1,def));
+}
+
 //si puede retorna s.match(re)[g], si no puede y se paso def, retorna def, y si no tira una excepcion
 function match(s, re, g, def){
 	var r = s.match(re);
 	if(r && r.length > g) return r[g];
 	if(def!==undefined) return def;
-	throw 'match: '+re+'['+g+']';
+	throw new Error('match: '+re+'['+g+']');
 }
 
 //evalua una query xpath sobre un elemento (o su html), si se pide explicitamente se devuelve el arreglo de resultados, si no el primero q encuentre
@@ -5220,7 +5420,7 @@ function xpath(query, elem, arreglo){
 		elem = div;
 	}
 	var res = document.evaluate(query, elem, null, arreglo ? XPathResult.ORDERED_NODE_SNAPSHOT_TYPE : XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-	if(arreglo && !res.snapshotLength || !arreglo && !res.singleNodeValue) throw 'xpath: '+query;
+	if(arreglo && !res.snapshotLength || !arreglo && !res.singleNodeValue) throw new Error('xpath: '+query);
 
 	if(!arreglo){
 		res = res.singleNodeValue;
@@ -5229,8 +5429,8 @@ function xpath(query, elem, arreglo){
 		return res;
 	}
 
-	var arr = new Array();
-	for (i = 0; i < res.snapshotLength; i++) arr.push(res.snapshotItem(i));
+	var arr = [];
+	for (var i = 0; i < res.snapshotLength; i++) arr.push(res.snapshotItem(i));
 	return arr;
 }
 
@@ -5245,7 +5445,7 @@ function selCss(query, elem, arreglo){
 
 	if(arreglo) return elem.querySelectorAll(query);
 	var resp = elem.querySelector(query);
-	if(resp === null) throw 'selcss: '+query;
+	if(resp === null) throw new Error('selcss: '+query);
 	return resp;
 }
 
@@ -5350,6 +5550,17 @@ function teclaHandler(evt){
 	evt.preventDefault(); //frena el scrolleo con las flechas o el reloadeo original con f5
 }
 
+// Prevent the site from capturing the keys we use
+function keyupHandler(evt){
+	for (var key in teclado) {
+		if(checkTecla(key, evt)) {
+			evt.stopPropagation();
+			evt.preventDefault();
+			return;
+		}
+	}
+}
+
 //revisa si se apreto la tecla configurada
 function checkTecla(nombre, evt){
 	var t = teclado[nombre];
@@ -5424,6 +5635,20 @@ function btnback(evt){
 	return false;
 }
 
+//onchange page selector
+function btnjump(evt){
+	var step = get("wcr_pages").value - posActual;
+	var dir = Math.sign(step);
+	// Jump to one step before the target
+	posActual += step - dir;
+	// And then take a single step
+	if(dir) {cambiaPag(dir);}
+	evt.stopPropagation();
+	evt.preventDefault();
+	return false;
+}
+
+
 //para recordar donde parten los swipes
 var touchpos = {x:0, y:0, t:0};
 
@@ -5463,14 +5688,9 @@ function imgClick(evt){
 function imgDerecha(evt){
 	if(!leftImageClick) return true;
 	var img = evt.currentTarget;
-	var left = 0;
-	var offset = img;
-	while(offset){
-		left += offset.offsetLeft;
-		offset = offset.offsetParent;
-	}
-	if(img.style.paddingLeft) left += Number(img.style.paddingLeft.match(/\d+/)[0]);
-	left -= window.scrollX;
+	var left = img.getBoundingClientRect().left;
+	left += Number(getComputedStyle(img).paddingLeft.match(/\d+/)[0]);
+	//left -= window.scrollX;
 	var x = evt.clientX - left;
 	var w = img.width || img.offsetWidth;
 	return x/w>0.5;
@@ -5481,7 +5701,7 @@ function imgCursor(evt){
 	if(!evt || !evt.currentTarget) return;
 	var img = evt.currentTarget;
 	var dir = imgDerecha(evt) ? 1 : -1;
-	img.style.cursor = ''
+	img.style.cursor = '';
 	img.style.cursor = cursor(dir, 'img');
 	ultimoevt = evt;
 }
@@ -5522,7 +5742,7 @@ function redirect(url){
 		document.location.href = url.split('#')[0];
 		return;
 	}
-    
+
 	if(typeof(url)=='object' && url.doubleLink && false){
 		window.location.href = url[0];
 		document.location.reload();
@@ -5548,9 +5768,12 @@ function redirect(url){
 }
 
 //mostrar mensajes de error en modo debug
-function error(msg){
-	msg = (link[posActual] || document.location.href) + '\n\n' + msg;
+function error(msg, e){
+	if(e) {e.message = msg + e.message; msg = e};
+	//debugger;
+	//msg = (link[posActual] || document.location.href) + '\n\n' + msg;
 	if(console && console.log) console.log(msg);
+	//if(console && console.log && e) console.log(e);
 	if(debug) alert(msg);
 }
 
@@ -5566,7 +5789,7 @@ function syncRequest(url, pos){
 	request.send(null);
 
 	if(request.status === 200) return request.responseText;
-	throw request.statusText;
+	throw new Error(request.statusText);
 }
 
 //si se especifica no se toca, si no se usa el host sin el "www."
@@ -5639,7 +5862,7 @@ function saveUltima(){
 //retorna una lista con las pags bookmarkeadas para este sitio en formato [{url:'...', title:'...'}]
 function getListaBookmarks(reloadCache){
 	var lista = getData('bm', '', '', reloadCache);
-	if(lista == '') return [];
+	if(lista === '') return [];
 
 	//convierte el formato viejo
 	if(typeof(lista) == 'string'){
@@ -5659,7 +5882,7 @@ function getListaBookmarksTodos(reloadCache){
 	for(var sitio in dataCache){
 		if(!dataCache[sitio].bm || sitio == este) continue;
 
-		lista = dataCache[sitio].bm
+		lista = dataCache[sitio].bm;
 		//convierte el formato viejo
 		if(typeof(lista) == 'string'){
 			lista = lista.split('|wcrbm|');
@@ -5683,8 +5906,8 @@ function saveListaBookmarks(lista){
 //agrega un item al div con los bookmarks
 function addLista(item){
 	var a = document.createElement('a');
-	a.href = a.title = item['url'];
-	a.innerHTML = item['title']+' ';
+	a.href = a.title = item.url;
+	a.innerHTML = item.title+' ';
 
 	var btndel = document.createElement('button');
 	btndel.innerHTML = 'Delete';
@@ -5701,7 +5924,7 @@ function addLista(item){
 function addBookmark(evt){
 	var lista = getListaBookmarks(true);
 	for(var i=0;i<lista.length;i++){
-		if(lista[i]['url']==link[posActual]) return;
+		if(lista[i].url==link[posActual]) return;
 	}
 	var url = link[posActual];
 	if(typeof(url)=='object' && url.doubleLink){
@@ -5791,11 +6014,11 @@ function confBool(conf, defval, defpag, reloadCache){
 //busca una conf especifica para esta pag, si no hay usa la default, si tampoco hay usa defval
 function confVal(conf, defval, defpag, reloadCache){
 	var val = getData(conf, '', undefined, reloadCache);
-	if(val == ''){
+	if(val === ''){
 		if(defpag !== undefined) val = defpag;
 		else val = getData(conf, '', 'default');
 	}
-	if(val == '') return defval;
+	if(val === '') return defval;
 	return val;
 }
 
@@ -5912,61 +6135,6 @@ if(GM_registerMenuCommand){
 	GM_registerMenuCommand('Webcomic Reader - Settings', mostrarSettings);
 }
 
-//Script update checker from http://userscripts.org/scripts/review/20145
-if (GM_xmlhttpRequest) {
-	var SUC_script_num = 59842; // Change this to the number given to the script by userscripts.org (check the address bar)
-	try {
-		function updateCheck(forced) {
-			var dias = getData('updateDays', 1, 'default');
-			if ((forced) || dias && (parseInt(GM_getValue('SUC_last_update', '0')) + dias*86400000 <= (new Date().getTime()))) {
-				try {
-					GM_xmlhttpRequest({
-						method: 'GET',
-						url: 'http://userscripts.org/scripts/source/' + SUC_script_num + '.meta.js?' + new Date().getTime(),
-						headers: { 'Cache-Control': 'no-cache' },
-						onload: function(resp) {
-							var local_version, remote_version, rt, script_name;
-							rt = resp.responseText;
-							GM_setValue('SUC_last_update', new Date().getTime() + '');
-							remote_version = parseInt(/@uso:version\s*(.*?)\s*$/m.exec(rt)[1]);
-							local_version = parseInt(GM_getValue('SUC_current_version', '-1'));
-							if (local_version != -1) {
-								script_name = (/@name\s*(.*?)\s*$/m.exec(rt))[1];
-								if (remote_version > local_version) {
-									//version oficial (yyyy-mm-dd(.n)?)
-									var version = rt.match(/@version\s+(.+)/)[1];
-
-									//comentarios del ultimo cambio
-									var cambios = rt.match(/@lastchanges\s+(.+)/);
-									cambios = cambios ? cambios[1] : false;
-
-									//flags con el tipo de cosas del update. si ninguna me importa, me salgo
-									var tipo = rt.match(/@updatetype +(\d+)/);
-									if(!forced && tipo && !(getData('updateFlags', (1<<16)-1, 'default') & Number(tipo[1]))) return;
-
-									var accion = getData('updateAction', 0, 'default');
-									if (accion & 2 || confirm(
-										'There is an update available for the Greasemonkey script "' + script_name + '" ('+version+')' +
-										(cambios ? '\n\nLast changes: ' + cambios : '') + '\n\nWould you like to '+
-										(accion & 1 ? 'install it now?' : 'go to the install page now?'))){
-
-										GM_setValue('SUC_current_version', remote_version);
-
-										if(accion & 1) document.location.href = 'http://userscripts.org/scripts/source/' + SUC_script_num + '.user.js';
-										else GM_openInTab('http://userscripts.org/scripts/show/' + SUC_script_num);
-									}
-								} else if (forced) alert('No update is available for "' + script_name + '."');
-							} else GM_setValue('SUC_current_version', remote_version + '');
-						}
-					});
-				} catch(err) {
-					if (forced) alert('An error occurred while checking for updates:\n' + err);
-				}
-			}
-		}
-		if(getData('autoUpdate', true, 'default')) updateCheck(false);
-	} catch(err) {}
-}
 
 var tabSettingActual = 'wcr_general'; //para acordarse por mientras del tab q deje abierto en los settings
 
@@ -6503,14 +6671,12 @@ function mostrarSettings(){
 					'<span class="wcr_layout">Graphic settings</span> | '+
 					'<span class="wcr_sitio">Site settings</span> | '+
 					'<span class="wcr_teclas">Keyboard shortcuts</span>'+
-					(GM_xmlhttpRequest ? ' | <span class="wcr_updater">Updater</span>' : '')+
 				'</div><hr/>'+
 				'<div id="wcr_settings_content" style="text-align:left">'+
 					'<div class="wcr_general">'+htmlLayout(opsGeneral, 'general')+'</div>'+
 					'<div class="wcr_layout">'+htmlLayout(opsLayout, 'layout')+'</div>'+
 					'<div class="wcr_sitio">'+htmlSitio(propsSitio)+'</div>'+
 					'<div class="wcr_teclas">'+htmlTeclas(teclas)+'</div>'+
-					(GM_xmlhttpRequest ? '<div class="wcr_updater">'+htmlUpdater(tiposUp)+'</div>' : '')+
 				'</div><hr/>'+
 				'<div>'+
 					'Import / Export '+
@@ -6551,7 +6717,6 @@ function mostrarSettings(){
 		initLayout(opsLayout, 'layout');
 		initSitio(propsSitio);
 		initTeclas(teclas);
-		if(GM_xmlhttpRequest) initUpdater(tiposUp);
 
 		//setear eventos para tabs/guardar/cancelar
 		var tabs = xpath('//div[@id="wcr_settings_links"]/span', document, true);
@@ -6604,7 +6769,7 @@ function mostrarSettings(){
 				msgOK = 'Everything is gone... everything...\n\n\n\n...forever';
 			}
 			else if(dominio == 'default'){
-				msgConfirm = 'This will reset all the default graphic options, keyboard shortcuts and autoupdater settings.\nYou may want to export and backup your settings first...\n\nAre you sure you want to do delete this data?';
+				msgConfirm = 'This will reset all the default graphic options and keyboard shortcuts settings.\nYou may want to export and backup your settings first...\n\nAre you sure you want to do delete this data?';
 				msgOK = 'All default settings cleared';
 			}
 
@@ -6849,7 +7014,7 @@ function initValoresSitio(props, conf){
 				}
 			}
 		}
-		catch(e){ error('rellenarSitio.'+p+': '+e); }
+		catch(e){ error('rellenarSitio.'+p+': ', e); }
 	}
 }
 
@@ -6905,20 +7070,6 @@ function initTeclas(teclas){
 			});
 		}
 	}
-}
-
-//inicializar los valores y eventos del updater
-function initUpdater(tiposUp){
-	get('wcr_dias_update').value = getData('updateDays', 1, 'default');
-	get('wcr_accion_update').value = getData('updateAction', 0, 'default');
-	var tipoUpdate = getData('updateFlags', (1<<16)-1, 'default');
-	for(t in tiposUp) get('wcr_cb_tipo_update_'+t).checked = tipoUpdate & t;
-	var ultimoUpdate = Number(GM_getValue('SUC_last_update', '0'));
-	if(ultimoUpdate) get('wcr_fecha_update').innerHTML = new Date(ultimoUpdate);
-	setEvt('wcr_btn_check_update', 'click', function(){
-		updateCheck(true);
-		get('wcr_fecha_update').innerHTML = new Date();
-	});
 }
 
 //generar el html de la conf del layout
@@ -7051,14 +7202,14 @@ function trExtraConfSitio(p, prop){
 	setEvt('wcr_btn_up_'+p, 'click', function(evt){
 		var tr = evt.target.parentNode.parentNode.parentNode;
 		var otro = tr.previousSibling;
-		if(otro.id.indexOf('wcr_tr_sitio_extra_')==0){
+		if(otro.id.indexOf('wcr_tr_sitio_extra_')===0){
 			tr.parentNode.insertBefore(tr, otro);
 		}
 	});
 	setEvt('wcr_btn_down_'+p, 'click', function(evt){
 		var tr = evt.target.parentNode.parentNode.parentNode;
 		var otro = tr.nextSibling;
-		if(otro.id.indexOf('wcr_tr_sitio_extra_')==0){
+		if(otro.id.indexOf('wcr_tr_sitio_extra_')===0){
 			tr.parentNode.insertBefore(otro, tr);
 		}
 	});
@@ -7080,28 +7231,6 @@ function htmlTeclas(teclas){
 				'<td><input id="wcr_tecla_1_'+t+'"/></td>'+
 			'</tr>';
 	html += '</table><br/>Press BackSpace to unset a key';
-
-	return html;
-}
-
-//generar el html de la conf del updater
-function htmlUpdater(tiposUp){
-	var html =
-		'<div>Automatically check for updates every <input id="wcr_dias_update" size="3" /> days (0 = never)</div>'+
-		'<div>When an update is found <select id="wcr_accion_update" >'+
-			'<option value="0">ask and take me to the main page on userscripts.org</option>'+
-			(isFirefox() ? '<option value="1">ask and directly download the latest version</option>' : '')+
-			'<option value="2">don\'t ask and take me to the main page on userscripts.org</option>'+
-			(isFirefox() ? '<option value="3">don\'t ask and directly download the latest version</option>' : '')+
-		'</select></div>'+
-		'<div id="wcr_tipos_update"><br/>Check for the following kind of updates:<br/>';
-	for(t in tiposUp)
-		html +=
-			'<input type="checkbox" id="wcr_cb_tipo_update_'+t+'" value="'+t+'">'+
-			'<label for="wcr_cb_tipo_update_'+t+'">'+tiposUp[t]+'</label><br/>';
-	html +=
-		'</div><br/>Last check: <span id="wcr_fecha_update">Never</span><br/>'+
-		'<button id="wcr_btn_check_update">Check for updates now</button>';
 
 	return html;
 }
@@ -7140,16 +7269,6 @@ function guardarSettings(teclas, props, tiposUp, opsLayout){
 			}
 		}
 
-		//guardar updater
-		if(GM_xmlhttpRequest){
-			var dias = Number(get('wcr_dias_update').value);
-			if(!isNaN(dias) && dias>=0) setData('updateDays', dias, 'default');
-			setData('updateAction', Number(get('wcr_accion_update').value), 'default');
-			var tipoUpdate = 0;
-			for(t in tiposUp) if(get('wcr_cb_tipo_update_'+t).checked) tipoUpdate += Number(t);
-			setData('updateFlags', tipoUpdate, 'default');
-		}
-
 		//guardar sitio
 		var conf = unescape(get('wcr_sel_confpag').value);
 		if(conf == '' || conf[0]=='d') setData('confpag', conf);
@@ -7163,7 +7282,7 @@ function guardarSettings(teclas, props, tiposUp, opsLayout){
 					try{
 						var xx = [];
 						var extras = selCss('tr.wcr_extras', document, true);
-						for(i=0; i<extras.length; i++){
+						for(var i=0; i<extras.length; i++){
 							try{
 								var p2 = extras[i].id.match(/extra_\d+$/)[0];
 								var x = parsearElementoConfSitio(p2);
@@ -7175,7 +7294,7 @@ function guardarSettings(teclas, props, tiposUp, opsLayout){
 				}
 				else{
 					try{
-						x = parsearElementoConfSitio(p);
+						var x = parsearElementoConfSitio(p);
 						if(x) customPag[p] = x;
 					}catch(e){ ok = false; }
 				}
@@ -7216,14 +7335,14 @@ function parsearElementoConfSitio(p){
 				if(!elems[0].value.match(/^\/.+\/[gmi]*$/)) elems[0].value = '/'+elems[0].value+'/';
 				eval('re = '+elems[0].value);
 				var tipore = Object.prototype.toString.call(re);
-				if(tipore != "[object RegExp]") throw tipore;
+				if(tipore != "[object RegExp]") throw new Error(tipore);
 				valor.push(elems[0].value);
 			}catch(e){
 				alert(p+': "'+elems[0].value+'" is not a valid regular expression ('+e+')');
 				ok = false;
 			}
 			if(elems.length>1){
-				if(!elems[1].value.match(/^\d+$/) || Number(elems[1].value)==0){
+				if(!elems[1].value.match(/^\d+$/) || Number(elems[1].value)===0){
 					alert(p+': "'+elems[1].value+'" is not a valid number');
 					ok = false;
 				}
@@ -7257,8 +7376,8 @@ function parsearElementoConfSitio(p){
 			break;
 		case 'fn':
 			valor =
-				xpath('//select[@id="wcr_sitio_tipo_'+p+'"]/option[@value="fn"]').innerHTML+'{'+
-				elems[0].value + '}';
+				xpath('//select[@id="wcr_sitio_tipo_'+p+'"]/option[@value="fn"]').innerHTML+'{\n'+
+				elems[0].value + '\n}';
 			try{ eval('f='+valor); }
 			catch(e){
 				alert(p+': "'+valor+'" is not a valid function ('+e+')');
@@ -7291,7 +7410,7 @@ function parsearElementoConfSitio(p){
 			}
 		}
 	}
-	if(!ok) throw 'error';
+	if(!ok) throw new Error('error');
 
 	return {tipo: tipo, valor: valor};
 }
@@ -7390,7 +7509,7 @@ function getConfPagina(conf){
 		return pags;
 	}
 	catch(e){
-		error('getconfpag: ' + e);
+		error('getconfpag: ' , e);
 		return {};
 	}
 }
@@ -7412,8 +7531,45 @@ function strToRegexp(url){
 	return new RegExp(urls.join('|'));
 }
 
+function printarPaginaCustom(custom){
+	changeQuote = function(x) { // Changes a double quoted string to a single quoted one
+	    return x.replace(/\\"/g, '"').replace(/\'/g, "\\'").replace(/^"|"$/g, "'");
+	};
+
+	function indent(x, n) {
+	    var indention = new Array((n||0) + 1).join("\t");
+	    return x.toString().replace(/\n/g,'\n'+ indention);
+	}
+
+	function pretty(y) {
+		if (y.tipo == "str") return  changeQuote(JSON.stringify(y.valor));
+		if (typeof(y) == "string") return changeQuote(JSON.stringify(y));
+		else if (y.tipo == "fn") return indent(y.valor,4);
+		else if (y.tipo == "xp" || y.tipo == "css" || y.tipo == "bool") return JSON.stringify(y.valor).replace(/"(?:[^"\\]|\\.)*"/g, changeQuote);
+		else { // It is an array
+			//console.log(y);
+			var z = y.map(pretty);
+			return "[" + indent(z,7) + "]";
+		}
+	}
+
+	var z = "\n";
+	var x = custom;
+	z += "\t{\n";
+	for (var i in x) {
+		if (x[i].length === 0) continue;
+		var z1 = "\t\t" + i + ":\t" + pretty(x[i]) + ",\n";
+        z += z1;
+	}
+	z += "\t},\n";
+
+	// console.log("\n@import\t" + custom.url.valor + "*");
+	console.log("Using custom settings: " + z);
+}
+
 //recibe la pagina en el formato en q se guarda en la conf, y la retorna en el formato usado en paginas[i]
 function parsearPaginaCustom(custom){
+	try {printarPaginaCustom(custom);} catch(e) {console.error(e);}
 	var pag = {};
 	for(var p in custom){
 		if(p == 'extra'){

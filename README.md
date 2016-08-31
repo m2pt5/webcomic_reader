@@ -1,6 +1,6 @@
 # Webcomic Reader
 
-Webcomic Reader userscript originally hosted at [userscripts.org](http://userscripts-mirror.org/scripts/show/59842) (R.I.P.), currently also hosted at [openuserjs.org](https://openuserjs.org/scripts/ameboide/Webcomic_Reader) and [greasyfork.org](https://greasyfork.org/scripts/3008-webcomic-reader)
+This is my fork of Amiboide's Webcomic Reader userscript originally hosted at [userscripts.org](http://userscripts-mirror.org/scripts/show/59842) (R.I.P.), currently also hosted at [openuserjs.org](https://openuserjs.org/scripts/anka-213/Webcomic_Reader) and [greasyfork.org](https://greasyfork.org/en/scripts/15096-webcomic-reader)
 
 Script for reading webcomics easier, nicer and faster. Tested on: Firefox, Chrome+Tampermonkey/NinjaKit, Safari+NinjaKit, Opera
 
@@ -11,6 +11,12 @@ Preloads up to 5 (or more) pages ahead (in either direction, in case you want to
 Able to remember the current page so that the next time you visit the site you can go back to where you left without having to add a bookmark, or save more than one page for whatever reason you want (maybe for saving your progress on more than one manga on the same site)
 
 When using a download accelerator (like [DownThemAll](https://addons.mozilla.org/en-US/firefox/addon/downthemall/)) you can download all the fetched images by downloading all links with the text starting with "wcrimg" (just enter "wcrimg" as the filter in DownThemAll, other programs/extension may have similar options)
+
+### Installing
+
+1. Install a userscript manager: [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/) for Firefox, [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) for Google Chrome and [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) or [NinjaKit](https://github.com/os0x/NinjaKit) for Safari.
+2. Click [here](https://github.com/anka-213/webcomic_reader/raw/master/webcomic_reader.user.js) to install this script.
+
 
 #### Keyboard shortcuts
 
@@ -53,11 +59,11 @@ There's a version of Tampermonkey for Android, but I haven't tested it, though r
 
 If the browser you use doesn't support userscripts, you can use a bookmarklet to load it instead. Just copy the following code and add it as a bookmark, and when you want to use the script, go to the site you want to read and load that bookmark.
 ```javascript
-javascript: (function(){ document.body.appendChild(document.createElement("script")).src = "http://dl.dropbox.com/u/976471/webcomic_reader.user.js"; })();
+javascript: (function(){ document.body.appendChild(document.createElement("script")).src = "https://gitcdn.link/repo/anka-213/webcomic_reader/master/webcomic_reader.user.js"; })();
 ```
 Notice that this will download the script everytime you want to use it, so it will take more time to start. Also, the same drawbacks mentioned for Opera will apply. Avoid this technique if you can use a proper Greasemonkeysh extension.
-For step by step instructions on how to do this on an iPad, read [this topic](http://userscripts.org/topics/70361). I have only tested this on an iPad, iPhone and the major PC browsers and it works as expected, except on Internet Explorer (which you shouldn't be using anyway)
-Thanks to [krunkster](http://userscripts.org/users/308335) for this trick ;)
+For step by step instructions on how to do this on an iPad, read [this topic](http://userscripts-mirror.org/topics/70361). I have only tested this on an iPad, iPhone and the major PC browsers and it works as expected, except on Internet Explorer (which you shouldn't be using anyway)
+Thanks to [krunkster](http://userscripts-mirror.org/users/308335) for this trick ;)
 
 #### Internet Explorer
 
@@ -73,10 +79,10 @@ A detailed guide can be found here, but the TL;DR version goes something like th
 3.  If it doesn't work / works wrong / you want to specify some more settings, right click the Greasemonkey icon (or left click the NinjaKit/Tampermonkey icon) and go to "User Script Commands..."/"Webcomic Reader - Settings"
 4. Click on "Site Settings" on the top of the screen, and there there's a lot of stuff you can change with xpath, css selectors, regular expressions, functions, etc
 
-(\*) To add @include rules you must open the script source code. On Greasemonkey right click the monkey icon and go to "Manage User Scripts", then find this script, right click it and choose "Edit". On Chrome with NinjaKit/Tampermonkey, right click the extension's icon and click "Options", then select this script to edit it.
+(\*) To add @include rules you must open the script source code. On Greasemonkey right click the monkey icon and go to "Manage User Scripts", then find this script, right click it and choose "Edit". On Chrome with NinjaKit/Tampermonkey, right click the extension's icon and click "Options", then select this script to edit it. In modern versions of the extensions, there is also a gui for adding include rules without modifying the source.
 
 Once you have opened the code, scroll a few lines down until you find a lot of lines that look like this: "// @include http://www.example.com/*". Then just add another one with the exact same format and write your url there.
 
 Note that after an update or reinstallation, the source code will be rewritten and any changes you made to the code will be lost, so be sure to back them up before updating. The settings themselves (from step 4) will be kept safe.
 
-In general, it's possible to add any site that consists of a main image and links to the previous and next pages. If you have trouble adding a new site you can ask for help here, or if you succeeded you can post your settings and I can add them to the script :)
+In general, it's possible to add any site that consists of a main image and links to the previous and next pages. If you have trouble adding a new site you can ask for help here, or if you succeeded you can post your settings and I can add them to the script :) You can get your custom settings for a site by opening the console (F12), and looking for the text "Using custom settings".
