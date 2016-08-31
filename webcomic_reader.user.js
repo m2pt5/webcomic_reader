@@ -698,7 +698,7 @@ var defaultSettings = {
 // @include        http://bradcolbow.com/*
 // @include        http://www.gaomanga.com/*
 // @include        http://www.theherobiz.com/*
-// @include        http://guildedage.net/comic/*
+// @include        http://guildedage.net/*
 // @include        http://betweenfailures.com/*
 // @include        http://www.claudeandmonet.com/*
 // @include        http://phobia.subcultura.es/tira/*
@@ -2221,6 +2221,7 @@ var paginas = [
 		extra:	[[['.newsBox p', '']]]
 	},
 	{	url:	'nerfnow.com',
+		img:	[['#comic img']],
 		extra:	[[['.comment']]],
 	},
 	{	url:	'zapcomic.com',
@@ -4703,13 +4704,12 @@ function run_script(){
 // Disables common scripts that breaks WCR
 function fixbadjs(){
 	// Injected by jumpbar.js from TheHiveWorks
-	exec(
-	'if ("breakbadtoys" in window) {'+
-		'debugger;'+
-		'console.log("Disabling anti-wcr code");'+
-		'window.removeEventListener("load", window.breakbadtoys, true);'+
-		'window.breakbadtoys = null;'+
-	'}');
+	if (typeof breakbadtoys !== "undefined") {
+		debugger;
+		console.log("Disabling anti-wcr code");
+		window.removeEventListener("load", breakbadtoys, true);
+		breakbadtoys = null;
+	}
 }
 
 //setear el html nuevo y rellenarlo con los datos de la pag actual, aparte de prefetchear la de adelante y atras
@@ -4813,6 +4813,8 @@ function iniciar(){
 
 		teclado = getTeclas();
 
+		document.onkeydown = null;
+		document.onkeyup = null;
 		setEvt(window, 'keydown', teclaHandler);
 		setEvt(window, 'keyup', keyupHandler);
 		setEvt(window, 'resize', fitImagen);
@@ -4913,10 +4915,13 @@ function setear(html, pos, dir){
 		// Update list of pages
 		try {
 		var pagelist = "";
-		for (var i of Object.keys(titulo).sort((a,b)=>a-b)) {
-			pagelist += '<option value="'+ i +'" title="'+link[i]+'"' +
-				(i==posActual?" selected":"") + '>' +
-				titulo[i]+"</option>";
+		for (var i of Object.keys(titulo).sort(function(a,b){return a-b;})) {
+			debugger;
+			if (IsNumeric(i)){
+				pagelist += '<option value="'+ i +'" title="'+link[i]+'"' +
+					(i==posActual?" selected":"") + '>' +
+					titulo[i]+"</option>";
+			}
 		}
 		get("wcr_pages").children[0].innerHTML= pagelist;
 		} catch(e) {}
