@@ -1268,7 +1268,7 @@ var paginas = [
 						chap = selchap[selchap.selectedIndex-1].value;
 						page = 0;
 					}
-					else throw 'primera pag del primer cap';
+					else throw new Error('primera pag del primer cap');
 
 					return [link[0],
 						'chapter=' + chap + '&chapter_hid=' + chap +
@@ -1290,7 +1290,7 @@ var paginas = [
 						chap = selchap[selchap.selectedIndex+1].value;
 						page = 0;
 					}
-					else throw 'ultima pag del ultimo cap';
+					else throw new Error('ultima pag del ultimo cap');
 
 					return [link[0],
 						'chapter=' + chap + '&chapter_hid=' + chap +
@@ -1528,7 +1528,7 @@ var paginas = [
 						var htmlPrev = syncRequest(chap, pos);
 						return chap + "/" + xpath('//select[@id="page_select"]/option[last()]/@value', htmlPrev);
 					}
-					throw 'fail';
+					throw new Error('fail');
 				},
 		next:	function(html, pos){
 					var selpag = selCss('#page_select', html);
@@ -1542,7 +1542,7 @@ var paginas = [
 						return "http://reader.imangascans.org/" +
 							pars[1] + "/" + selchap.options[selchap.selectedIndex + 1].value;
 					}
-					throw 'fail';
+					throw new Error('fail');
 				},
 		extra:	[['//div[@class="pager"]']],
 		xelem:	'//div[@class="pager"]/..',
@@ -1630,7 +1630,7 @@ var paginas = [
 					var x = link[0].match(/page=(\d+)/);
 					x = Number(x ? x[1] : 0)+pos;
 					if(!x) return '.';
-					if(x<0 || x>thumbs.length) throw 'fail';
+					if(x<0 || x>thumbs.length) throw new Error('fail');
 					x = x.toString();
 					while(x.length<3) x='0'+x;
 					return html.match(/'([^']+\/images\/manga\/[^']+)'/)[1] + x + '.jpg'; 
@@ -1639,14 +1639,14 @@ var paginas = [
 					var thumbs = JSON.parse(match(html, /params\.thumbs\s*=\s*(.+);/, 1));
 					var x = link[0].match(/page=(\d+)/);
 					x = Number(x ? x[1] : 0)+pos-1;
-					if(x<0 || x>thumbs.length) throw 'fail';
+					if(x<0 || x>thumbs.length) throw new Error('fail');
 					return link[0].replace(/#.+/, '')+'##page='+x;
 				},
 		next:	function(html, pos){
 					var thumbs = JSON.parse(match(html, /params\.thumbs\s*=\s*(.+);/, 1));
 					var x = link[0].match(/page=(\d+)/);
 					x = Number(x ? x[1] : 0)+pos+1;
-					if(x<0 || x>thumbs.length) throw 'fail';
+					if(x<0 || x>thumbs.length) throw new Error('fail');
 					return link[0].replace(/#.+/, '')+'##page='+x;
 				},
 		js:		function(dir){
@@ -1939,7 +1939,7 @@ var paginas = [
 					for(var i=0; i<as.length; i++)
 						if(as[i].href.match(new RegExp('-'+(num-1)+'(\\?|$)')))
 							return as[i].href;
-					throw 'fail';
+					throw new Error('fail');
 				},
 		next:	function(html, pos){
 					var num = Number(link[pos].match(/-(\d+)(\?.+)?$/)[1]);
@@ -1947,15 +1947,13 @@ var paginas = [
 					for(var i=0; i<as.length; i++)
 						if(as[i].href.match(new RegExp('-'+(num+1)+'(\\?|$)')))
 							return as[i].href;
-					throw 'fail';
+					throw new Error('fail');
 				},
 		extra:	[['//div[span]'], '<span style="display:none">', ['//a[@onclick[contains(., "nl")]]'], '</span>'],
 		scrollx:'R',
 		onerr:	function(url, img, num, pos){
 					if(num >= 4) return null;
-					//var nl = extra[pos].innerHTML.match(/nl\((\d+)\)/)[1];
-					var nl = get('loadfail').getAttribute('onclick').match(/\(\'(.*)\'\)/)[1];
-					console.log(nl);
+					var nl = extra[pos].innerHTML.match(/nl\((\d+)\)/)[1];
 					var u = url.split('?nl=');
 					if(u[1] == nl) return null;
 					return {url: u[1] + '?nl=' + nl };
@@ -2310,7 +2308,7 @@ var paginas = [
 						return path + "manga/" + escape(manga) + "/" + escape(chapter) + "/p-" + (page+1);
 					if(nextChapter !== "")
 						return path + "manga/" + escape(manga) + "/" + escape(nextChapter) + "/p-1";
-					throw 'fin';
+					throw new Error('fin');
 				},
 		extra:	[[['.mangareader select', '']]],
 		scrollx:'R'
@@ -2512,11 +2510,11 @@ var paginas = [
 					return get('img_'+pos).href;
 				},
 		back:	function(html, pos){
-					if(!pos) throw 'fail';
+					if(!pos) throw new Error('fail');
 					return '##'+(pos-1);
 				},
 		next:	function(html, pos){
-					if(!get('img_'+(pos+1))) throw 'fail';
+					if(!get('img_'+(pos+1))) throw new Error('fail');
 					return '##'+(pos+1);
 				},
 		layelem:'//div'
@@ -2529,7 +2527,7 @@ var paginas = [
 					return aimgs[pos-num].href;
 				},
 		back:	function(html, pos){
-					throw 'fail';
+					throw new Error('fail');
 				},
 		next:	function(html, pos){
 					if(!pos) return '##0;1';
@@ -2556,7 +2554,7 @@ var paginas = [
 				return selCss("#comic_page", html, 0);
 			} catch (e) { // Not loaded yet
 				if (pos === 0) setTimeout(run_script, 2000);
-				throw e;
+				throw new Error(e);
 			}
 		},
 		back:	function(html, pos) {
@@ -2947,7 +2945,7 @@ var paginas = [
 						page = parseInt(link[pos].match(/page=(\d+)/)[1]) - 1;
 						if(page) return link[pos].replace(/page=(\d+)/,'page='+page);
 					}
-					throw 'fail';
+					throw new Error('fail');
 				},
 		next:	function(html, pos){
 					var page, total;
@@ -2962,7 +2960,7 @@ var paginas = [
 						total = parseInt(link[pos].match(/#(\d+)/)[1]);
 						if(page <= total) return link[pos].replace(/page=(\d+)/,'page='+page);
 					}
-					throw 'fail';
+					throw new Error('fail');
 				},
 		scrollx:'R',
 		layelem:'//div[@id="imageContainer"]'
@@ -3321,7 +3319,7 @@ var paginas = [
 
 					var x = ch+'-'+(p-1);
 					if(p<=1){
-						if(ch<=1) throw 'first';
+						if(ch<=1) throw new Error('first');
 						x = previd;
 					}
 					return link[pos].replace(/ch=.+/, 'ch='+x);
@@ -3351,7 +3349,7 @@ var paginas = [
 
 					var x = ch+'-'+(p+1);
 					if(p>=page){
-						if(ch>=chs) throw 'last';
+						if(ch>=chs) throw new Error('last');
 						x = nextid;
 					}
 					return link[pos].replace(/ch=.+/, 'ch='+x);
@@ -3457,14 +3455,14 @@ var paginas = [
 					var pageid = match(html, /var pageid = (\w+);/, 1);
 					var pages = match(html, /var pages=new Array\((.+?)\);/, 1).split(',');
 					var idx = pages.indexOf(pageid);
-					if(!pages[idx-1]) throw 'fail';
+					if(!pages[idx-1]) throw new Error('fail');
 					return link[pos].replace(pageid, pages[idx-1]);
 				},
 		next:	function(html, pos){
 					var pageid = match(html, /var pageid = (\w+);/, 1);
 					var pages = match(html, /var pages=new Array\((.+?)\);/, 1).split(',');
 					var idx = pages.indexOf(pageid);
-					if(!pages[idx+1]) throw 'fail';
+					if(!pages[idx+1]) throw new Error('fail');
 					return link[pos].replace(pageid, pages[idx+1]);
 				},
 		style:	'.pull-left{max-width:none !important;}',
@@ -3496,7 +3494,7 @@ var paginas = [
 					x = link[0].match(/[&?]ipage=(.*?)(&|$)/i);
 					x = Number(x ? x[1] : 0) + pos;
 					if(!x) return '.';
-					if(x<0 || x>data.length) throw 'fail';
+					if(x<0 || x>data.length) throw new Error('fail');
 					return data[x-1].getAttribute('image-src') || data[x-1].href;
 				},
 		back:	function(html, pos){
@@ -3504,7 +3502,7 @@ var paginas = [
 					pgregex = /(\\?|\\&)ipage=(.*?)(?=(&|$))/i,
 					x = link[0].match(pgregex);
 					x = Number(x ? x[2] : 0) + pos - 1;
-					if (x<0 || x>data.length) throw 'fail';
+					if (x<0 || x>data.length) throw new Error('fail');
 					if (!x) return link[0].replace(/#.*$|(\\?|\\&)ipage=(.*?)(&|$)/gi, '');
 					if (pgregex.test(link[0])) return link[0].replace(pgregex, '$1ipage=' + x);
 					return link[0].replace(/#.*$/, '') + (/\?./.test(link[0])?'&':'?') + 'ipage=' + x;
@@ -3514,7 +3512,7 @@ var paginas = [
 					pgregex = /(\\?|\\&)ipage=(.*?)(?=(&|$))/i,
 					x = link[0].match(pgregex);
 					x = Number(x ? x[2] : 0)+pos+1;
-					if(x<0 || x>data.length) throw 'fail';
+					if(x<0 || x>data.length) throw new Error('fail');
 					if (pgregex.test(link[0])) return link[0].replace(pgregex, '$1ipage=' + x);
 					return link[0].replace(/#.*$/, '') + (/\?./.test(link[0])?'&':'?') + 'ipage=' + x;
 				},
@@ -3522,7 +3520,7 @@ var paginas = [
 					function(html, pos){
 						var data = document.querySelectorAll('a.sigProLink'),
 						x = link[0].match(/[&?]ipage=(.*?)(&|$)/i);
-						if (!(data && data.length)) throw 'fail';
+						if (!(data && data.length)) throw new Error('fail');
 						x = Number(x ? x[1] : 0)+pos;
 						if (!x) return "<br/>Thumbs";
 						var filename = data[x-1].getAttribute('image-src') || data[x-1].href;
@@ -3605,7 +3603,7 @@ var paginas = [
 						p=1;
 					}
 					console.log([pos,-1,c,p]);
-					if(!c) throw 'inicio';
+					if(!c) throw new Error('inicio');
 					return link[pos].replace(/&[cp]=\d+/g, '') + '&c='+c+'&p='+p;
 				},
 		next:	function(html, pos){
@@ -3666,13 +3664,13 @@ var paginas = [
 		back:	function(html, pos){
 					var page = match(link[pos], /page=(\d+)$/, 1, 1);
 					if(--page) return link[pos].replace(/(##page=\d+)?$/, '##page='+page);
-					throw 'first';
+					throw new Error('first');
 				},
 		next:	function(html, pos){
 					var page = match(link[pos], /page=(\d+)$/, 1, 1);
 					var pages = html.match(/addpage\('(.+)?'.*\)/g);
 					if(++page <= pages.length) return link[pos].replace(/(##page=\d+)?$/, '##page='+page);
-					throw 'last';
+					throw new Error('last');
 				},
 		layelem:'//span[@id="page"]',
 		scrollx:'R'
@@ -3916,13 +3914,13 @@ var paginas = [
 		back:	function(html, pos){
 					var m = link[pos].match(/([^\/]+\?)(\d+)_(\d+)?/);
 					var id = Math.max(Math.min(Number(m[3] || '1'), Number(m[2])), 1);
-					if(id == 1) throw 'first';
+					if(id == 1) throw new Error('first');
 					return m[1] + m[2] + '_' + (id-1);
 				},
 		next:	function(html, pos){
 					var m = link[pos].match(/([^\/]+\?)(\d+)_(\d+)?/);
 					var id = Math.max(Math.min(Number(m[3] || '1'), Number(m[2])), 1);
-					if(id == m[2]) throw 'last';
+					if(id == m[2]) throw new Error('last');
 					return m[1] + m[2] + '_' + (id+1);
 				},
 		layelem:'//img'
@@ -4068,7 +4066,7 @@ var paginas = [
 			  return "comics/AGC"+ comicNr+".GIF";
 			}},
 		back:	function(html, pos){var comicNr = parseInt(link[pos].match(/\d+$/)[0]);
-			if(comicNr == 1) throw "First comic";
+			if(comicNr == 1) throw new Error("First comic");
 			return link[pos].replace(/\d+$/,comicNr-1);},
 		next:	function(html, pos){var comicNr = parseInt(link[pos].match(/\d+$/)[0]);
 			// var maxPage = parseInt(html.match(/var MAXCOMIC = (\d+);/)[1]);
@@ -4097,7 +4095,7 @@ var paginas = [
 		url:	'mspaintadventures.com/extras',
 		img:	'http://www.mspaintadventures.com/extra',
 		back:	function(html, pos){var comicNr = parseInt(link[pos].match(/\d+/)[0]);
-			if (comicNr == 1) throw "First comic";
+			if (comicNr == 1) throw new Error("First comic");
 			comicNr--;
 			comicNr = ("000000" + comicNr).match(/0*(\d{6})$/)[1];
 			return link[pos].replace(/\d+/, comicNr);},
@@ -4297,7 +4295,7 @@ var paginas = [
 
 				var url = selCss("#next_link", html).href;
 				if (url.match(/#$/)) {
-				  throw "Last page";
+				  throw new Error("Last page");
 				}
 				return url;
 			},
@@ -4699,7 +4697,7 @@ function run_script(){
 				redirect(link[posActual]);
 			});
 		}
-	}catch(e){ error('loadpag: '+e); }
+	}catch(e){ error('loadpag: ', e); }
 }
 
 // Disables common scripts that breaks WCR
@@ -4729,9 +4727,9 @@ function iniciar(){
 
 		var first, last;
 		try{ first = getLink(document.documentElement.innerHTML, getFirst, 0); }
-		catch(e){ error('first: '+e); }
+		catch(e){ error('first: ', e); }
 		try{ last = getLink(document.documentElement.innerHTML, getLast, 0); }
-		catch(e){ error('last: '+e); }
+		catch(e){ error('last: ', e); }
 
 		if(keepLayout) layoutIntacto();
 		else layoutMinimo();
@@ -4826,7 +4824,7 @@ function iniciar(){
 			setEvt(elemImagen, 'mousemove', imgCursor);
 		}
 		setEvt(elemImagen, 'load', function(){
-			fitImagen(); 
+			fitImagen();
 			scrollear();
 		});
 		setEvt('wcr_btnaddbm', 'click', addBookmark);
@@ -4855,7 +4853,7 @@ function iniciar(){
 			imagen[-1] = null;
 		}
 	} catch(e){
-		error('init: '+e);
+		error('init: ', e);
 		if(defaultSettings.showSettingsOnFail) mostrarSettings();
 	}
 }
@@ -4884,19 +4882,19 @@ function setear(html, pos, dir){
 			try{ link[poslink] = getLink(pag, dir > 0 ? getNext : getBack, pos); }
 			catch(e){
 				link[poslink] = null;
-				error('set['+pos+']/link['+poslink+']: '+e);
+				error('set['+pos+']/link['+poslink+']: ', e);
 			}
 		}
 		else{
 			try{ link[1] = getLink(pag, getNext, pos); }
 			catch(e){
 				link[1] = null;
-				error('set['+pos+']/link[1]: '+e);
+				error('set['+pos+']/link[1]: ', e);
 			}
 			try{ link[-1] = getLink(pag, getBack, pos); }
 			catch(e){
 				link[-1] = null;
-				error('set['+pos+']/link[-1]: '+e);
+				error('set['+pos+']/link[-1]: ', e);
 			}
 		}
 
@@ -4906,7 +4904,7 @@ function setear(html, pos, dir){
 			catch(e){
                 try{ titulo[pos] = match(html, /document.title = '([^']+?)'/, 1); }
                 catch(e){
-                    error('set['+pos+']/titulo: '+e);
+                    error('set['+pos+']/titulo: ', e);
                     titulo[pos] = link[pos];
                 }
 			}
@@ -4930,14 +4928,14 @@ function setear(html, pos, dir){
 					var x = contenido(pag, getExtras[i], pos);
 					if(typeof(x)=='object') x = outerHTML(x);
 					extra[pos] += x;
-				}catch(e){error('set['+pos+']/extras['+i+']: '+e);}
+				}catch(e){error('set['+pos+']/extras['+i+']: ', e);}
 			}
 		}
 	
 		if(dir) get('wcr_btn'+dir).innerHTML = (dir>0?'Next':'Back')+' ('+((pos-posActual)*dir)+(link[pos+dir]?'':'!')+')';
 	}
 	catch(e){
-		error('set['+pos+']: '+e);
+		error('set['+pos+']: ',e);
 		imagen[pos] = null;
 		if(dir){
 			get('wcr_btn'+dir).innerHTML = (dir>0?'Next':'Back')+' ('+((pos-posActual)*dir-1)+'...)';
@@ -5021,7 +5019,7 @@ function cambiaPag(dir, poppedState, slidden){
 		var xel = get('wcr_extra');
 		if(keepLayout && extraElement){
 			try{ xel = xpath(extraElement); }
-			catch(e){ error('extraElement: ' + e); }
+			catch(e){ error('extraElement: ' , e); }
 		}
 		if(xel) xel.innerHTML = extra[posActual];
 
@@ -5047,7 +5045,7 @@ function cambiaPag(dir, poppedState, slidden){
 		}
 
 		try{ if(funcionJs) funcionJs(dir); }
-		catch(e){ error('js('+dir+'): '+e); }
+		catch(e){ error('js('+dir+'): ', e); }
 
 		saveUltima();
 		setCursores();
@@ -5076,7 +5074,7 @@ function cambiaPag(dir, poppedState, slidden){
 			//prefetcheo la pag q viene en esta direccion
 			prefetch(dir, pd, prefetchSize[dir>0?1:0]);
 		}
-	} catch(e){ error('cambia['+dir+']: '+e); }
+	} catch(e){ error('cambia['+dir+']: ', e); }
 }
 
 //si la conf lo pide, ajustar la imagen al tamaño de la ventana
@@ -5264,7 +5262,7 @@ function prefetch(dir, pos, prof, reintento){
 						cargarImagen(pos, dir, prof, reintento);
 					}
 					else setCol(dir, colOK);
-				} catch(e){ error('pre['+pos+']: '+e); }
+				} catch(e){ error('pre['+pos+']: ', e); }
 			}
 			else{
 				prefetcheado[dir] = pos-dir; //hago q pase de nuevo por aca
@@ -5294,7 +5292,7 @@ function prefetch(dir, pos, prof, reintento){
 	catch(e){
 		if(e.toString().indexOf('Component returned failure code: 0x805e000a') > -1)
 			alert('Error when trying to load '+url+'\nIf you\'re using AdBlock Plus, NoScript or some other extension that might be blocking the request, temporarily disable it (or whitelist this page) and try again');
-		error('ajax '+url+(pars?' ; '+pars:'')+': '+e);
+		error('ajax '+url+(pars?' ; '+pars:'')+': ', e);
 	}
 }
 
@@ -5402,7 +5400,7 @@ function match(s, re, g, def){
 	var r = s.match(re);
 	if(r && r.length > g) return r[g];
 	if(def!==undefined) return def;
-	throw 'match: '+re+'['+g+']';
+	throw new Error('match: '+re+'['+g+']');
 }
 
 //evalua una query xpath sobre un elemento (o su html), si se pide explicitamente se devuelve el arreglo de resultados, si no el primero q encuentre
@@ -5417,7 +5415,7 @@ function xpath(query, elem, arreglo){
 		elem = div;
 	}
 	var res = document.evaluate(query, elem, null, arreglo ? XPathResult.ORDERED_NODE_SNAPSHOT_TYPE : XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-	if(arreglo && !res.snapshotLength || !arreglo && !res.singleNodeValue) throw 'xpath: '+query;
+	if(arreglo && !res.snapshotLength || !arreglo && !res.singleNodeValue) throw new Error('xpath: '+query);
 
 	if(!arreglo){
 		res = res.singleNodeValue;
@@ -5442,7 +5440,7 @@ function selCss(query, elem, arreglo){
 
 	if(arreglo) return elem.querySelectorAll(query);
 	var resp = elem.querySelector(query);
-	if(resp === null) throw 'selcss: '+query;
+	if(resp === null) throw new Error('selcss: '+query);
 	return resp;
 }
 
@@ -5765,9 +5763,12 @@ function redirect(url){
 }
 
 //mostrar mensajes de error en modo debug
-function error(msg){
-	msg = (link[posActual] || document.location.href) + '\n\n' + msg;
+function error(msg, e){
+	if(e) {e.message = msg + e.message; msg = e};
+	//debugger;
+	//msg = (link[posActual] || document.location.href) + '\n\n' + msg;
 	if(console && console.log) console.log(msg);
+	//if(console && console.log && e) console.log(e);
 	if(debug) alert(msg);
 }
 
@@ -5783,7 +5784,7 @@ function syncRequest(url, pos){
 	request.send(null);
 
 	if(request.status === 200) return request.responseText;
-	throw request.statusText;
+	throw new Error(request.statusText);
 }
 
 //si se especifica no se toca, si no se usa el host sin el "www."
@@ -7008,7 +7009,7 @@ function initValoresSitio(props, conf){
 				}
 			}
 		}
-		catch(e){ error('rellenarSitio.'+p+': '+e); }
+		catch(e){ error('rellenarSitio.'+p+': ', e); }
 	}
 }
 
@@ -7329,7 +7330,7 @@ function parsearElementoConfSitio(p){
 				if(!elems[0].value.match(/^\/.+\/[gmi]*$/)) elems[0].value = '/'+elems[0].value+'/';
 				eval('re = '+elems[0].value);
 				var tipore = Object.prototype.toString.call(re);
-				if(tipore != "[object RegExp]") throw tipore;
+				if(tipore != "[object RegExp]") throw new Error(tipore);
 				valor.push(elems[0].value);
 			}catch(e){
 				alert(p+': "'+elems[0].value+'" is not a valid regular expression ('+e+')');
@@ -7404,7 +7405,7 @@ function parsearElementoConfSitio(p){
 			}
 		}
 	}
-	if(!ok) throw 'error';
+	if(!ok) throw new Error('error');
 
 	return {tipo: tipo, valor: valor};
 }
@@ -7503,7 +7504,7 @@ function getConfPagina(conf){
 		return pags;
 	}
 	catch(e){
-		error('getconfpag: ' + e);
+		error('getconfpag: ' , e);
 		return {};
 	}
 }
