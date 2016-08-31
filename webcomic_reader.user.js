@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.08.31
+// @version        2016.08.31-1
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -4703,12 +4703,13 @@ function run_script(){
 
 // Disables common scripts that breaks WCR
 function fixbadjs(){
+	var uw = typeof unsafeWindow !== "undefined"?unsafeWindow:window;
 	// Injected by jumpbar.js from TheHiveWorks
-	if (typeof breakbadtoys !== "undefined") {
+	if (typeof uw.breakbadtoys !== "undefined") {
 		debugger;
 		console.log("Disabling anti-wcr code");
-		window.removeEventListener("load", breakbadtoys, true);
-		breakbadtoys = null;
+		uw.removeEventListener("load", uw.breakbadtoys, true);
+		uw.breakbadtoys = null;
 	}
 }
 
