@@ -4610,7 +4610,6 @@ var flipControls = false; //invertir flechas/clicks/botones para mangas u otros 
 var clickImgNavigates = confBool('clickImgNavigates', true);
 
 function run_script(){
-	debugger;
 	try{
 		if(useHistoryAPI && history.pushState){
 			setEvt(window, 'popstate', function(evt){
