@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.09.29
+// @version        2016.10.06
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -1412,7 +1412,7 @@ var paginas = [
 		bgcol:	'#fff'
 	},
 	{	url:	'achewood.com',
-		img:	'http://m.assetbar.com/achewood/'
+		img:	'/comic.php?date='
 	},
 	{	url:	'act-i-vate.com',
 		img:	'http://www.act-i-vate.com/uploads/005/'
