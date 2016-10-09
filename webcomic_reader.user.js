@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.10.09
+// @version        2016.10.10
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -5254,7 +5254,7 @@ function prefetch(dir, pos, prof, reintento){
 		setear(text, pos, dir);
 
 		// If the urls are the same except for a "##" suffix, we don't need to re-download
-		if (link[pos+dir] && link[pos+dir].replace(/##.*/,"") == link[pos].replace(/##.*/,"")) {
+		if (typeof link[pos+dir] == "string" && link[pos+dir].replace(/##.*/,"") == link[pos].replace(/##.*/,"")) {
 			cache[dir] = text;
 		}
 
