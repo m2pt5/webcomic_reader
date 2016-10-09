@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.10.06
+// @version        2016.10.09
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -4432,6 +4432,7 @@ var imgTitle = new Array(); //el alt text de la imagen[i]
 var titulo = new Array(); //titulo de la pagina[i]
 var link = new Array(); //url de la pagina[i]
 var extra = new Array(); //contenido extra de la pagina[i]
+var cache = {};
 
 var posActual = 0; //posicion actual relativa a donde se empezo
 
@@ -4918,7 +4919,6 @@ function setear(html, pos, dir){
 		try {
 		var pagelist = "";
 		for (var i of Object.keys(titulo).sort(function(a,b){return a-b;})) {
-			debugger;
 			if (!isNaN(i)){
 				pagelist += '<option value="'+ i +'" title="'+link[i]+'"' +
 					(i==posActual?" selected":"") + '>' +
@@ -5250,25 +5250,41 @@ function prefetch(dir, pos, prof, reintento){
 		meth = 'POST';
 	}
 
+	function onSuccess(text) {
+		setear(text, pos, dir);
+
+		// If the urls are the same except for a "##" suffix, we don't need to re-download
+		if (link[pos+dir] && link[pos+dir].replace(/##.*/,"") == link[pos].replace(/##.*/,"")) {
+			cache[dir] = text;
+		}
+
+		if(!esSgte || !imagen[pos]) disableBtn(dir, false);
+		//si el otro estaba rojo no lo habilito
+		disableBtn(-dir, get('wcr_btn'+(-dir)).style.backgroundColor == colFail);
+
+		if(imagen[pos]){
+			agregarLink(pos);
+
+			setCol(dir, colLoad); //boton amarillo mientras prefetchea
+
+			cargarImagen(pos, dir, prof, reintento);
+		}
+		else setCol(dir, colOK);
+	}
+
+	if (cache[dir]) {
+		text = cache[dir];
+		cache[dir] = null;
+		onSuccess(text);
+		return;
+	}
+
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange=function(){
 		if (xmlhttp.readyState == 4){
 			if(xmlhttp.status == 200){
 				try{
-					setear(xmlhttp.responseText, pos, dir);
-
-					if(!esSgte || !imagen[pos]) disableBtn(dir, false);
-					//si el otro estaba rojo no lo habilito
-					disableBtn(-dir, get('wcr_btn'+(-dir)).style.backgroundColor == colFail);
-
-					if(imagen[pos]){
-						agregarLink(pos);
-
-						setCol(dir, colLoad); //boton amarillo mientras prefetchea
-
-						cargarImagen(pos, dir, prof, reintento);
-					}
-					else setCol(dir, colOK);
+					onSuccess(xmlhttp.responseText);
 				} catch(e){ error('pre['+pos+']: ', e); }
 			}
 			else{
