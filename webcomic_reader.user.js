@@ -822,6 +822,8 @@ var defaultSettings = {
 // @include        http://www.tsumino.com/Read/View/*
 // @include        http://incase.buttsmithy.com/comic/*
 // @include        http://leylinescomic.com/comics/*
+// @include        http://project-apollo.net/mos/*
+// @include        http://afterstrife.com/?p*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4429,6 +4431,10 @@ var paginas = [
 	{
 		url:	'http://incase.buttsmithy.com/comic/',
 		img:	[['#comic img']],
+	},
+	{
+		url:	'project-apollo.net/mos/',
+		img:	'manga/',
 	},
 	/*
 	,
