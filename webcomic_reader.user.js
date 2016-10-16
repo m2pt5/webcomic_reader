@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.10.16-1
+// @version        2016.10.16-2
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -820,6 +820,8 @@ var defaultSettings = {
 // @include        http://www.sleeplessdomain.com/*
 // @include        http://www.webtoons.com/*
 // @include        http://www.tsumino.com/Read/View/*
+// @include        http://incase.buttsmithy.com/comic/*
+// @include        http://leylinescomic.com/comics/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4423,6 +4425,10 @@ var paginas = [
 		layelem:'//*[@id="image-container"]',
 		js:	function(dir){ if(!dir) clearAllIntervals(); },
 		style:	'#wcr_botones{color:black}',
+	},
+	{
+		url:	'http://incase.buttsmithy.com/comic/',
+		img:	[['#comic img']],
 	},
 	/*
 	,
