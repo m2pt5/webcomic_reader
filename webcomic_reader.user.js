@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.10.16
+// @version        2016.10.16-1
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -819,6 +819,7 @@ var defaultSettings = {
 // @include        http://www.marycagle.com/*
 // @include        http://www.sleeplessdomain.com/*
 // @include        http://www.webtoons.com/*
+// @include        http://www.tsumino.com/Read/View/*
 // ==/UserScript==
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
@@ -4376,6 +4377,53 @@ var paginas = [
 		next:	[['#s_next>a']],
 		layelem:'//*[@id="cp_img"]',
 	},
+	{
+		url:	'tsumino.com/Read/View/',
+		img:	function(html, pos){
+					if (!extraData.metadata) {
+						var container = get("image-container");
+						var baseUrl = container.getAttribute("data-url");
+						var opt = container.getAttribute("data-opt");
+						var obj = container.getAttribute("data-obj");
+						var url = baseUrl+"?q="+encodeURIComponent(opt);
+						extraData.metadata = JSON.parse(syncRequest(url, pos));
+						extraData.obj = obj;
+						extraData.baseUrl = link[pos].replace(/#.*/,"").replace(/(\d+)\/(\d+)/,"$1");
+						extraData.getNr = function(url) {
+							return parseInt(url.match(/\d\/(\d+)|$/)[1]||1);
+						}
+					}
+					if (!link[pos].match(extraData.baseUrl)) throw new Error("Last page");
+					var nr = extraData.getNr(link[pos]);
+					var param = encodeURIComponent(extraData.metadata.reader_page_urls[nr-1]);
+					return extraData.obj + "?name=" + param;
+				},
+		back:	function(html, pos){
+					var nr = extraData.getNr(link[pos]);
+					if (nr <= 1) {
+						throw new Error("First page");
+					} else {
+						return extraData.baseUrl + "/"+ (nr-1);
+					}
+				},
+		next:	function(html, pos){
+					var nr = extraData.getNr(link[pos]);
+					if (nr >= extraData.metadata.reader_page_total) {
+						return extraData.metadata.reader_end_url;
+					} else {
+						return extraData.baseUrl + "/"+ (nr+1);
+					}
+				},
+		first:	function(html){
+					return extraData.baseUrl + "/1";
+				},
+		last:	function(html){
+					return extraData.baseUrl + "/"+ extraData.metadata.reader_page_total;
+				},
+		layelem:'//*[@id="image-container"]',
+		js:	function(dir){ if(!dir) clearAllIntervals(); },
+		style:	'#wcr_botones{color:black}',
+	},
 	/*
 	,
 	{	url:	'',
@@ -4432,7 +4480,8 @@ var imgTitle = new Array(); //el alt text de la imagen[i]
 var titulo = new Array(); //titulo de la pagina[i]
 var link = new Array(); //url de la pagina[i]
 var extra = new Array(); //contenido extra de la pagina[i]
-var cache = {};
+var cache = {}; // Cache of loaded pages. Used on ajax sites.
+var extraData = {}; // Extra data for usage in a site implementation
 
 var posActual = 0; //posicion actual relativa a donde se empezo
 
@@ -5579,6 +5628,18 @@ function keyupHandler(evt){
 			return;
 		}
 	}
+}
+
+// For pages wich runs javascript on intervals.
+function clearAllIntervals() {
+    for (var i = 1; i < 9999; i++)
+        window.clearInterval(i);
+}
+
+// For pages wich runs javascript on timers.
+function clearAllTimers() {
+    for (var i = 1; i < 9999; i++)
+        window.clearTimer(i);
 }
 
 //revisa si se apreto la tecla configurada
