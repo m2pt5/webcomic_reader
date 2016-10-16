@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.10.10
+// @version        2016.10.16
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -4917,15 +4917,17 @@ function setear(html, pos, dir){
 
 		// Update list of pages
 		try {
-		var pagelist = "";
-		for (var i of Object.keys(titulo).sort(function(a,b){return a-b;})) {
-			if (!isNaN(i)){
-				pagelist += '<option value="'+ i +'" title="'+link[i]+'"' +
-					(i==posActual?" selected":"") + '>' +
-					titulo[i]+"</option>";
+			var pagelist = "";
+			var indices = Object.keys(titulo).sort(function(a,b){return a-b;});
+			for (var j = 0; j < indices.length; j++) {
+				var i = indices[j];
+				if (!isNaN(i)){
+					pagelist += '<option value="'+ i +'" title="'+link[i]+'"' +
+						(i==posActual?" selected":"") + '>' +
+						titulo[i]+"</option>";
+				}
 			}
-		}
-		get("wcr_pages").children[0].innerHTML= pagelist;
+			get("wcr_pages").children[0].innerHTML= pagelist;
 		} catch(e) {}
 
 		extra[pos] = '';
