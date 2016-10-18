@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2016.10.16-2
+// @version        2016.10.18
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -824,7 +824,10 @@ var defaultSettings = {
 // @include        http://leylinescomic.com/comics/*
 // @include        http://project-apollo.net/mos/*
 // @include        http://afterstrife.com/?p*
+// @include        https://hitomi.la/reader/*
 // ==/UserScript==
+
+// End of includes
 
 var dataCache = null; //cache para no leer del disco y parsear la configuracion en cada getData
 var firstRun = false;
@@ -4436,6 +4439,37 @@ var paginas = [
 		url:	'project-apollo.net/mos/',
 		img:	'manga/',
 	},
+	{
+		url:	'hitomi.la/reader/',
+		img:	function(html, pos){
+					extraData.images = selCss(".img-url", html, true);
+
+					var index = parseInt(link[pos].split(/##?/)[1]) || 1;
+					var url = extraData.images[index-1].innerHTML;
+					// Hard code EU server (probably improve this later)
+					// la for US server
+					// aa for russian/japanese server
+					// bb for korean server
+					// a for others (probably EU)
+					var lang = "//a";
+					return url.replace(/^\/\/g/, lang);
+				},
+		back:	function(html, pos){
+					var base = link[pos].split(/##?/)[0];
+					var index = parseInt(link[pos].split(/##?/)[1]) || 1;
+					if(index<=1) throw new Error('first');
+					return base + "##" + (index - 1);
+				},
+		next:	function(html, pos){
+					var base = link[pos].split(/##?/)[0];
+					var index = parseInt(link[pos].split(/##?/)[1]) || 1;
+					if(index>=extraData.images.length) throw new Error('last');
+					return base + "##" + (index + 1);
+				},
+		layelem:'//div[@id="comicImages"]',
+		style:	'body{overflow: auto}',
+	},
+    // End of sites
 	/*
 	,
 	{	url:	'',
