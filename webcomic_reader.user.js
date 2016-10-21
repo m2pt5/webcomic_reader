@@ -825,6 +825,7 @@ var defaultSettings = {
 // @include        http://project-apollo.net/mos/*
 // @include        http://afterstrife.com/?p*
 // @include        https://hitomi.la/reader/*
+// @include        https://danbooru.donmai.us/*
 // ==/UserScript==
 
 // End of includes
@@ -4469,6 +4470,54 @@ var paginas = [
 		layelem:'//div[@id="comicImages"]',
 		style:	'body{overflow: auto}',
 	},
+	{
+		url:	'https://danbooru.donmai.us/posts?',
+		img:	function(html, pos){
+					if (!extraData.imgs) extraData.imgs = {};
+					var page = parseInt(match(link[pos], /page=(\d+)/, 1, 1));
+					if (!extraData.imgs[page]) {
+						extraData.imgs[page] = selCss(".post-preview", html, true);
+					}
+					//var imgs =  xpath('//*[@class="post-preview"]/@data-file-url', html, true);
+
+					link[pos] = link[pos].replace(/##last/,"##"+extraData.imgs[page].length);
+					var index = parseInt(match(link[pos],/##(\d+)/,1, 1));
+					var url = extraData.imgs[page][index-1].getAttribute('data-file-url');
+					return url;
+				},
+		back:	function(html, pos){
+					var base = link[pos].split(/##?/)[0];
+					var index = parseInt(link[pos].split(/##?/)[1]) || 1;
+					if(index>1) return base + "##" + (index - 1);
+					return xpath('//a[@rel="prev"]/@href', html) + "##last";
+				},
+		next:	function(html, pos){
+					var page = parseInt(match(link[pos], /page=(\d+)/, 1, 1));
+					var base = link[pos].split(/##?/)[0];
+					var index = parseInt(link[pos].split(/##?/)[1]) || 1;
+					if(index<extraData.imgs[page].length) return base + "##" + (index + 1);
+					return xpath('//a[@rel="next"]/@href', html) + "##1"
+				},
+		extra:	['<h2><a href="/posts/',
+				 function(html, pos){
+					var page = parseInt(match(link[pos], /page=(\d+)/, 1, 1));
+					var index = parseInt(link[pos].split(/##?/)[1]) || 1;
+					return extraData.imgs[page][index-1].getAttribute('data-id');
+				 },
+				 '">Image details</a></h2>',
+				 [['#posts']],
+				],
+		layelem:'//div[@id="posts"]/div[1]',
+		js:	function(dir){
+				var selExtras = selCss('#wcr_extra');
+				selCss('#wcr_div').insertBefore(selExtras, null);
+				// Doesn't currently work.
+				// var thumbs = selCss('.post-preview>a',selExtras, true);
+				// for (var i = 0; i < thumbs.length; i++){
+				// 	thumbs[i].href = "##"+i;
+				// }
+			},
+	},
     // End of sites
 	/*
 	,
@@ -5370,7 +5419,7 @@ function prefetch(dir, pos, prof, reintento){
 	}
 
 	if (cache[dir]) {
-		text = cache[dir];
+		var text = cache[dir];
 		cache[dir] = null;
 		onSuccess(text);
 		return;
@@ -5537,10 +5586,11 @@ function xpath(query, elem, arreglo){
 	var res = document.evaluate(query, elem, null, arreglo ? XPathResult.ORDERED_NODE_SNAPSHOT_TYPE : XPathResult.FIRST_ORDERED_NODE_TYPE, null);
 	if(arreglo && !res.snapshotLength || !arreglo && !res.singleNodeValue) throw new Error('xpath: '+query);
 
+	var es_atributo = query.match(/@[\w-]+$/);
 	if(!arreglo){
 		res = res.singleNodeValue;
 		//si es un atributo retorno el valor, si no retorno el nodo
-		if(query.match(/@[\w-]+$/)) return res.value;
+		if(es_atributo) return res.value;
 		return res;
 	}
 
