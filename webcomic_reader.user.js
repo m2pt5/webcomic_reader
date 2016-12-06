@@ -1821,8 +1821,8 @@ var paginas = [
 	},
 	{	url:	'*.keenspot.com',
 		img:	[['img[src*="/comics"]']],
-		back:	'(img/@alt | .)="Previous comic"',
-		next:	'(img/@alt | .)="Next comic"'
+		back:	'(img/@alt | .)="Previous Comic" or @rel = "prev"',
+		next:	'(img/@alt | .)="Next Comic" or @rel = "next"'
 	},
 	{	url:	'qgmindpolice.com',
 		extra:	[['//div[@class="post"]']]
@@ -4882,13 +4882,25 @@ function run_script(){
 
 // Disables common scripts that breaks WCR
 function fixbadjs(){
-	var uw = typeof unsafeWindow !== "undefined"?unsafeWindow:window;
-	// Injected by jumpbar.js from TheHiveWorks
-	if (typeof uw.breakbadtoys !== "undefined") {
-		debugger;
-		console.log("Disabling anti-wcr code");
-		uw.removeEventListener("load", uw.breakbadtoys, true);
-		uw.breakbadtoys = null;
+	try{
+		var uw = typeof unsafeWindow !== "undefined"?unsafeWindow:window;
+	    // breakbadtoys is injected by jumpbar.js from TheHiveWorks
+	    // killbill and bucheck are injected by ks_headbar.js from Keenspot
+		var badFunctions = ["breakbadtoys", "killbill", "bucheck"];
+		for (var i = 0; i < badFunctions.length; i++) {
+			var name = badFunctions[i];
+			if (typeof uw[name] !== "undefined") {
+				debugger;
+				console.log("Disabling anti-wcr code");
+				uw.removeEventListener("load", uw[name], true);
+				uw[name] = function() {};
+			} else {
+				Object.defineProperty(uw,name,{get:function(){return function(){}}, configurable: false});
+			}
+		}
+	} catch(e) {
+		console.error("Failed to disable bad js:", e);
+		//console.error(e);
 	}
 }
 
@@ -5949,7 +5961,8 @@ function redirect(url){
 	}
 
 	if(typeof(url)=='string'){
-		document.location.href = url.split('#')[0];
+		var hash = match(url,'##.*',0,"");
+		document.location.href = url.split('#')[0] + hash;
 		return;
 	}
 
