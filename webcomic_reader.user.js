@@ -826,6 +826,7 @@ var defaultSettings = {
 // @include        http://afterstrife.com/?p*
 // @include        https://hitomi.la/reader/*
 // @include        https://danbooru.donmai.us/*
+// @include        https://manga.madokami.al/reader/*
 // ==/UserScript==
 
 // End of includes
@@ -4517,6 +4518,38 @@ var paginas = [
 				// 	thumbs[i].href = "##"+i;
 				// }
 			},
+	},
+	{
+		url:	'https://manga.madokami.al/reader/',
+		img:	function(html, pos){
+					var index = parseInt(match(html, /data-index="(\d+)"/, 1));
+					var files = JSON.parse($('<textarea />').html(match(html, /data-files="([^"]+)/, 1)).text());
+					var path = match(html, /data-path="([^"]+)/, 1);
+					return '/reader/image?' + $.param({ path: path, file: files[index] });
+				},
+		back:	function(html, pos){
+					var index = parseInt(match(html, /data-index="(\d+)"/, 1));
+					if (index == 0)
+						throw new Error('first');
+					return encodeURI(window.location.pathname) + '?' + $.param({ index: index - 1 });
+				},
+		next:	function(html, pos){
+					var index = parseInt(match(html, /data-index="(\d+)"/, 1));
+					var files = JSON.parse($('<textarea />').html(match(html, /data-files="([^"]+)/, 1)).text());
+					if (index == files.length - 1)
+						throw new Error('last');
+					return encodeURI(window.location.pathname) + '?' + $.param({ index: index + 1 });
+				},
+		first:	function(html){
+					return encodeURI(window.location.pathname) + '?' + $.param({ index: 0 });
+				},
+		last:	function(html){
+					var files = JSON.parse($('<textarea />').html(match(html, /data-files="([^"]+)/, 1)).text());
+					return encodeURI(window.location.pathname) + '?' + $.param({ index: files.length - 1 });
+				},
+		js:	function(dir){
+					$(window).off('popstate');
+				},
 	},
     // End of sites
 	/*
