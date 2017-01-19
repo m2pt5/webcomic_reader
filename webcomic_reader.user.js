@@ -669,6 +669,7 @@ var defaultSettings = {
 // @include        http://www.8comic.com/love/*
 // @include        http://8comic.com/love/*
 // @include        http://www.mangahead.com/*
+// @include        http://www.mangahead.me/*
 // @include        http://mangahead.com/*
 // @include        http://www.vickifox.com/*
 // @include        http://www.spinnyverse.com/*
@@ -3367,6 +3368,12 @@ var paginas = [
 					}
 					return link[pos].replace(/ch=.+/, 'ch='+x);
 				},
+		scrollx:'R'
+	},
+	{	url:	'mangahead.me',
+		img:	[['#mangahead_image']],
+		back:	'@id="page_previous"',
+		next:	'@id="page_next"',
 		scrollx:'R'
 	},
 	{	url:	'mangahead.com',
