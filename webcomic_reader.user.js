@@ -48,6 +48,7 @@ var defaultSettings = {
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
 // @supportURL     https://github.com/anka-213/webcomic_reader/issues
+// @updateURL      https://raw.githubusercontent.com/anka-213/webcomic_reader/master/webcomic_reader.user.js
 // @updatetype     24
 // @grant          GM_getValue
 // @grant          GM_setValue
@@ -344,6 +345,7 @@ var defaultSettings = {
 // @include        http://memoria.valice.net/*
 // @include        http://www.twilightlady.com/*
 // @include        http://submanga.com/*
+// @include        http://e-hentai.org/*
 // @include        https://e-hentai.org/*
 // @include        http://crazytje.be/*
 // @include        http://www.tenmangas.com/*
