@@ -345,7 +345,8 @@ var defaultSettings = {
 // @include        http://memoria.valice.net/*
 // @include        http://www.twilightlady.com/*
 // @include        http://submanga.com/*
-// @include        http://g.e-hentai.org/*
+// @include        http://e-hentai.org/*
+// @include        https://e-hentai.org/*
 // @include        http://crazytje.be/*
 // @include        http://www.tenmangas.com/*
 // @include        http://tenmangas.com/*
@@ -1942,8 +1943,8 @@ var paginas = [
 					return {img: img.replace(/\/\/img\d/, '//img'+n) };
 				}
 	},
-	{	url:	'g.e-hentai.org|exhentai.org',
-		img:	[['#i3 a img, iframe + a img, .smi > a img']],
+	{	url:	'e-hentai.org|exhentai.org',
+		img:	[['#i3 a img, iframe + a img, .sni > a img']],
 		back:	function(html, pos){
 					var num = Number(link[pos].match(/-(\d+)(\?.+)?$/)[1]);
 					var as = xpath('//a[img]', html, true);
