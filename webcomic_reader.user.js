@@ -92,8 +92,10 @@ var defaultSettings = {
 // @include        http://thedoghousediaries.com/*
 // @include        http://www.erfworld.com/*
 // @include        http://es.juanelo.net/*/*
-// @include        http://www.mangastream.com/*
 // @include        http://mangastream.com/*
+// @include        http://www.mangastream.com/*
+// @include        http://readms.net/*
+// @include        http://www.readms.net/*
 // @include        http://readms.com/*
 // @include        http://www.qwantz.com/*
 // @include        http://qwantz.com/*
@@ -1047,7 +1049,7 @@ var paginas = [
 		style:	'#page{width:1210px;} .narrowcolumn{width:810px;}',
 		bgcol:	'#334255'
 	},
-	{	url:	'mangastream.com|readms.com',
+	{	url:	'mangastream.com|readms.com|readms.net',
 		img:	[['#manga-page']],
 		back:	[['.previous a']],
 		next:	[['.next a']],
