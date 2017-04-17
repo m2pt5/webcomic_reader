@@ -4532,34 +4532,51 @@ var paginas = [
 	{
 		url:	'https://manga.madokami.al/reader/',
 		img:	function(html, pos){
-					var index = parseInt(match(html, /data-index="(\d+)"/, 1));
-					var files = JSON.parse($('<textarea />').html(match(html, /data-files="([^"]+)/, 1)).text());
-					var path = match(html, /data-path="([^"]+)/, 1);
-					return '/reader/image?' + $.param({ path: path, file: files[index] });
-				},
+				var HTMLjson = document.createElement("textarea");
+				HTMLjson.innerHTML = match(html, /data-files="([^"]+)/, 1);
+
+				var index = parseInt(match(html, /data-index="(\d+)"/, 1));
+				var files = JSON.parse(HTMLjson.innerText);
+				var path = match(html, /data-path="([^"]+)/, 1);
+
+				var img = document.getElementById("madokami-reader-clean-img");
+				if (img == null) {
+					img = document.createElement("img");
+					img.id = "madokami-reader-clean-img";
+					img.hidden = "hidden"
+					document.documentElement.appendChild(img);
+					// hide default reader img
+					document.querySelector("#reader img").hidden = "hidden"
+				}
+				img.src = '/reader/image?path=' + encodeURIComponent(path) + '&file=' + encodeURIComponent(files[index]);
+				return img;
+			},
 		back:	function(html, pos){
-					var index = parseInt(match(html, /data-index="(\d+)"/, 1));
-					if (index == 0)
-						throw new Error('first');
-					return encodeURI(window.location.pathname) + '?' + $.param({ index: index - 1 });
-				},
+				var index = parseInt(match(html, /data-index="(\d+)"/, 1));
+				if (index == 0)
+					throw new Error('first');
+				return encodeURI(window.location.pathname) + '?index=' + encodeURIComponent(index - 1);
+			},
 		next:	function(html, pos){
-					var index = parseInt(match(html, /data-index="(\d+)"/, 1));
-					var files = JSON.parse($('<textarea />').html(match(html, /data-files="([^"]+)/, 1)).text());
-					if (index == files.length - 1)
-						throw new Error('last');
-					return encodeURI(window.location.pathname) + '?' + $.param({ index: index + 1 });
-				},
+				var HTMLjson = document.createElement("textarea");
+				HTMLjson.innerHTML = match(html, /data-files="([^"]+)/, 1);
+
+				var index = parseInt(match(html, /data-index="(\d+)"/, 1));
+				var files = JSON.parse(HTMLjson.innerText);
+				if (index == files.length - 1)
+					throw new Error('last');
+				return encodeURI(window.location.pathname) + '?index=' + encodeURIComponent(index + 1);
+			},
 		first:	function(html){
-					return encodeURI(window.location.pathname) + '?' + $.param({ index: 0 });
-				},
+				return encodeURI(window.location.pathname) + '?index=0';
+			},
 		last:	function(html){
-					var files = JSON.parse($('<textarea />').html(match(html, /data-files="([^"]+)/, 1)).text());
-					return encodeURI(window.location.pathname) + '?' + $.param({ index: files.length - 1 });
-				},
-		js:	function(dir){
-					$(window).off('popstate');
-				},
+				var HTMLjson = document.createElement("textarea");
+				HTMLjson.innerHTML = match(html, /data-files="([^"]+)/, 1);
+
+				var files = JSON.parse(HTMLjson.innerText);
+				return encodeURI(window.location.pathname) + '?index=' + encodeURIComponent(files.length - 1);
+			},
 	},
     // End of sites
 	/*
