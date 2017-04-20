@@ -4532,12 +4532,14 @@ var paginas = [
 	{
 		url:	'https://manga.madokami.al/reader/',
 		img:	function(html, pos){
-				var HTMLjson = document.createElement("textarea");
-				HTMLjson.innerHTML = match(html, /data-files="([^"]+)/, 1);
+				var HTMLsan = document.createElement("textarea");
+				HTMLsan.innerHTML = match(html, /data-files="([^"]+)/, 1);
 
 				var index = parseInt(match(html, /data-index="(\d+)"/, 1));
-				var files = JSON.parse(HTMLjson.innerText);
-				var path = match(html, /data-path="([^"]+)/, 1);
+				var files = JSON.parse(HTMLsan.innerText);
+
+				HTMLsan.innerHTML = match(html, /data-path="([^"]+)/, 1)
+				var path = HTMLsan.innerText;
 
 				var img = document.getElementById("madokami-reader-clean-img");
 				if (img == null) {
