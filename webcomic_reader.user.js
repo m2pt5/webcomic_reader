@@ -463,6 +463,7 @@ var defaultSettings = {
 // @include        http://realmofatland.com/*
 // @include        http://thedoujin.com/index.php/pages/*
 // @include        http://eatmanga.com/*
+// @include        http://eatmanga.me/*
 // @include        http://www.oslevadosdabreca.com/*
 // @include        http://www.thedevilbear.com/*
 // @include        http://thedevilbear.com/*
@@ -2367,6 +2368,30 @@ var paginas = [
 		scrollx:'R'
 	},
 	{	url:	'eatmanga.com',
+		img:	[['#eatmanga_image, #eatmanga_image_big, #bigimage, .eatmanga_bigimage']],
+		back:	function(html, pos){
+					try{ return selCss('#page_previous:not([onclick])', html); }
+					catch(e){
+						return xpath('//select[@id="bottom_chapter_list"]/option[contains("'+link[pos]+'", @value)]/following-sibling::option[1]/@value',
+							pos ? '<div>'+extra[0]+'</div>' : document);
+					}
+				},
+		next:	function(html, pos){
+					try{ return selCss('#page_next:not([onclick])', html); }
+					catch(e){
+						return xpath('//select[@id="bottom_chapter_list"]/option[contains("'+link[pos]+'", @value)]/preceding-sibling::option[1]/@value',
+							pos ? '<div>'+extra[0]+'</div>' : document);
+					}
+				},
+		extra:	[[['.navigation select', ' ', 2]]],
+		js:		function(dir){
+					var selchap = selCss('#wcr_extra #bottom_chapter_list');
+					if(dir) selchap.innerHTML = selCss('#bottom_chapter_list', '<div>'+extra[0]+'</div>').innerHTML;
+					selchap.value = xpath('//select[@id="bottom_chapter_list"]/option[contains("'+link[posActual]+'", @value)]/@value', selchap);
+				},
+		scrollx:'R'
+	},
+	{	url:	'eatmanga.me',
 		img:	[['#eatmanga_image, #eatmanga_image_big, #bigimage, .eatmanga_bigimage']],
 		back:	function(html, pos){
 					try{ return selCss('#page_previous:not([onclick])', html); }
