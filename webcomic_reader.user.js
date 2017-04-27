@@ -4915,7 +4915,7 @@ function fixbadjs(){
 		var uw = typeof unsafeWindow !== "undefined"?unsafeWindow:window;
 	    // breakbadtoys is injected by jumpbar.js from TheHiveWorks
 	    // killbill and bucheck are injected by ks_headbar.js from Keenspot
-		var badFunctions = ["breakbadtoys", "killbill", "bucheck"];
+		var badFunctions = ["breakbadtoys2", "killbill", "bucheck"];
 		for (var i = 0; i < badFunctions.length; i++) {
 			var name = badFunctions[i];
 			if (typeof uw[name] !== "undefined") {
