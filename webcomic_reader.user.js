@@ -5171,7 +5171,7 @@ function setear(html, pos, dir){
 				}
 			}
 			get("wcr_pages").children[0].innerHTML= pagelist;
-		} catch(e) {}
+		} catch(e) {error('set['+pos+']/dropdown',e);}
 
 		extra[pos] = '';
 		if(getExtras){
