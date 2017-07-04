@@ -811,11 +811,12 @@ var defaultSettings = {
 // @include        http://www.legostargalactica.net/*
 // @include        http://hentaihere.com/m/*/*/*
 // @include        http://gomanga.co/reader/read*
+// @include        http://mangasee.co/manga/*
+// @include        http://mangaseeonline.us/*
 // @include        http://mangafap.com/image/*
 // @include        http://*.keenspot.com/*
 // @include        http://dynasty-scans.com/*
 // @include        http://*.dynasty-scans.com/*
-// @include        http://mangasee.co/manga/*
 // @include        http://mangafast.online/manga/*
 // @include        http://www.demonicscans.com/FoOlSlide/read/*
 // @include        http://raws.yomanga.co/read/*
@@ -4359,6 +4360,42 @@ var paginas = [
 		extra:	[[['.navbar > *']]],
 		js:		function(dir){
 					document.querySelector('.navbar').className = "navbar navbar-default";
+				},
+	},
+	{
+		url:	'mangaseeonline.us/read-online',
+		img: 	[['img.CurImage']],
+		layout:	true,
+		back:	function(html, pos) {
+					var cS = selCss('.ChapterSelect', html);
+					var pS = selCss('.PageSelect', html);
+					var indexName = selCss('input.IndexName', html).getAttribute('value');
+					var chapter = cS.selectedIndex;
+					var page = pS.selectedIndex;
+					if (page < 1) {
+						chapter--;
+						var request = new XMLHttpRequest();
+						request.open('POST', 'request.chapter.php', false);
+						request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+						request.send('IndexName=' + indexName + '&ChapterValue=' + cS[chapter].value + '&MaxPage=yes');
+						if (request.responseText) { page = JSON.parse(request.responseText).CurPage;}
+					}
+					var newChapter = cS[chapter].innerHTML.split(' ');
+					return document.location.href.replace(/(chapter-).+?(-.+?)\d+(.html)/, "$1" + newChapter[1] + "$2" + page + "$3");
+				},
+		next:	function(html, pos) {
+					var cS = selCss('.ChapterSelect', html);
+					var pS = selCss('.PageSelect', html);
+					var chapter = cS.selectedIndex;
+					var page = pS.selectedIndex + 1;
+					if (page >= pS.length) { page = 0; chapter++; }
+					var newChapter = cS[chapter].innerHTML.split(' ');
+					return document.location.href.replace(/(chapter-).+?(-.+?)\d+(.html)/, "$1" + newChapter[1] + "$2" + (page + 1) + "$3");
+				},
+		js:		function(dir){
+					document.querySelector('.navbar').className = "navbar navbar-default";
+					var mWrapper = document.getElementsByClassName('mainWrapper');
+					if (mWrapper && mWrapper.length > 0) mWrapper[0].style.marginTop = '0px';
 				},
 	},
 	{
