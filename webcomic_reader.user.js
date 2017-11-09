@@ -95,6 +95,9 @@ var defaultSettings = {
 // @include        http://mangastream.com/*
 // @include        http://www.mangastream.com/*
 // @include        http://readms.net/*
+// @include        https://mangastream.com/*
+// @include        https://www.mangastream.com/*
+// @include        https://readms.net/*
 // @include        http://www.readms.net/*
 // @include        http://readms.com/*
 // @include        http://www.qwantz.com/*
