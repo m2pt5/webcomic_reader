@@ -1794,10 +1794,19 @@ var paginas = [
 		back:	'img[@id="p_bot_nav"]',
 		next:	'img[@id="n_bot_nav"]'
 	},
-	{	url:	'marryme.keenspot.com|lastblood.keenspot.com',
+	{	url:	'lastblood.keenspot.com',
 		img:	['//div[@id="comic"]/img'],
 		back:	'(preceding-sibling::small | preceding-sibling::*/small)[.="Previous Comic:"]',
 		next:	'(preceding-sibling::small | preceding-sibling::*/small)[.="Next Comic:"]',
+		fixurl:	function(url, img, link){
+					if(img) return url.replace(/http:\/\/.+?\//, 'http://'+document.location.host+'/');
+					return url;
+				}
+	},
+	{	url:	'marryme.keenspot.com',
+		img:	['//div[@id="comicspot"]/img'],
+		back:	[['*[rel="prev"]']],
+		next:	[['*[rel="next"]']],
 		fixurl:	function(url, img, link){
 					if(img) return url.replace(/http:\/\/.+?\//, 'http://'+document.location.host+'/');
 					return url;
