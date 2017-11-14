@@ -2203,7 +2203,7 @@ var paginas = [
 					return xpath('//strong[.="Previous Chapter:" or .="Capítulo Anterior:"]/following-sibling::a/@href', html) + "last.html";
 				},
 		next:	function(html, pos){
-					try{ return xpath('//select[@class="wid60"]/option[@selected]/following-sibling::option[1]/@value', html); }
+					try{ return xpath('//select[@class="wid60"]/option[@selected]/following-sibling::option[1 and not(contains(@value, "featured"))]/@value', html); }
 					catch(e){ return xpath('//p[contains(., "es el siguiente...")]/a | //strong[.="Next Chapter:"]/following-sibling::a', html); }
 				},
 		js:		function(dir){
