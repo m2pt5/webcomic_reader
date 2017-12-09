@@ -128,8 +128,8 @@ var defaultSettings = {
 // @include        http://www.amazingsuperpowers.com/*
 // @include        http://www.anymanga.com/*
 // @include        http://anymanga.com/*
-// @include        http://mangafox.me/*
-// @include        http://m.mangafox.me/*
+// @match          *://mangafox.la/*
+// @match          *://m.mangafox.la/*
 // @include        http://www.leasticoulddo.com/*
 // @include        http://leasticoulddo.com/*
 // @include        http://www.sinfest.net/*
@@ -1173,14 +1173,14 @@ var paginas = [
 		scrollx:'R'
 	},
 	{
-		url:	'm.mangafox.me',
+		url:	'm.mangafox.la',
 		img:	['//img[@id="image"]'],
 		back:	['//select/option[@selected]/preceding-sibling::*[1]'],
 		next:	['//div[@id="viewer"]/a'],
 		scrollx:'R'
 
 	},
-	{	url:	'mangafox.me',
+	{	url:	'mangafox.la',
 		img:	['//img[@id="image"]'],
 		back:	function(html, pos){
 					var href = contenido(html, ['//a[contains(@class, "prev_page")]/@href'], pos);
