@@ -423,6 +423,8 @@ var defaultSettings = {
 // @include        http://mankin-trad.net/*
 // @include        https://www.mangahere.co/*
 // @include        http://es.mangahere.co/*
+// @include        https://www.mangahere.cc/*
+// @include        http://es.mangahere.cc/*
 // @include        http://www.scarygoround.com/*
 // @include        http://scarygoround.com/*
 // @include        http://www.schlockmercenary.com/*
@@ -2210,6 +2212,33 @@ var paginas = [
 		scrollx:'R'
 	},
 	{	url:	'*.mangahere.co',
+		img:	[['#image']],
+		back:	function(html, pos){
+					var a = selCss('.prew_page', html);
+					if(a.href.indexOf('javascript:')) return a;
+					return xpath('//strong[.="Previous Chapter:" or .="Capítulo Anterior:"]/following-sibling::a/@href', html) + "last.html";
+				},
+		next:	function(html, pos){
+					try{ return xpath('//select[@class="wid60"]/option[@selected]/following-sibling::option[1 and not(contains(@value, "featured"))]/@value', html); }
+					catch(e){ return xpath('//p[contains(., "es el siguiente...")]/a | //strong[.="Next Chapter:"]/following-sibling::a', html); }
+				},
+		js:		function(dir){
+					if(!dir) exec("previous_page = next_page = '';");
+					var selcap = selCss('#wcr_extra #top_chapter_list');
+					var caps = selcap.options;
+					for(var i=0; i<caps.length; i++){
+						if(link[posActual].indexOf(caps[i].value) >= 0){
+							selcap.selectedIndex = i;
+							break;
+						}
+					}
+				},
+		extra:	[function(html, pos){
+					return selCss('#top_chapter_list', pos ? document : html);
+				}, [['.wid60']]],
+		scrollx:'R'
+	},
+	{	url:	'*.mangahere.cc',
 		img:	[['#image']],
 		back:	function(html, pos){
 					var a = selCss('.prew_page', html);
