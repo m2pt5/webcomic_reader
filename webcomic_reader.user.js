@@ -421,9 +421,9 @@ var defaultSettings = {
 // @include        http://www.wigucomics.com/*
 // @include        http://www.mankin-trad.net/*
 // @include        http://mankin-trad.net/*
-// @include        https://www.mangahere.co/*
+// @include        http://www.mangahere.co/*
 // @include        http://es.mangahere.co/*
-// @include        https://www.mangahere.cc/*
+// @include        http://www.mangahere.cc/*
 // @include        http://es.mangahere.cc/*
 // @include        http://www.scarygoround.com/*
 // @include        http://scarygoround.com/*
