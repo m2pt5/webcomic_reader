@@ -116,8 +116,7 @@ var defaultSettings = {
 // @include        http://www.lfgcomic.com/page/*
 // @include        http://lfgcomic.com/page/*
 // @include        http://www.gpf-comics.com/*
-// @include        http://www.questionablecontent.net/*
-// @include        http://questionablecontent.net/*
+// @match          *://*.questionablecontent.net/*
 // @include        http://miscellanea.wellingtongrey.net/*
 // @include        http://www.daisyowl.com/*
 // @include        http://daisyowl.com/*
