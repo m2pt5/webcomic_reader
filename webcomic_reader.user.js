@@ -86,8 +86,7 @@ var defaultSettings = {
 // @include        http://www.vgcats.com/*/*
 // @include        http://www.phdcomics.com/*
 // @include        http://www.cad-comic.com/*
-// @include        http://www.smbc-comics.com/*
-// @include        http://smbc-comics.com/*
+// @match          *://*.smbc-comics.com/*
 // @include        http://abstrusegoose.com/*
 // @include        http://thedoghousediaries.com/*
 // @include        http://www.erfworld.com/*
