@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2017.12.15
+// @version        2018.02.11
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
 // @homepageURL    https://github.com/anka-213/webcomic_reader#readme
@@ -836,7 +836,8 @@ var defaultSettings = {
 // @include        https://hitomi.la/reader/*
 // @include        https://danbooru.donmai.us/*
 // @include        https://manga.madokami.al/reader/*
-// @match          *://www.mngdoom.com/*/*  
+// @match          *://www.mngdoom.com/*/*
+// @match          *://kimchicuddles.com/post/*
 // ==/UserScript==
 
 // End of includes
@@ -4729,6 +4730,14 @@ var paginas = [
 				  return link[pos].replace(/(\d+)\/(\d+)$/, chapter + "/" + (page+1));
 				}
 				},
+	},
+	{
+		url:	'kimchicuddles.com/post/',
+		img:	[['figure.photo-hires-item img']],
+		back:	[['.previous-button']],
+		next:	[['.next-button']],
+		first:	[['.first-button']],
+		last:	[['.latest-button']],
 	},
     // End of sites
 	/*
