@@ -666,7 +666,7 @@ var defaultSettings = {
 // @include        http://readincesthentai.com/*
 // @include        http://www.animephile.com/*
 // @include        http://hentaistreamer.com/*
-// @include        http://kissmanga.com/*
+// @match          *://kissmanga.com/*
 // @include        http://www.mangatank.com/*
 // @include        http://www.snowflakescomic.com/*
 // @include        http://mangafox.mobi/*
@@ -3262,38 +3262,38 @@ var paginas = [
 	{
 		url:	'kissmanga.com',
 		img:	function(html, pos){
-					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
+					var imgs = html.match(/lstImages\.push\(wrapKA\(".+?"\)\);/g);
 
 					var num = 0;
 					try {num = Number(link[pos].match(/##(-?\d+)/)[1]);}
 					catch (e) {num = 0;}
 					if (num == -1) num = imgs.length - 1;
-			
+
 					return imgs[num].match(/"(.+)"/)[1];
 				},
 		back:	function(html, pos){
 					var num;
-					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
-			
+					var imgs = html.match(/lstImages\.push\(wrapKA\(".+?"\)\);/g);
+
 					try {num = Number(link[pos].match(/##(-?\d+)/)[1]);}
 					catch (e) {var num = 0;}
 					if (num == -1) num = imgs.length - 1;
-			
+
 					if (num > 0) return '##' + (num-1);
-			
+
 					return xpath('//select[(@id|@class)="selectChapter"]/option[@selected]/preceding-sibling::option[1]/@value', html) +
 						'##-1';
 				},
 		next:	function(html, pos){
 					var num;
-					var imgs = html.match(/lstImages\.push\(".+?"\);/g);
-			
+					var imgs = html.match(/lstImages\.push\(wrapKA\(".+?"\)\);/g);
+
 					try {num = Number(link[pos].match(/##(-?\d+)/)[1]);}
 					catch (e) {var num = 0;}
 					if (num == -1) num = imgs.length - 1;
-			
+
 					if (imgs.length > num+1) return '##' + (num+1);
-			
+
 					return xpath('//select[(@id|@class)="selectChapter"]/option[@selected]/following-sibling::option[1]/@value', html) +
 						'##0';
 				},
