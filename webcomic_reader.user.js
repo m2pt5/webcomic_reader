@@ -3270,7 +3270,7 @@ var paginas = [
 					catch (e) {num = 0;}
 					if (num == -1) num = imgs.length - 1;
 
-					return imgs[num].match(/"(.+)"/)[1];
+					return unsafeWindow.wrapKA(imgs[num].match(/"(.+)"/)[1]);
 				},
 		back:	function(html, pos){
 					var num;
