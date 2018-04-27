@@ -76,7 +76,7 @@ To get this script and the rest of the web working correctly, use IE for what it
 It works out-of-the-box with over 400 sites (full list below), but adding new ones is fairly easy in most cases.
 A detailed guide can be found here, but the TL;DR version goes something like this:
 
-1. Add an @include rule for the page (use * as a wildcard for the @included url, like "http://www.example.com/*") (*)
+1. Add an @include rule for the page (use * as a wildcard for the @included url, like "http://www.example.com/*") (\*)
 2. Try it, it may already work with the default settings. If it does, you're done :)
 3.  If it doesn't work / works wrong / you want to specify some more settings, right click the Greasemonkey icon (or left click the NinjaKit/Tampermonkey icon) and go to "User Script Commands..."/"Webcomic Reader - Settings"
 4. Click on "Site Settings" on the top of the screen, and there there's a lot of stuff you can change with xpath, css selectors, regular expressions, functions, etc
