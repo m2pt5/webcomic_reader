@@ -773,6 +773,7 @@ var defaultSettings = {
 // @include        http://www.yuri-ism.net/*
 // @include        http://www.bringbackroomies.com/*
 // @match          *://*.blindsprings.com/*
+// @match          *://*.forgottenordercomic.com/*
 // @include        http://www.wtfcomics.com/*archive.html?*
 // @include        http://wtfcomics.com/*archive.html?*
 // @include        http://www.olympusoverdrive.com/index.php?*
@@ -3997,6 +3998,25 @@ var paginas = [
 				});
 			},
 		style:	'#topleft{background-size:auto 1061px;height:1061px;}\n#cc-comicbody{height:933px;}\n#wcr_imagen{width:700px !important;height:auto !important;}',
+	},
+	{	url:	'forgottenordercomic.com',
+		img:	[['#cc-comic']],
+		back:	[['.cc-prev']],
+		next:	[['.cc-next']],
+		first:	[['.cc-first']],
+		last:	[['.cc-last']],
+		extra:	[[['#newsleft']]],
+		xelem:	'//div[@id="newsleft"]',
+		js:	function(dir){
+				var disqusJs = selCss('.cc-commentbody>script').innerHTML;
+				DISQUS && DISQUS.reset({
+					reload: true,
+					config: function () {
+						this.page.identifier = disqusJs.match(/identifier = '(.*)'/)[1];
+						this.page.url = disqusJs.match(/url = '(.*)'/)[1];
+					}
+				});
+			},
 	},
 	{	url:	'wtfcomics.com',
 		img:	function(html, pos){
