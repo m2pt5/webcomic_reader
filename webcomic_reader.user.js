@@ -290,7 +290,7 @@ var defaultSettings = {
 // @include        http://thedreamercomic.com/
 // @include        http://www.shazzbaa.com/*
 // @include        http://shazzbaa.com/*
-// @include        http://www.sandraandwoo.com/*
+// @match          *://*.sandraandwoo.com/*
 // @include        http://www.freakangels.com/*
 // @include        http://comics.com/*
 // @include        http://www.sakanacomic.com/*
@@ -1741,7 +1741,9 @@ var paginas = [
 		img:	'issues/'
 	},
 	{	url:	'sandraandwoo.com',
-		img:	['//div[@id="comic"]/a/img']
+		img:	['//div[@id="comic"]/a/img'],
+		extra:	[[['#column']]],
+		xelem:	'//div[@id="column"]'
 	},
 	{	url:	'freakangels.com',
 		img:	'http://www.freakangels.com/comics/',
