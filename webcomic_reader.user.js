@@ -3990,8 +3990,8 @@ var paginas = [
 				var disqusJs = selCss('.cc-commentbody>script').innerHTML;
 				DISQUS && DISQUS.reset({
 			  		reload: true,
-			  		config: function () {  
-			  			this.page.identifier = disqusJs.match(/identifier = '(.*)'/)[1];  
+			  		config: function () {
+			  			this.page.identifier = disqusJs.match(/identifier = '(.*)'/)[1];
 			  			this.page.url = disqusJs.match(/url = '(.*)'/)[1];
 					}
 				});
