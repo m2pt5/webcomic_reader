@@ -1840,6 +1840,13 @@ var paginas = [
 		back:	'img[@id="Previous_Day"]',
 		next:	'img[@id="Next"]'
 	},
+	{	url:	'countyoursheep.keenspot.com',
+		img:	[['img[src*="/comics"]']],
+		back:	'(img/@alt | .)="Previous comic"',
+		next:	'(img/@alt | .)="Next comic"',
+		extra:	[['//center/h2'],['//center/p/font']],
+		style:	'body>center>p>font{display: none;}',
+	},
 	{	url:	'*.keenspot.com',
 		img:	[['img[src*="/comics"]']],
 		back:	'(img/@alt | .)="Previous Comic" or @rel = "prev"',
