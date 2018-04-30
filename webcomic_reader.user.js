@@ -283,7 +283,7 @@ var defaultSettings = {
 // @include        http://thedreamercomic.com/
 // @include        http://www.shazzbaa.com/*
 // @include        http://shazzbaa.com/*
-// @include        http://www.sandraandwoo.com/*
+// @match          *://*.sandraandwoo.com/*
 // @include        http://www.freakangels.com/*
 // @include        http://comics.com/*
 // @include        http://www.sakanacomic.com/*
@@ -1733,8 +1733,15 @@ var paginas = [
 	{	url:	'thedreamercomic.com',
 		img:	'issues/'
 	},
+	{	url:	'sandraandwoo.com/gaia/',
+		img:	['//div[@id="comic"]/a/img'],
+		extra:	[['//div[@class="post-comic"]/*','',3],[['#comment-main-none']],[['#comment-main-1']]],
+		style:	'#wcr_extra{text-align:left;}\n#wcr_title{display:none;}\n#column>.post-comic>br~*{display:none;}\n#column>#comment-main-none{display:none;}'
+	},
 	{	url:	'sandraandwoo.com',
-		img:	['//div[@id="comic"]/a/img']
+		img:	['//div[@id="comic"]/a/img'],
+		extra:	[[['#column']]],
+		xelem:	'//div[@id="column"]'
 	},
 	{	url:	'freakangels.com',
 		img:	'http://www.freakangels.com/comics/',
