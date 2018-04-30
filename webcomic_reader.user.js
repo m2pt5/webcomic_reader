@@ -63,14 +63,7 @@ var defaultSettings = {
 // @include        http://penny-arcade.com/comic*
 // @include        https://www.penny-arcade.com/comic*
 // @include        https://penny-arcade.com/comic*
-// @include        http://www.xkcd.com/*
-// @include        http://xkcd.com/*
-// @include        http://www.xkcd.org/*
-// @include        http://xkcd.org/*
-// @include        http://www.xkcd.net/*
-// @include        http://xkcd.net/*
-// @include        https://www.xkcd.com/*
-// @include        https://xkcd.com/*
+// @match          *://*.xkcd.com/*
 // @include        http://www.giantitp.com/*
 // @include        http://www.dilbert.com/strip/*
 // @include        http://dilbert.com/strip/*
