@@ -206,8 +206,7 @@ var defaultSettings = {
 // @include        http://www.jeffzugale.com/*
 // @include        http://www.threepanelsoul.com/*
 // @include        http://threepanelsoul.com/*
-// @include        http://www.oglaf.com/*
-// @include        http://oglaf.com/*
+// @match          *://*.oglaf.com/*
 // @include        http://www.kevinandkell.com/*
 // @include        http://kevinandkell.com/*
 // @include        http://kittyhawkcomic.com/*
@@ -1492,10 +1491,32 @@ var paginas = [
 	{	url:	'oglaf.com',
 		img:	[['#strip']],
 		back:	'div[@id="pv" or @id="pvs"]',
-		next:	'div[@id="nx"]',
-		extra:	[['//div[@id="tt"]/img']],
-		style:	'b>div{float:left;}',
-		bgcol:	'#ccc'
+		next:	'div[@id="nx" or @id="ns"]',
+		first:	'div[@id="st"]',
+		last:	function(html){
+					if (window.location.pathname !== "/") {
+						return window.location.protocol + "//" + window.location.hostname;
+					} else {
+						return "";
+					}
+				},
+		extra:	[function(html, pos){
+					var ret = "";
+					try {
+						var alt = xpath('//img[@id="strip"]/@alt', html);
+						if(alt !== "") ret += alt + "<br>";
+					} catch {}
+					try {
+						var imgTitle = xpath('//div[@id="tt"]/img/@title', html);
+						if(imgTitle !== "None" && imgTitle !== "") ret += imgTitle + "<br>";
+					} catch {}
+					try {
+						var img = xpath('//div[@id="tt"]/img', html);
+						return ret + img.outerHTML;
+					} catch {return ret;}
+					}],
+		style:	'b>div{float:left;}\n.content{height:1%;}\n.content:after{clear:both;}\n.content:before,.content:after{content:" ";display:table;}',
+		bgcol:	'#ccc',
 	},
 	{	url:	'kevinandkell.com',
 		back:	'..[@id="prevstrip"]',
