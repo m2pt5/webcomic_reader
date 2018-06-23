@@ -500,7 +500,7 @@ var defaultSettings = {
 // @include        http://goldenagecomics.co.uk/*
 // @include        http://fourcolorshadows.blogspot.com/*
 // @include        http://thehorrorsofitall.blogspot.com/*
-// @include        *//bato.to/reader*
+// @include        *//bato.to/chapter*
 // @include        http://www.eegra.com/*
 // @include        http://www.octopuspie.com/*
 // @include        http://www.lovemenicecomic.com/*
@@ -2664,65 +2664,24 @@ var paginas = [
 				}],
 		layelem:'//div[@id="header-wrapper"]'
 	},
-	{	url:	'bato.to/reader',
-		img:	function(html, pos) {
-			try {
-				return selCss("#comic_page", html, 0);
-			} catch (e) { // Not loaded yet
-				if (pos === 0) setTimeout(run_script, 2000);
-				throw new Error(e);
-			}
-		},
-		back:	function(html, pos) {
-			var url;
-			try {
-				url = xpath('//a[img[@title="Previous Page"]]', html).href;
-			} catch (e) {
-				url = xpath('//a[img[@title="Previous Chapter"]]', html).href;
-			}
-
-			url2 = url.replace(/#[^_]*$/, "$&_1").replace("reader#", "areader?id=").replace("_", "&p=").replace("http:","");
-			var both = [url, url2];
-			both.doubleLink = true;
-			return both;
-		},
-		next:	function(html, pos) {
-			var url;
-			try {
-				url = xpath('//a[img[@title="Next Page"]]', html).href;
-			} catch (e) {
-				url = xpath('//a[img[@title="Next Chapter"]]', html).href;
-			}
-			url2 = url.replace(/#[^_]*$/, "$&_1").replace("reader#", "areader?id=").replace("_", "&p=").replace("http:","");
-			var both = [url, url2];
-			both.doubleLink = true;
-
-			return both;
-		},
-		extra:	[['//img[@id="comic_page" and not(./ancestor::div[contains(@style, "display: none;")])]', '<br/>', 1],
-				[['.moderation_bar']],
-				function(html, pos){
-					var xs = selCss('.moderation_bar select', null, true);
-					for(var i =0; i<xs.length; i++) {
-						xs[i].addEventListener('change', function(){document.location.reload();});
+	{	url:	'bato.to/chapter',
+		img:	function(html, pos){
+					try {
+						xpath('//img[@class="page-img" and starts-with(@src, "http")]/@src', html);
+					} catch (error) {
+						var page = xpath('//optgroup[@label="Page"]//option[@selected="true"]/@value', html);
+						var regex = /var images = (.*);/g;
+						return JSON.parse(regex.exec(html)[1])[page]; 
 					}
-					return "";
-				}],
-		fixurl:	function(url, img, link) {
-					if(img) return encodeURI(url);
-					return url;
+
+					return xpath('//img[@class="page-img"]', html);	
 				},
-		layelem:'//img[@id="comic_page"]',
-		js:	function(dir) {
-			if (dir === 0 && typeof(link[0]) == 'string') {
-				url = link[0];
-				url2 = url.replace(/#[^_]*$/, "$&_1").replace("reader#", "areader?id=").replace("_", "&p=");
-				var both0 = [url, url2];
-				both0.doubleLink = true;
-				link[0] = both0;
-			}
+		back:	function(html, pos){
+					return xpath("//div[contains(concat(' ',normalize-space(@class),' '),' nav-prev ')]//a/@href", html);
 		},
-		scrollx:'R'
+		next:	function(html, pos){
+					return xpath("//div[contains(concat(' ',normalize-space(@class),' '),' nav-next ')]//a/@href", html);
+		}
 	},
 	{	url:	'nedroid.com',
 		extra:	['<br/>', [['.post-comic h2']]]
