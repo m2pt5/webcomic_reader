@@ -43,7 +43,7 @@ var defaultSettings = {
 // ==UserScript==
 // @name           Webcomic Reader
 // @author         Javier Lopez <ameboide@gmail.com> https://github.com/ameboide , fork by v4Lo https://github.com/v4Lo and by anka-213 http://github.com/anka-213
-// @version        2018.03.15
+// @version        2018.08.26
 // @license        MIT
 // @namespace      http://userscripts.org/scripts/show/59842
 // @description    Can work on almost any webcomic/manga page, preloads 5 or more pages ahead (or behind), navigates via ajax for instant-page-change, lets you use the keyboard, remembers your progress, and it's relatively easy to add new sites
@@ -831,6 +831,7 @@ var defaultSettings = {
 // @include        https://manga.madokami.al/reader/*
 // @match          *://www.mngdoom.com/*/*
 // @match          *://kimchicuddles.com/post/*
+// @match          *://marktrail.com/*
 // ==/UserScript==
 
 // End of includes
@@ -4751,6 +4752,10 @@ var paginas = [
 		next:	[['.next-button']],
 		first:	[['.first-button']],
 		last:	[['.latest-button']],
+	},
+	{
+		url:	'marktrail.com',
+		img:	[['#comic img']],
 	},
     // End of sites
 	/*
