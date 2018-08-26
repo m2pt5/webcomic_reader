@@ -4144,9 +4144,14 @@ var paginas = [
 		next:	'text()="next >"',
 		first:	'text()="|<"',
 	},
- 	{
-		url:	'http://www.egscomics.com/',
-		extra:	['<div id="wrapper"><div id="leftarea">',[['#newsarea']],'</div></div>'],
+	{
+		url:	'egscomics.com',
+		img:	'http://egscomics.com/comics/',
+		back:	'@rel="back"',
+		next:	'@rel="next"',
+		first:	'@rel="first"',
+		last:	'@rel="last"',
+		extra:	['<div id="wrapper"><div id="leftarea">',[['#news']],'</div></div>'],
 	},
 	{
 		url:	'http://mspfanventures.com/',
