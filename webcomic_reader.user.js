@@ -1006,8 +1006,10 @@ var paginas = [
 	},
 	{	url:	'smbc-comics.com',
 		img:	[['#cc-comicbody img']],
-		back:	[['.prev']],
-		next:	[['.next']],
+		back:	'@rel="back"',
+		next:	'@rel="next"',
+		first:	'@rel="first"',
+		last:	'@rel="last"',
 		extra:	[['//div[@id="aftercomic"]/img[contains(@src,"/")]'], [['.cc-newscontent:first-of-type']]],
 		style:	'#wcr_extra .date, #wcr_extra .blogtext{text-align: center;}'
 	},
