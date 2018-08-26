@@ -2,7 +2,7 @@
 
 [![Join the chat at https://gitter.im/webcomic_reader/Lobby](https://badges.gitter.im/webcomic_reader/Lobby.svg)](https://gitter.im/webcomic_reader/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-This is my fork of Amiboide's Webcomic Reader userscript originally hosted at [userscripts.org](http://userscripts-mirror.org/scripts/show/59842) (R.I.P.), currently also hosted at [openuserjs.org](https://openuserjs.org/scripts/anka-213/Webcomic_Reader) and [greasyfork.org](https://greasyfork.org/en/scripts/15096-webcomic-reader)
+This is my fork of Amiboide's Webcomic Reader userscript originally hosted at [userscripts.org](http://userscripts-mirror.org/scripts/show/59842) (R.I.P.), currently also hosted at [openuserjs.org](https://openuserjs.org/scripts/anka-213/Webcomic_Reader) and [greasyfork.org](https://sleazyfork.org/en/scripts/15096-webcomic-reader)
 
 Script for reading webcomics easier, nicer and faster. Tested on: Firefox, Chrome+Tampermonkey/NinjaKit, Safari+NinjaKit, Opera
 
