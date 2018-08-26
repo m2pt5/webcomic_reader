@@ -821,7 +821,7 @@ var defaultSettings = {
 // @include        http://www.marycagle.com/*
 // @include        http://www.sleeplessdomain.com/*
 // @include        http://www.webtoons.com/*
-// @include        http://www.tsumino.com/Read/View/*
+// @match          *://*.tsumino.com/Read/View/*
 // @include        http://incase.buttsmithy.com/comic/*
 // @include        http://leylinescomic.com/comics/*
 // @include        http://project-apollo.net/mos/*
@@ -4562,7 +4562,16 @@ var paginas = [
 					return extraData.baseUrl + "/"+ extraData.metadata.reader_page_total;
 				},
 		layelem:'//*[@id="image-container"]',
-		js:	function(dir){ if(!dir) clearAllIntervals(); },
+		js:	function(dir){ 
+					if(!dir) clearAllIntervals(); 
+			
+					if(dir) {
+						var process_url = document.location.href.replace(/View/,"Process");
+				  		var req = new XMLHttpRequest();
+				  		req.open('GET', process_url);
+				  		req.send();
+					}
+		                },
 		style:	'#wcr_botones{color:black}',
 	},
 	{
