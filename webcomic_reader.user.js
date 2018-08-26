@@ -1506,15 +1506,15 @@ var paginas = [
 					try {
 						var alt = xpath('//img[@id="strip"]/@alt', html);
 						if(alt !== "") ret += alt + "<br>";
-					} catch {}
+					} catch (e) {}
 					try {
 						var imgTitle = xpath('//div[@id="tt"]/img/@title', html);
 						if(imgTitle !== "None" && imgTitle !== "") ret += imgTitle + "<br>";
-					} catch {}
+					} catch (e) {}
 					try {
 						var img = xpath('//div[@id="tt"]/img', html);
 						return ret + img.outerHTML;
-					} catch {return ret;}
+					} catch (e) {return ret;}
 					}],
 		style:	'b>div{float:left;}\n.content{height:1%;}\n.content:after{clear:both;}\n.content:before,.content:after{content:" ";display:table;}',
 		bgcol:	'#ccc',
@@ -4147,7 +4147,7 @@ var paginas = [
 	{
 		url:	'egscomics.com',
 		img:	'http://egscomics.com/comics/',
-		back:	'@rel="back"',
+		back:	'@rel="prev"',
 		next:	'@rel="next"',
 		first:	'@rel="first"',
 		last:	'@rel="last"',
@@ -4158,7 +4158,7 @@ var paginas = [
 		img:	[['article img']],
 		next:	[['#nextlinks a']],
 		extra:	[[['article']],'<script>assignOnClicks()</script>'],
-		js:	function(dir){debugger; assignOnClicks();},
+		js:	function(dir){assignOnClicks();},
 		style:	'#wcr_imagen { display: none; }',
 	},
 	{
@@ -5110,7 +5110,6 @@ function fixbadjs(){
 		for (var i = 0; i < badFunctions.length; i++) {
 			var name = badFunctions[i];
 			if (typeof uw[name] !== "undefined") {
-				debugger;
 				console.log("Disabling anti-wcr code");
 				uw.removeEventListener("load", uw[name], true);
 				uw[name] = function() {};
