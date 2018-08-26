@@ -1006,7 +1006,7 @@ var paginas = [
 	},
 	{	url:	'smbc-comics.com',
 		img:	[['#cc-comicbody img']],
-		back:	'@rel="back"',
+		back:	'@rel="prev"',
 		next:	'@rel="next"',
 		first:	'@rel="first"',
 		last:	'@rel="last"',
