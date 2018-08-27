@@ -4151,7 +4151,7 @@ var paginas = [
 		next:	'@rel="next"',
 		first:	'@rel="first"',
 		last:	'@rel="last"',
-		extra:	['<div id="wrapper"><div id="leftarea">',[['#news']],'</div></div>'],
+		extra:	['<div id="wrapper"><div id="leftarea" style="text-align:left">',[['#news']],'</div></div>'],
 	},
 	{
 		url:	'http://mspfanventures.com/',
