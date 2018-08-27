@@ -2120,11 +2120,9 @@ var paginas = [
 	{	url:	'walkinginsquares.com',
 		extra:	[[['#enlight']]]
 	},
-	{	url:	'dresdencodak.com',
-		img:	'http://dresdencodak.com/comics/',
-		back:	'img[@src="http://dresdencodak.com/m_prev.png"]',
-		next:	'img[@src="http://dresdencodak.com/m_next.png"]',
-		extra:	[[['.post>h2']], [['.post p', '', 0, -1]]]
+	{
+		url:	'dresdencodak.com',
+		img:	[['section.entry-content>p>img']],
 	},
 	{	url:	'straysonline.com',
 		img:	[['td[align="center"]>a>img']]
