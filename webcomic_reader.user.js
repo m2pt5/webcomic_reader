@@ -131,8 +131,8 @@ var defaultSettings = {
 // @include        http://pennyandaggie.com/*
 // @include        http://www.darkbolt.com/*
 // @include        http://darkbolt.com/*
-// @include        http://www.egscomics.com/*
-// @include        http://egscomics.com/*
+// @include        *://www.egscomics.com/*
+// @include        *://egscomics.com/*
 // @include        http://www.the-gutters.com/*
 // @include        http://www.punchanpie.net/*
 // @include        http://punchanpie.net/*
